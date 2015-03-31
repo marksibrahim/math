@@ -3,7 +3,7 @@
 
 \documentclass[12pt]{article}
 
-\usepackage{amsmath, amssymb, color, enumitem, graphicx, hyperref}
+\usepackage{amsmath, amssymb, color, enumitem, graphicx, hyperref, fullpage}
 % \fbox{\parbox{0.8\linewidth}{
 %\newcommand{\bt}[1]{\textbf{#1}}
 \title{Machine Learning}
@@ -710,4 +710,42 @@ To normalize: multiply by 1 if in class 1 and -1 if class 2 (so flips sign)\\
 
 The \bt{augmented normalized} feature vector is denoted: $\hat{x}'$ \\
 Idea: make an error for either class look the same.
+
+
+
+\section*{LMS: Least Mean Squares}
+part of \bt{linear regression}\\
+\bt{Cost Function} is the sum of squares (goal is to minimize this)\\
+also called \bt{objective function}
+
+We have linear function
+\eq{y = w_0 + w_1 x_1 + w_2x_2}
+where output y, depends on two variables with weights $w_1, w_2$.
+
+Goal is to use tweak $w_i$ to minimize \bt{cost function}.\\
+
+Use Calculus to minimize. 
+
+Set gradient (partial derivatives with respect to each variable $x_i$). \\
+Then, the optimal solution (after some algebra) is 
+\eq{optimal = (X^TX)^{-1} X^T Y}
+where $Y$ are the set of outputs for the training data.\\
+
+Often although the above is analytically convenient, it can consume quite a bit of memory. Other methods such as \bt{steepest descent} (also called gradient descent) are used, because their implementation is \bt{more pratical} in terms of memory and processing power required.
+
+\subsection*{Steepest (Gradient) Descent}
+We use \bt{steepest descent} (also called gradient descent) to do so.
+Gradient descent works by updating $w_i$ using
+\eq{\text{new } w_i = w_i - \alpha \frac{\partial}{\partial w_i} * \text{cost function}}
+where $\alpha$ is the learning rate.\\
+
+Stop when gradient (partials) are zero.
+\subsection*{multivariable chain rule (aside)}
+
+\eq{\frac{d}{dt} f(x(t), y(t)) = \frac{\partial}{\partial x} \frac{dx}{dt} + \frac{\partial}{\partial y} \frac{dy}{dt}}
+
+
+
+
+
 \end{document}
