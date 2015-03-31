@@ -1,2 +1,2 @@
 #math musings
-abstract algebra, analysis, Calculus, Linear Algebra, and all kinds of other fun
+abstract algebra, analysis, calculus, linear algebra, and all kinds of other fun
