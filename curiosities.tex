@@ -28,7 +28,7 @@
 \newcommand{\bp}[1]{\fbox{\parbox{0.8\textwidth}{#1}}} %box paragraph
 \newcommand{\notimplies}{% does not imply
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
-\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
 
 
 %colors
@@ -47,7 +47,6 @@
 %\begin{enumerate}[resume] %continues counting
 \begin{document}
 
-\marginpar{\gray{margins!} } 
 
 \section*{Curiosities}
 
@@ -101,7 +100,7 @@ $$a*b = \text{number with length a*b, angle a + b}$$
 
 \textbf{Master Identities}: \\
 $\sin(x + y) = \sin(x)\cos(y) + \sin(y)\cos(x)$ \\
-$\cos(x + y) = \cos(x)\cos(y) + \sin(x)\sin(y)$\\
+$\cos(x + y) = \cos(x)\cos(y) - \sin(x)\sin(y)$\\
 
 *remember $\sin$ is odd $(\sin(-x) = -\sin(x))$; $\cos$ is even.\\
 
@@ -110,12 +109,11 @@ from these derive the rest.\\
 \subsubsection*{Exercsies}
 \begin{enumerate}
     \item $\tan^2(x) \sin(x) = \tan^2(x)$\\
-\textcolor[gray]{0.5}{$\tan^2(x) (\sin(x) - 1) = 0$\\
+\textcolor[gray]{0.5}{$\tan^2(x) (\sin(x) - 1) = 0$}\\
 $\tan^2(x) = 0$ or $\sin(x) = 1$
 
     \item $2\cos^2(x) + \sin(x) -2 = 0$\\
-\textcolor[gray]{0.5}{use $\cos^2(x) = 1 - \sin^2(x)$.\\
-}
+\textcolor[gray]{0.5}{use $\cos^2(x) = 1 - \sin^2(x)$}.\\
 \end{enumerate}
 
 \subsection*{Log}
@@ -156,6 +154,10 @@ $$max(a, b) = \frac{a+b}{2} + \frac{|a-b|}{2}$$\\
 $$min(a, b) = \frac{a+b}{2} - \frac{|a-b|}{2}$$ \\
 \gray{similar idea, except goes down by the half}
 
+\section*{Geometry}
+\subsection*{area of an equilaterla triangle}
+$A = \sqrt{3}/4 s^2$
+\gray{derive by bisecting angle, using 30, 60, 90 triangle}
 
 
 \end{document}

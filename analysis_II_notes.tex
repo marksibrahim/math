@@ -2,7 +2,7 @@
 
 \documentclass[12pt]{article}
 
-\usepackage{amsmath, amssymb, color, enumitem, framed}
+\usepackage{amsmath, amssymb, color, enumitem, framed, fullpage}
 %for box use \begin{mdframed}
 %\newcommand{\bt}[1]{\textbf{#1}}
 
@@ -18,7 +18,7 @@
 
 %spacing
 \usepackage{microtype} %word spacing
-\usepackage[margin=0.5in]{geometry} %margins
+%\usepackage[margin=0.5in]{geometry} %margins
 
 
 
@@ -27,6 +27,7 @@
 \def\Q{\ensuremath{\mathbb{Q}}}
 \def\N{\ensuremath{\mathbb{N}}}
 \def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
 
 %shorcuts with arguments
 \newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
@@ -45,7 +46,7 @@
 	\right.
 }
 \newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
-
+\newcommand{\sn}[1]{\reversemarginpar\marginpar{\gray{#1}}} %margin notes
 \definecolor{indigo(dye)}{rgb}{0.0, 0.25, 0.42}
 \color{indigo(dye)}
 
@@ -110,10 +111,8 @@ right-half of neighborhood, $f_+'(c)$ checks out (similarly for left).}
 \subsection*{Extremum}
 Local \textbf{max} at $c$ means there exists neighborhood of $x$ such that for all $x$, $f(c) \geq f(x)$.\\
 
-\centerline{\fbox{If local max/min at $c$ and $f'(c)$ exists, $f'(c) = 0$}} \\
-\textcolor[gray]{0.5}{proof: 
-rule out $f'(c) > 0$, since $f(c+\delta) > f(c)$ (similarly for $<0$)\\
-Thus, $f'(c) = 0$.\\}
+\centerline{\fbox{If local max/min at $c$ and $f'(c)$ exists, $f'(c) = 0$}} 
+\gray{proof: rule out $f'(c) > 0$, since $f(c+\delta) > f(c)$ (similarly for $<0$) Thus, $f'(c) = 0$.}
 
 --max can occur without $f'(c) =0$ if $f'(c)$ doesn't exist.
 \section{Mean Value}
@@ -121,8 +120,8 @@ Thus, $f'(c) = 0$.\\}
 
 $f: [a, b] \rightarrow \mathbb{R}$, continuous on $[a, b]$, and $f'(x)$ exists on $(a, b)$\\
 
-\centerline{\fbox{If $f(a) = f(b),$ there exists $c \in (a, b)$ such that $f'(c) = 0$}} \\
-"smooth curve with end points must a turning point" (or is constant)\\
+\centerline{\fbox{If $f(a) = f(b),$ there exists $c \in (a, b)$ such that $f'(c) = 0$}}
+"smooth curve with end points must a turning point" (or is constant)
 \textcolor[gray]{0.5}{proof: \\
 max/min exists by EVT since $f$ is continous on a compact set, call $f(c)$ max/min.\\
 Case 1: either max or min occurs at $c$ in $(a, b) \rightarrow f'(c) = 0$. \\
@@ -146,8 +145,8 @@ physical: "instantaneous velocity at some point = average velocity"\\
 
 \subsubsection*{Generalized Mean Value Theorem, "Cauchy"}
 
-$f(x), g(x)$ continuous on $[a, b]$ and differentiable on $(a, b)$\\
-c)(f(b) - f(a))$.}}\\
+$f(x), g(x)$ continuous on $[a, b]$ and differentiable on $(a, b)$
+$(c)(f(b) - f(a))$.\\
 
 nicely written for $g(b)-g(a), g'(c) \neq 0 $ as
 $$\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)} \big$$
@@ -707,10 +706,65 @@ For $f \in R, \alpha$ cont. and $\alpha' \in R$,
 \section*{Infinite Products}
 
 \part{Chapter 9: Sequences of Functions}
-goal: sequence $f_n$ has a property say cont., integrable etc. does $\lim_{n \rightarrow \infty} f_n$?
+goal: sequence $f_n$ has a property say cont., integrable etc. does $\lim_{n \rightarrow \infty} f_n$?\\
+
+A sequence of functions $\{f_n\}_1^\infty$ is \bt{uniformly Cauchy} if 
+\eq{\abs{f_n - f_m} < \epsilon \tag{for all m, n $\geq$ some N}}
+
+\cb{$f_n$ converges uniformly to some $f$ $\iff$ $\{f_n\}_1^\infty$ is uniformly Cauchy}
+\gray{proof later}
+
+\textcolor{red}{copy application}
 
 
+\subsection*{Weierstrauss M-Test for Infinite Products}
+
+$f_n: A \rightarrow \C, |f_n| \leq M_n$ for all $x \in A$, and $\sum_1^\infty M_n = B < \infty$, then 
+\eq{\prod_1^\infty (1 + f_n) \text{ converges uniformly to some $f$} \tag{f also on A $\rightarrow \C$}}
+\gray{proof to come}
+
+\textcolor{red}{copy application}
+
+\section*{Uniform Convergence of Integrals and Derivatives}
+\reversemarginpar 
+\marginpar{BIG}
+$\alpha \in$ BV on $[a, b]$ in $\R$, $f_n$ converges uniformly, and $f_n \in R(\alpha)$, then 
+\eq{f \in R(\alpha) \text{ and } \int_a^b f_n\ d\alpha \rightarrow \int_a^b f\ d\alpha}
+"uniformly convergent sequence, lim $\int f_n$ = $\int \lim f_n$"\\
+\textcolor{red}{copy application}
 
 
+\subsection*{for derivatives}
+*slightly different from Apostol's who assume $\lim_{n \rightarrow \infty} f_n(x_0)$ exists \\
 
+\marginpar{BIG}
+\noindent If  $f_n \rightarrow \R$ and $f_n'$ exists; $f_n' \rightarrow g$ uniformly (for some g); $f_n(x_0) = 0$ for some $x_0$ and all n.
+
+THEN, 
+\begin{center}
+    1. $f_n \rightarrow f$ \bt{uniformly} (some f)\\
+    2. f' exists with $f' = g$
+\end{enumerate}
+\end{center}
+
+\section*{Power Series}
+
+A \bt{power series} in $z-z_0$ is of the form
+\eq{\sum_{n=0}^\infty a_n (z-z_0)^n}
+with $a_n, z, z_0 \in \C$.
+
+\sn{converg} 
+If power series converges at a \bt{single point}, it converges \bt{uniformly}.
+
+A power series \bt{converges absolutely} if 
+\eq{\abs{z-z_0} < \frac{1}{\lim_{n \rightarrow \infty} \sup \sqrt[n]{|a_n|}}}
+
+The values of z satisfying is the above forms the \bt{disk of convergence} with center $z_0$. \\
+The series \bt{converges uniformly} on every \bt{compact} subset of the disk of convergence.
+
+
+\gray{proof by root test}
+
+\textcolor{red}{see next file}
 \end{document}
+

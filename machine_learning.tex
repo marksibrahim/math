@@ -25,7 +25,7 @@
 \newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
 \newcommand{\notimplies}{% does not imply
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
-\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
 \newcommand{\piecewise}[4] %piecewise function
 {
 	\left\{
@@ -345,8 +345,9 @@ $$p(l | x) = \frac{p(x, l)}{p(x)}$$
 
 For multidimensional $x_1, \dots, x_n$ feature vectors: 
 $$p(l | x) = p(l | x_1) * \dots p(l | x_n)$$
-by \bt{assuming each feature is independent} (that's the big assumption!).
+by \bt{assuming each feature is independent} (that's the big assumption!).\\
 
+\bt{Baye's Error}: lowest possible error rate (by moving decision regions)
 
 \section*{K-nearest Neighbor Classifier}
 
@@ -428,11 +429,15 @@ Look at partial derivatives:
 then solve this system of equations.
 
 
+\begin{equation}
 \begin{bmatrix}
  \beta_0 \\
  \beta_1 
 \end{bmatrix}
+\end{equation}
+
 =  
+\begin{equation}
 \begin{bmatrix}
 n & \sum x \\
 \sum x & \sum x^2 
@@ -441,7 +446,7 @@ n & \sum x \\
     \sum y\\
     \sum xy
 \end{bmatrix}. 
-
+\end{equation}
 \subsection*{Multivariable Case}
 $B = (X^T X)^-1 X^T y$
 where all are vectors.
@@ -471,12 +476,14 @@ and $f_1(x) = x, f_2(x) = x^2, f_3(x) =x^3$.\\
 \ \\
 Then, 
 $X =$ 
+\begin{equation}
 \begin{bmatrix}
     1 & f_1(x_1) = x_1 & f_2(x_1) = x_1^2 & x_1^3 \\
     1 & x_2 & x_2^2 & x_2^3 \\
     \dots \\
     1 & x_n & x_n^2 & x_n^3
 \end{bmatrix}
+\end{equation}
 \ \\
 
 Finally solve $B = (X^T X)^{-1} X^T y$. 
@@ -495,7 +502,7 @@ score * 1.25
    p(x, l) = \left\{
      \begin{array}{lr}
        \alpha / \beta & \text{ if } 0 \leq x \leq \beta \text{ and } l = 1\\
-       (1 - \alpha) /\beta & if $1 - \beta \leq x$ \text{ and } l = 2 \\
+       (1 - \alpha) /\beta & if 1 - \beta \leq x \text{ and } l = 2 \\
        0 & \text{ otherwise}
      \end{array}
    \right.
@@ -525,7 +532,7 @@ score * 1.25
         
    2. $\beta < 1/2$: 
 
- \begin{displaymath}
+\begin{displaymath}
      p(x) = \left\{
      \begin{array}{lr}
         \alpha / \beta & :  0 \leq x \leq \beta \\
@@ -533,8 +540,6 @@ score * 1.25
      \end{array}
    \right.
    \end{displaymath}
-
-\end{displaymath} 
 
 
 \end{enumerate}
@@ -551,6 +556,7 @@ score * 1.25
 Recall: \\
 \bt{line} in $\R^2$: ax + by = c \\
 alternately written as \\
+\begin{equation}
 \begin{bmatrix}
 a & b 
 \end{bmatrix}
@@ -558,7 +564,7 @@ a & b
 x \\
 y
 \end{bmatrix}\\
-\bt{plane} in $\R^3$: ax + by + cz = d\\
+\bt{plane} in \R^3: ax + by + cz = d\\
 \begin{bmatrix}
 a & b & c 
 \end{bmatrix}
@@ -567,18 +573,21 @@ x \\
 y \\
 z
 \end{bmatrix}\\
+\end{equation}
 
 In general \bt{n-dimensions}: \\
 (suppose vectors are all column vectors)\\
 $W^T = [w_1, w_2, w_3, \dots, w_n]$
 and
 $X =$
+\begin{equation}
 \begin{bmatrix}
 x_1 \\
 x_2 \\
 \dots \\
 x_n
 \end{bmatrix}
+\end{equation}
 
 \noindent Then, the equation of a \bt{plane in n-dimensions} is $W^T X = d$\\
 
@@ -651,15 +660,16 @@ called " Perceptron Convergence Theorem"
 \gray{\href{http://www.cs.utsa.edu/~bylander/cs5233/perceptron-proof.pdf}{click for proof}}
 
 proof from class: \\
-\gray{
 GOAL: Find weights $w_0, w_1, w_2$ such that the discriminant function 
 \eq{g(x_1, x_2) = w_0 + w_1 x_2 + w_2 x_2} divides the data set ($g(x) > 0$ if $l = 1, g(x) < 0 $ if $l =1-1)$. \\
 Define \bt{normalized augmented} feature vector: \\
 $\hat{x}' = l \hat{x} = $
+\begin{equation}
 \begin{bmatrix}
 l \\
 l x
 \end{bmatrix}\\
+\end{equation}
 Let $w[k]$ be the adjusted weights at the kth step.\\
 Then, 
 \eq{w[1] = w[0] + n\hat{x}'(1) \\
@@ -667,22 +677,20 @@ w[2] = w[1] + n \hat{x}'(2) \\
 }
 meaning
 \eq{w[k] - w[0] = n(x[1] + \dots + x[k])}
-}
+
 \gray{
 Therefore, 
 \eq{w^* (w[k] - w[0] ) = n w^* (x(1) + \dots + x(k)) }
 where $w^*$ is the hypothetical solution.\\
 }
-\gray{
 We want to show 
 \eq{AK^2 \leq || w[k] - w[0] ||^2 \leq BK}
 for some constants $A, B$.
 The thing sandwiched is the error think; area between parabola and line.\\
 (means converges after a max of $k = B/A$ updates)\\
-\ \\
+
 By Cauchy Schwarz we have the left inequality: 
 \eq{[w^* ( w[k] - w[0])]^2 \geq ||w^*||^2 ||w[k] - w[0]||^2}\\
-\hline
 \ \\
 Next, to bound above: \\
 first, square the equations for $w[1], w[2], etc.$.\\
@@ -696,7 +704,7 @@ To simplify further we take $u =$ min of stuff:
 \eq{ \leq (n^2 M - n u ) K }
 et voila.\\
 *note: u is always negative, since u > 0 implies no data was misclassified!
-}
+
 
 \subsection*{Variation: augmented feature vector}
 make each feature vector x sit in n+1 dimension by adding 1 as a component. Then, the algebra cleans up and we get 
@@ -744,8 +752,167 @@ Stop when gradient (partials) are zero.
 
 \eq{\frac{d}{dt} f(x(t), y(t)) = \frac{\partial}{\partial x} \frac{dx}{dt} + \frac{\partial}{\partial y} \frac{dy}{dt}}
 
+Two ways to implement LMS: \\
+\bt{batch gradient descent} entire dataset is used at every step, then updates \\
+\bt{Sequential (Widrow-Hoff)} update after each point in training data 
 
 
 
+\section*{Backpropagation Algorithm}
 
+Mathematically equivalent to LMS (similar to perceptron as well).\\
+
+\bt{Goal}: change weights of feature vectors to mimick a desired output.
+
+At each step adjust the weight based on: actual - desired.
+
+check out : \href{"http://neuralnetworksanddeeplearning.com/chap2.html"}{tutorial}
+
+Use sign of 
+\eq{\sum_{j=1} w_{i,j}^{(l)} y_j}
+
+Hyperbolic tan and arctan are useful choice for Sigmoidal functions to solve optimization. (see slides for example with derivatives)
+
+\bt{Kronecket Delta Function} (get 1 if and only if the network nodes match; else 0)
+
+Key math from snapp's slides: 
+\begin{itemize}
+\item $\delta$ tells you error between 
+\item update $w$ based on $\delta$
+\item Kronecket used inside sums to simply to one expression when network nodes match
+\item chain rule used to take derivatives
+\end{itemize}
+
+\section*{Generalization: when can we separate data}
+
+\bt{Linear Threshold Unit} is the function $g(x) = sign(wx + w_0)$ separating the data into two groups.
+
+The \bt{capacity} of the linear threshold unit is the number of patterns we can separate by a line.
+
+First a definition:
+
+A distribution of $m$ points in $\R^n$ is in \bt{general position} if
+\begin{itemize}
+    \item no subset of $n+1$ points lies on a line (plane, or hyperplane)
+\end{itemize}
+    (if $m \leq n$, then we instead stipulate the set of $m$ points is not contained in an $m-2$ dimensional hyperplane)
+
+e.g., $n = 2, m=2$, then we stipulate the two points can't coincide (0 dimensional hyperplane: same point).
+
+e.g., $n=2$ and any $m$, the points are in general positions if no two points are the same.
+
+
+e.g., $m = 4, n=2$, then no 3 points lie on same line.
+
+
+\subsection*{Counting Linear Dichotomies}
+
+ways a set of points can be split up into groups.\\
+
+For a \bt{single point}, in any space $\R^n$, it's either group 1 or 2, so there are \bt{two linearly} separable dichotomies.
+
+In $R^1$, there are $2m$ linearly separable dichotomies, since points lie on one line. \gray{You can draw a line at $m$ points, then switch classes.}
+
+To summarize: 
+\begin{itemize}
+    \item d(1, n) = 2
+    \item d(m, 1) = 2m
+\end{itemize}
+
+    \cb{In general: $d(m, n) = d(m-1, n) + d(m-1, n-1)$ (recursive)}
+
+Without recursion we have \\
+$$ d(m, n) = 2 \sum_{i=0}^n \binom{m-1}{i}$$
+
+
+e.g., $d(4, 2) = 14$ (four points in 2 dimensions)
+
+
+observation: in a sufficiently high dimension, \bt{every linear dicotomy is possible}!
+
+\textcolor{red}{exam: \\
+Baye's Rule, Theorem
+definitions: prior class, posterior, marginal density (p(x) = sum p(x, L) for each l), augmented feature vector, augmented normalized feature vector
+look over test 1: max/min, problem 1, integration gaussian \\
+Pseudo-code: nearest neighbor, perception (backprop too hard)\\
+what does naive baye's assume (each feature is independent), 1D regression derive solution, }
+
+\subsection*{Perceptron in Pseudo-code}
+
+\begin{verbatim}
+Perceptron( {(x1, l1), ..., (xm, lm)}, step size = n )
+
+W = random weight vector 
+W0 = random scalar 
+
+While error:
+    error = false
+    for (xi, li) in training data:
+        if sign(w0 + w^T xi) != li: 
+            error = True
+            #label doesn't match adjust
+            W += n li Xi 
+            #learning rate * label * weight
+
+            w0 += n*li
+
+return w0, w
+            
+\end{verbatim}
+
+
+\subsection*{Counting Dichotomies continued}
+none
+\part*{Support Vector Machines}
+Optimization problem for 
+\eq{
+L(W, w_0, \alpha) = 1/2 w^tw - \sum_{i=1}^m \alpha[l_i(w^tx_i + w_0)-1]
+}
+where we minimize with respect to $w$ and max with respect to $\alpha$,\\
+subject to constraint $\alpha_i \geq 0$ and 
+\eq{
+l_i(w^tx_i+w_0)-1 \geq 0
+}
+where $w = \sum_{i=1}^m \alpha_i l_ix_i$.
+
+To solve we rewrite as a \bt{dual problem}.
+\subsection*{Dual Problem}
+We instead want to maximize with respect to $\alpha$
+\eq{
+J(\alpha) = -1/2 \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j l_i l_j x_i^Tx_j + \sum_{i=1}^m \alpha_i
+}
+subject to the constraint $\alpha_i \geq 0$ and $\sum_{i=1}^m \alpha_il_i=0$.
+
+\bt{advantage:} complexity of computation depends on the number of data points in training set, not the number of features observed. \\
+
+
+\bt{Kernel} is defined to be: $K(x, y) = (x^Ty+1)^2$.
+
+\subsection*{Example}
+\eq{
+X_4 = \{ [(-1, -1), -1], [(-1, 1), 1], [(1, -1), 1], [(1, 1), -1]\}
+}
+
+Note $X_4$ is not separable, so can't solve as usual (\textcolor{red}{look up usual way}).
+
+Letting x, y be in $\R^2$, we find the kernel
+
+\eq{K(x, y) &= (x^Ty + 1)^2 = (x_1y_1 + x_2y_2 + 1)^2\\
+& = x_1^2y_1^2 + 2x_1x_2y_1y_2 + x_2^2y_2^2 + 2x_1y_1 + 2x_2y_2 + 1
+}
+
+Next we compute
+\eq{
+J(\alpha) = -1/2 [ 9 \alpha_1^2 - 2\alpha_1\alpha_2+2\alpha_1\alpha_4
++ 9 \alpha_2^2 + 2\alpha_2\alpha_3 - 2 \alpha_2\alpha_4 + 9\alpha_3^2 - 2\alpha_3\alpha_4 + 9 \alpha_4^2] 
+}
+
+look at partial with respect to: $\alpha_1, \alpha_2, \alpha_3, \alpha_4$:
+set to zero to find minimum.
+
+\textcolor{red}{\bt{idea} to look up is the \bt{Kernel trick}}
+
+goal is to find $g(x)$ so that output is correct class label.
+
+For this example the optimal $g(x) = -x_1x_2$.
 \end{document}
