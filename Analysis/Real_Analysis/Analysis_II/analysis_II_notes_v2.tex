@@ -1,0 +1,129 @@
+
+
+\documentclass[a4paper, 12pt]{article} 
+\usepackage{amsmath, amssymb, color, graphicx, enumitem}
+\usepackage{fullpage} %smaller margins
+
+%font
+\usepackage[sc]{mathpazo}
+\linespread{1.05}         % Palladio needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+
+%word spacing
+\usepackage{microtype}
+
+\usepackage{multicol}
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
+
+%commands with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
+\newcommand{\bp}[1]{\fbox{\parbox{0.8\textwidth}{#1}}} %box paragraph
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+%colors
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
+\newcommand{\green}[1]{\textcolor{javagreen}{#1}} %command for green
+\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+
+%environment
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\sn}[1]{\reversemarginpar \marginpar{{\small\gray{#1}}}}
+
+\definecolor{indigo(dye)}{rgb}{0.0, 0.25, 0.45}
+\color{indigo(dye)}
+
+\title{}
+\date{}
+%==tips====
+%part
+    %section, sub, sub
+%\begin{enumerate}[resume] %continues counting
+\begin{document}
+\begin{center}
+\section*{Analysis Continued}
+Mark \\
+\end{center}
+
+
+\section*{Power Series}
+\sn{def}
+A \bt{power series} is of the form 
+\eq{
+\sum_{n=0}^\infty a_n x^n
+}
+
+*can be centered at $x_0$ we can write it as $\sum_{n=0}^\infty a_n(x-x_0)^n$. \\
+
+\sn{uniform convergence}
+If power series converges at a \bt{single point} say $z$, then the power series \bt{converges uniformly} on for all $ r < |x_0|$.\\
+
+\sn{converge to diff func}
+The power series converges to a \bt{differentiable $f$} inside the radius of convergence.
+
+
+\section*{Taylor's Theorem}
+
+$f: [a, b] \rightarrow \R$, infinitely differentiable, derivatives cont., and $f^{(k)}$ is finite, \\ then \\
+there exists $x_1$ for any $c \in [a, b]$ and all $x \neq c$.
+\eq{
+f(x) = \underbrace{\sum_{k=0}^{n-1} \frac{f^{(k)}(c)}{k!} (x-c)^k}_{\text{Taylor Poly}} + \underbrace{\frac{f^{(n)}(x_1)}{n!} (x-c)^n}_{\text{Taylor Remainder}}
+}
+*note: $x_1$ depends on $n, x, c$
+
+see notes for general form with $f(x)$ and $g(x)$.
+
+\textcolor{red}{take better notes on Power series and Taylor using book}
+
+\section*{Multivariable Derivatives}
+Let $f: \R^n \rightarrow \R^m$ \\
+
+Two bad attempts: partial derivative, \bt{directional derivative}. \\
+
+\bt{partial derivative} denoted $D_k f(c) = \frac{\partial f(c)}{\partial x_k}$)\\
+
+both are bad because they don't imply continuity as we'd like.\\
+Instead we define the \bt{Total Derivative}, which works as we wish.\\
+
+\subsection*{directional derivative}
+The derivative of $f$ in the direction of $u$ is
+\eq{
+f'(\vec c, \vec u) = \lim_{h \rightarrow 0} \frac{f(\vec c + h \vec u) - f(\vec c)}{h}
+}
+*often other books require $\vec u$ to be a unit vector, but not here
+
+\textcolor{red}{linear algebra review in notebook}
+
+\subsection*{total derivative}
+
+\sn{correct def}
+The function $f$ is \bt{differentiable} at $a$ if there exists a linear transformation $T_a$ such that
+\eq{f(a + v) = f(a) + T_a(v) + ||v|| E_c(v)
+}
+where $E_c(v) \rightarrow 0$ as $v \rightarrow 0$.\\
+
+*$||v||E_c(v)$ can be written using "little o" notation as $o(||v||)$. \\
+\bt{little o} notation: $f = o(g)$ as $x \rightarrow c$ if $\lim_{x \rightarrow c} \frac{f(x)}{g(x)} = 0$.\\
+
+\sn{cont}
+If $f$ is differentiable at $a$, then $f$ is continous at $a$. \\
+
+\sn{directional deriv}
+If $f$ is differentiable at $a$, then $f'(a; u)$ exists and $f'(a; u) = Au$ for any $u$
+
+\subsection*{Derivatives in Matrices}
+
+
+
+\end{document}
+
