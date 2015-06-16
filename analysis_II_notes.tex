@@ -1,0 +1,770 @@
+
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, color, enumitem, framed, fullpage}
+%for box use \begin{mdframed}
+%\newcommand{\bt}[1]{\textbf{#1}}
+
+%font
+\usepackage[sc]{mathpazo}
+\linespread{1.05}         % Palladio needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+
+\title{Analysis II}
+\author{Mark}
+\date{}
+
+
+%spacing
+\usepackage{microtype} %word spacing
+%\usepackage[margin=0.5in]{geometry} %margins
+
+
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\newcommand{\piecewise}[4] %piecewise function
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+\newcommand{\sn}[1]{\reversemarginpar\marginpar{\gray{#1}}} %margin notes
+\definecolor{indigo(dye)}{rgb}{0.0, 0.25, 0.42}
+\color{indigo(dye)}
+
+\begin{document}
+\maketitle
+
+\part*{Chapter 5: differentiation}
+\section{Derivatives}
+
+$f$ is \textbf{differentiable} at $c$ if 
+$$\lim_{x \rightarrow c} \frac{f(x) - f(c)}{x - c} = f'(c) \text{ exists in } \mathbb{R}$$
+
+If $f'(c)$ exists, a function $f^*(x)$ \bt{continuous} at $c$ such that\\
+\centerline{$f(x) - f(c) = (x-c)f^*(x)$ with $f^*(c) = f'(c)$.}
+
+\textcolor[gray]{0.5}{Proof: follows directly from definition of $f*(x)$
+}
+
+--note subscript $c$ in $f_c^*$ emphasizes that $f^*$ depends on $c$.\\
+\indent --$f'(c)$ exists, means $f'(c)$ can be $\infty$.\\
+
+\centerline{\fbox{\parbox{0.8\textwidth}{If $f$ is \textbf{differentiable} at $c$, then it's \textbf{continuous} at $c$}}\\}
+*$f'(c)$ need not be continuous!
+
+\begin{center}
+\textcolor[gray]{0.5}{
+Note, $f(x) = f(c) + f_c^*(x)(x -c)$. \\
+Since $f_c^*$ is continous, the RHS is continous. \\
+}
+\end{center}
+
+
+\noindent \textbf{Product Rule}
+\gray{proof idea: construct $(fg)_c^*$, show it's continous.}\\
+
+\noindent \textbf{Quotient Rule}
+\textcolor[gray]{0.5}{idea: from last semester, $f$ is non-zero at a point and continous means there exists neighborhood of inputs where $f$ is nonzero. Use to show $\frac{1}{g(x)}$ is nonzero.}
+
+\subsection*{Chain Rule}
+For $g$ differentiable at $c$ and $f$ differentiable at $g(c)$,
+$$(f \circ g)'(c) = g'(c) f'(g(c))$$
+
+\textcolor[gray]{0.5}{
+Proof: $h(x) = f(g(x))$.\\
+Write $h(x) - h(c)$ with the hopes of finding $h_c^*(x)$ continous.
+}
+
+\subsection*{Right/Left Limits}
+For $f: [a, b] \rightarrow \mathbb{R}$, continous, 
+$$f_+'(c) = \lim_{x \rightarrow c^+} \frac{f(x) - f(c)}{x - c}$$
+if limit exists (even as $\infty$).\\
+
+e.g. $f(x) = \sqrt{x}$ on $[0, 1]$. Then, \\
+$f_+'(0) = \lim_{x \rightarrow 0^+} \frac{f(x) - f(0)}{x} = +\infty$, \\
+$f_-'(1) = \frac{1}{2}$.\\
+
+\fbox{$f'(c) > 0$ exists $\iff f_+'(c) = f_-'(c)$ both exist and are $>0$}\\
+\textcolor[gray]{0.5}{Key: neighborhood where $f'(c) > r > 0$. 
+right-half of neighborhood, $f_+'(c)$ checks out (similarly for left).}
+
+
+\subsection*{Extremum}
+Local \textbf{max} at $c$ means there exists neighborhood of $x$ such that for all $x$, $f(c) \geq f(x)$.\\
+
+\centerline{\fbox{If local max/min at $c$ and $f'(c)$ exists, $f'(c) = 0$}} 
+\gray{proof: rule out $f'(c) > 0$, since $f(c+\delta) > f(c)$ (similarly for $<0$) Thus, $f'(c) = 0$.}
+
+--max can occur without $f'(c) =0$ if $f'(c)$ doesn't exist.
+\section{Mean Value}
+\subsection*{Rolle's Theorem}
+
+$f: [a, b] \rightarrow \mathbb{R}$, continuous on $[a, b]$, and $f'(x)$ exists on $(a, b)$\\
+
+\centerline{\fbox{If $f(a) = f(b),$ there exists $c \in (a, b)$ such that $f'(c) = 0$}}
+"smooth curve with end points must a turning point" (or is constant)
+\textcolor[gray]{0.5}{proof: \\
+max/min exists by EVT since $f$ is continous on a compact set, call $f(c)$ max/min.\\
+Case 1: either max or min occurs at $c$ in $(a, b) \rightarrow f'(c) = 0$. \\
+Case 2: neither max nor min in $(a, b)$\\
+implies max and min at $c = a = b$.\\
+Thus, $f$ is constant. $\square$\\
+}
+
+Recall, \textbf{Extreme Value Theorem} continous function on a compact set has a max/min.\\
+\textcolor[gray]{0.5}{continous image of compact is compact $\rightarrow$ (by Heine-Borel in $\mathbb{R}$) closed, bounded.\\ Thus, contains sup, inf.}
+
+
+
+\subsection*{Mean Value Theorem}
+$f: [a, b] \rightarrow \mathbb{R}$, continous on $[a, b]$, and $f'(x)$ exists on $(a, b)$, for some $c \in (a, b)$,  \\
+\centerline{\fbox{$f'(c) = \displaystyle \frac{f(b) - f(a)}{b-a}$.}}\\
+"line connecting end points has same slope as some point on curve"\\
+physical: "instantaneous velocity at some point = average velocity"\\
+\textcolor[gray]{0.5}{proof, follows from below by letting $g(x) = x$.}
+*f'(x) can exist both as a finite real or as infinity.
+
+\subsubsection*{Generalized Mean Value Theorem, "Cauchy"}
+
+$f(x), g(x)$ continuous on $[a, b]$ and differentiable on $(a, b)$
+$(c)(f(b) - f(a))$.\\
+
+nicely written for $g(b)-g(a), g'(c) \neq 0 $ as
+$$\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)} \big$$
+\textcolor[gray]{0.5}{proof: \\
+Define 
+$$h(x) = f(x)(g(b) - g(a)) - g(x)(f(b) - f(a))$$
+Note, \\
+1. $h(x)$ is continuous, since all terms are. \\
+2. $h'(x)$ exists for all $x$.\\
+Furthermore $h(a) = h(b)$.\\
+Thus, by Rolle's Theorem, there exists $c$ such that $h'(c) = 0$.\\
+\ \\
+IDEA: define $h(x)$ with equality we want. Use Rolle's.\\
+}
+
+\noindent CAUTION: tempting to say $\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) = g(a)}$, but
+$C$ is different for $f$ and $g$!.
+
+
+\subsubsection*{Increasing Functions}
+
+$f'(x)$ exists on $(a, b)$ and $f'(x) > 0$, then \\
+\centerline{$f(x)$ is strictly increasing.}
+\textcolor[gray]{0.5}{Let $a < x < y < b$. \\
+By MVT there exists $c$ such that 
+$$f(y) - f(x) = f'(c)(y-x)$$
+RHS > 0, so $f(y) - f(x) >0$.
+}
+
+\subsection*{L'H\^{o}pital's Rule}
+
+$f(x), g(x)$ continous and differentiable, $f(c) = g(c) = 0$, and $g'(x)$ never 0 in $(c - \delta, c + \delta) \setminus \{c\}$.\\
+\fbox{\centerline{If $\displaystyle \lim_{x \rightarrow c} \frac{f'(x)}{g'(x)} = L \in \mathbb{R}$, then $\displaystyle L = \lim_{x \rightarrow c} \frac{f(x)}{g(x)}.$}}
+\textcolor[gray]{0.5}{WWTS $\lim_{x \rightarrow c^+} \frac{f(x)}{g(x)} = L$ (similarly for $c^-$).\\
+(note $\frac{f(x)}{g(x)}$ by the contraposition of Rolle's: $g'(x) \neq 0 \rightarrow g(x))$
+(1) On $(c, x)$ with $x < c + \delta$, by GMVT there exists $\alpha$ such that \\
+$$f'(\alpha)(g(x) - g(c)) = g'(\alpha) (f(x) - f(c))$$
+$$\rightarrow$$
+$$\frac{f(x)}{g(x)} = \frac{f'(\alpha)}{g'(\alpha)} \text{ since $g(c) = f(c) = 0$}$$
+}
+
+\subsection*{Intermediate Value Theorem}
+$f$ continuous on $[a, b]$. \\
+For $f(a) > c > f(b)$, there is $x \in [a, b]$ such that $f(x) = c$.\\
+\textcolor[gray]{0.5}{proof only given for IVT for Derivs below.\\}
+
+
+\subsection*{Intermediate Value Theorem for Derivatives}
+
+$f: [a, b] \rightarrow \mathbb{R}$ differentiable on $(a, b)$.\\
+If $f_+'(a)$ exists and is $< 0$, \\
+$f_-'(b)$ exists, $> 0$.\\
+Then, there exists $c \in (a, b)$ such that $f'(c) = 0$.\\
+*Wilson diverges from Apostle's proof.\\
+\textcolor[gray]{0.5}{$f$ is continous on $[a, b]$ (on $(a, b)$ since differentiable and $a$ since $f_+'(a)$ exists, implicitly indicating continuity).\\
+There there exists a least value for the function, say at $c$: 
+$$f(c) \leq f(x) \text{ for all } x \in [a, b]$$
+If $c \neq a: f_+'(a) < 0 \rightarrow f(x) < f(c) $ in $(a , a + \delta)$.\\
+If $c \neq b: f_-'(b) > 0 \rightarrow f(x) < f(b) \text{ in } (b -\delta, b)$.
+\textcolor{red}{?}
+}
+
+\textbf{Generalization} \\
+For $t$ between $f_+'(a), f_-'(b)$, there exists $c \in [a, b]$ such that $f'(c) = t.$\\
+(or if $a = c$ ($b=c$), then $f_+'(a) = f_+'(t)$)\\
+
+*careful, this doesn't imply derivative is continuous.
+e.g., 
+\begin{displaymath}
+   f(x) = \left\{
+     \begin{array}{lr}
+       x^2 \sin(\frac{1}{x}) & \text{ for } x \neq 0\\
+       0 & x = 0
+     \end{array}
+   \right.
+\end{displaymath}
+
+but $\lim_{x \rightarrow 0} f'(x)$ doesn't exists, hence the derivative is not continuous.\\
+\textcolor{red}{IVT for derivatives revisit as well as discontinuity idea below}
+
+\subsection*{Discontinuity of Continuous Increasing}
+
+$f$ on $(a, b)$ is increasing. \\
+Then,\\
+$f(x^+)$ exists for all $x$ such that $f(x) \leq f(x^+)$ and $f$ is continous at $x$ $$\iff$$ $$f(x^-) = f(x^+)$$
+\textcolor[gray]{0.5}{For any fixed $x_0$.\\
+$f(x_0)$ is a lower bound of $\{f(x) : x > x_0\}$.\\
+Let $\alpha$ be the infimum, then \\
+$f(x_0) \leq \alpha$ (since $f(x_0)$ is a lower bound.\\
+If $x_0 < x' < x$, 
+$\alpha \leq f(x') \leq f(x) \leq \alpha + \epsilon$.\\
+Thus, $|f(x) \alpha - \alpha | < \epsilon$.\\
+}
+
+\centerline{\fbox{Increasing function can only have jump discontinuities.}}
+\ \\
+$f'(x)$ exists and $f'(x)$ is monotonic, then $f'(x)$ is continuous.\\
+\textcolor[gray]{0.5}{If it wasn't, we'd have a jump discontinuity, violating the IVT.}
+
+\section{Cardinality}
+
+\textbf{Equinumerous} sets $A, B$ means there is a bijective map between the sets.\\
+denoted, $A \sim B$.
+
+This defines an equivalence relation. \\
+
+$A \sim B$, $B \sim C \rightarrow A \sim C$ by composition of bijective functions.\\
+
+\textbf{countable} means finite or countably infinite.\\
+
+\noindent *for countable sets, we can assume without loss of generality the set is $\mathbb{N}$.
+
+$A, B$ countable $\rightarrow$ $A \times B$ is countable. 
+\textcolor[gray]{0.5}{
+$f_1: A \rightarrow \mathbb{N}$\\
+$f_2: B \rightarrow \mathbb{N}$, bijective. \\
+then, 
+$$f(a, b) = 2^{f_1(a)} 3^{f_2(b)}$$
+
+The output is never the same for any two inputs, based on the prime factorization of integers.
+
+Idea of counting $\mathbb{N}$ through sieve.\\
+
+$A, B$ countable $\rightarrow A \cup B$ countable.\\
+\textcolor[gray]{0.5}{For $x \in A \cup B$, 
+\begin{displaymath}
+   f(x) = \left\{
+     \begin{array}{lr}
+       2^{f_1(x)} & x \in A\\
+       3^{f_2(x)} & x \in B \setminus A
+     \end{array}
+   \right.
+\end{displaymath}
+second line accounts for elements in both sets.\\
+}
+
+\fbox{\centerline{$\mathbb{Q}$ is countable.}} \\
+\textcolor[gray]{0.5}{$\mathbb{Q} = \{\pm \frac{m}{n}\}.$\\
+For $x \in \mathbb{Q}$,
+\begin{displaymath}
+   f(x) = \left\{
+     \begin{array}{lr}
+       2 3^{m} 5^n & x > 0 \\
+       2^2 3^m 5^n & x < 0
+     \end{array}
+   \right.
+\end{displaymath}
+}
+
+$$\cup_1^\infty A_i \text{ is countable for } A_i \text{ countable}$$
+\textcolor[gray]{0.5}{$k(x) = i$ for $i$ the smallest $A_i$ containing $x$. \\
+Then, $f(x) = 2^{k(x)}3^{f_{k(x)}(x)}$
+}
+
+
+\fbox{\centerline{No set is equinumerous to its powerset}}
+\textcolor[gray]{0.5}{Suppose between $S$ and $P(S)$, the powerset of $S$, there exists a bijective map $f(S)$.\\
+KEY: $R = \{ a \in S : a \not \in f(a)\}$\\
+(a) $R$ is a subset of $S$, hence  in range of $f(S)$: $R = f(\alpha)$ \\
+(b) $\alpha$ is in $R$, hence $\alpha \not \in f(\alpha)$.\\
+}
+
+idea: $R = \{a : a \not \in a\}$. Ask is $a \in R$? \\
+"Russel's Paradox" \\
+
+Godel talked about a similar notion for sets: "I am a false statement".
+Prove the statement.\\
+
+\fbox{\centerline{Power set of $\mathbb{N}$ is uncountable}}
+\textcolor[gray]{0.5}{$\mathbb{N}$ is not equinumerous with its powerset by above}.
+
+
+\fbox{\centerline{\mathbb{R} is uncountable}}
+\textcolor[gray]{0.5}{
+(1) $[0, 1)$ is uncoutable 
+\begin{itemize}
+\item[]
+    proof: suppose $f : \mathbb{N} \rightarrow [0, 1)$ \\
+    $f(1) = a_{11} a_{12} a_{13} ...$, some number.\\
+    $f(2) = a_{11} a_{12} a_{13} ...$, some number\\
+    Then, defined $b_k$ to differ at the last digit from all possible outputs.\\
+    Hence, $[0, 1)$ uncountable.
+\end{itemize}
+(2) A subset of $\mathbb{R}$ is uncountable, hence $\mathbb{R}$ is too.
+}
+\ \\
+
+Let $E \subset (0, \infty)$. 
+$$M = Sup \{ \sum_{x \in F} x : F \subset E \text{ and finite} \}$$
+
+If $M < \infty$, $E$ is countable.\\
+\textcolor[gray]{0.5}{By way of contradiction, suppose $E$ is uncountable and $M < \infty$.
+Then
+\textcolor{red}{idea unclear of proof and what we're trying to prove.}
+}
+
+\subsection*{Tips}
+\begin{itemize}
+    \item "epsilon the sup": $s = \sup \{A\}$ implies there is $x \in A$ such that $x < \sup - \epsilon$.
+\end{itemize}
+
+
+% -------------------------------------------------------------------
+\part*{Chapter 6\\ Functions of Bounded Variation}
+
+Let $\mathcal{P}[a, b]$ be the collection of all possible \bt{partitions} of $[a, b]$.\\
+
+$f$ is of \bt{bounded variation} on $[a, b]$ if for \textit{any} partition, 
+$$\sum_{k=1}^n |\Delta f_k| \leq M$$
+
+*M need not be fixed, as long as < $\infty$ (follows from BV $\iff V_f < \infty$).\\
+
+\noindent Sweet consequences of BV
+
+\begin{itemize}
+    \item $f$ increasing on $[a, b]$ $\implies$ BV
+    \item $f$ BV $\implies$ $f$ is bounded.
+    \item $f$ cont on $[a, b]$, $f'$ exists, and $|f'(x)| \leq R$ $\implies f$ BV
+\end{itemize}
+
+
+\cb{\bt{continuous} $\notimplies$ BV}
+\gray{counterexample with $x \cos(\pi / x)$ on $[0, 1]$ see book for deets}
+
+Useful idea:\\
+\centerline{$f$ increasing $\implies$ $\sum f(x_k^+) - f(x_{k}^-) \leq f(b) - f(a)$ for any partition.}\\
+\centerline{"degree of discontinuity, or jump"}\\
+\gray{proof: pick $y_i \in (x_i, x_{i+1})$\\
+So, 
+$$f(x_i) \leq f(y_i) \leq f(x_{i+1})$$
+then, idea: $f(y_i)$ and $f(y_{i-1})$ surround $f(x_i)$.\\
+So, $\sum f(y_i) \geq \sum f(x_i^\pm)$, but
+sum using $y_i$ is bounded by $f(b) - f(a)$. $\Box$\\
+\ \\
+idea: surround $x_i$ with points $y_i$ whose sum is less than $f(b) - f(a)$}
+\ \\
+
+\noindent If $f$ is \bt{monotonic} on $[a, b]$, then set of discontinuities is \bt{countable}.\\
+\textcolor[gray]{0.5}{Proof: 
+discontinuity at $x$ means: $f(x^+) > f(x^-)$\\
+Look at all discontinuities with jump greater than $1/n$\\
+Let $m$ be the number of discontinuities, then \\
+$$m \frac{1}{n} \leq \sum f(x_k^+) - f(x_k^-) \leq f(b) - f(a)$$
+so, $m \leq n (f(b) - f(a))$. \\
+Let $n \rightarrow \infty$, to get countably many. $\Box$}\\
+
+\section{Total Variation}
+
+The \bt{total variation} of $f$ on $[a, b]$ is 
+\eq{V_f(a, b) = sup\{\sum |\Delta f_k| \text{ of all partition} \}}
+
+Properties
+\begin{itemize}
+\item $V_f = 0 \iff f$ is \bt{constant}
+\item $f$ is of \bt{BV} $\iff V_f$ is \bt{finite}.
+\item $\frac{1}{f}$ is of \bt{BV} if $0 < m \leq |f(x)|$ for all x.\\
+\gray{condition ensures $\frac{1}{f}$ is never zero}
+\end{itemize}
+
+\centerline{\bt{Finer} partition $\implies$ $\sum |\Delta f_k|$ \bt{increases}.}\\
+\centerline{\gray{look at difference $\sum_{p'} - \sum_p$ where $p'$ is finer.}}\\
+
+Algebra of Total Variation
+\begin{itemize}
+    \item $V_{f+g} = V_f + V_g$ \gray{trianlge inequality with sums}
+    \item $V_{fg} \leq \sup(|g(x)|) V_f + \sup(|f(x)|) V_g$
+    \item $V_f(a, b) = V_f(a, c) + V_f(c, b)$ "total variation breaks up over interval sums"\\
+    \gray{First $V_f(a, c) + V_f(c, b) \leq V_f(a, b)$, follows by taking union of partiions, since $V_f$ is supremum over any partition.\\
+    Second inequality follows by adding c to partiion of $(a, b)$.}
+\begin{itemize}
+    \item $f$ BV on $(a, b)$ $\implies$ $f$ BV on $(a, c)$ and $(c, b)$.
+\end{itemize}
+\end{itemize}
+
+
+ $V_f - f$ is \bt{increasing} \\
+\gray{for $x < y$, 
+consider $V(a, y) - f(y) - (V(a, x) - f(x))$ use $f(y) - f(x) \leq V(x, y)$.}\\
+\ \\
+\fbox{\parbox{0.9\textwidth}{
+\centerline{$f$ on $[a, b]$ is of \textbf{bounded variation} }
+$$\iff$$
+\centerline{ $f$ can be expressed as the difference of two increasing functions.}
+}}
+
+*representation as two increasing functions is not unique.\\
+\gray{$\rightarrow$ $f = f_1 - f_2$ use algebra above. \\
+$\leftarrow$ $f = V - (V - f)$, with $V-f$ is increasing and $V$ increasing. }
+
+% -------------------------------------------------------------------
+\part*{Chapter 7\\ Riemann-Stieltjes Integral}
+
+We begin with a more general concept than traditional Riemann Intergal (cutting up into rectangles) using \bt{two functions} of $x$, $f(x)$ and $\alpha(x)$. \\
+Allows us to compute integral of \bt{partly continuous} functions (useful in physics)\\
+
+\subsection*{Notation}
+
+For a partition $P$, $||P||$ is called the norm of $P$ and is the \bt{length of the largest subinterval.}\\
+
+A partition $A$ is \bt{finer} than $P$ if $A$ contains all the points of $P$.\\
+
+For Riemann-Stieltjes Integration we \bt{assume} $f(x), \alpha(x)$ are \bt{real-valued}, \bt{bounded} functions.
+
+\subsection*{Riemann-Stieltjes Integral}
+The \bt{Riemann-Stieltjes sum} of $f$ with respect to $\alpha$ and a partition $P$ is
+$$S(P, f, \alpha) = \sum_{k=1}^n f(t_k) [\alpha(x_k) - \alpha(x_{k-1})]$$
+
+for any choice of $t_k$ in $[x_{k-1}, x_k]$.\\
+
+$f$ is \bt{Riemann-Stieltjes Integrable} if for all partitions $P$ finer than $P_\epsilon$, 
+$$|S(P, f, \alpha) - A| < \epsilon.$$\\
+
+The value $A$, denoted $\int_a^b f(x) d \alpha(x)$, is \bt{unique}.
+
+\noindent \gray{ proof of uniquess: \\
+If $A_1 \neq A_2$ both satisfy integral, 
+then, for $P_\epsilon$ finer than both $P_1$, $P_2$,\\
+$$|A_1 - A_2 | < 2 \epsilon \implies A_1 = A_2. \Box$$
+}
+\subsection*{Properties of the Riemann-Stieltjes Integral}
+$c_1, c_2$ constants
+\begin{itemize}
+    \item "sum/constant multiple": $\int_a^b (c_1 f(x) + c_2 g(x)) d \alpha(x) = c_1 \int_a^b f(x) d \alpha(x) + c_2 \int_a^b g(x) d \alpha(x).$\\
+    \gray{proof follows direclty by manipulating sums}
+    \item "sum/multiple over $\alpha(x)$": $\int_a^b f(x) d(c_1 \beta(x) + c_2 \gamma(x)) = c_1 \int_a^b f(x) d \beta(x) + c_2 \int_a^b f(x) d \gamma(x).$
+    \item "split over interval": $\int_a^b = \int_a^c + \int_c^b$, if two of the three integrals exist.\\
+    *can't be used to prove $\int_a^c$ exists
+\end{itemize}
+
+We define $\int_a^b f(x) d \alpha(x) = - \int_b^a f(x) d \alpha(x)$.\\
+
+*Careful: $S(P, f, \alpha) - S(P, f, \alpha) \neq 0$, depends on choice of $t_k$.
+
+
+\subsection*{Wilson's "Cauchy-Criterion" like Result}
+\gray{recall Cauchy Convergence Criterion: $x_n$ converges $\iff$ $|x_i - x_j| < \epsilon$ for any $i > N$.}\\
+For all $P, Q$ finer than some $P_\epsilon$,
+\eq{f(x) \in R(\alpha) \iff |S(P, f, \alpha) - S(Q, f, \alpha)| < \epsilon.}
+
+\gray{Proof: $\rightarrow)$ triangle. \\
+$\leftarrow )$ construct sequence of partitions $P_1 \subseteq P_2 \dots$.\\
+Then, $S(P_k, f, \alpha)$ satisfies Cauchy Criterion, thus converges to a limit (there's a bit more to it). $\Box$}
+
+\textcolor{blue}{up to exam 1}
+
+\subsection*{Integration by Parts}
+
+$f, \alpha$ bounded. \\
+
+\cb{$f \in R(\alpha) \iff \alpha \in R(f)$}
+and\\
+\cb{$\int_a^b f d \alpha + \int_a^b \alpha d f = f \alpha \bigg |_a^b$}
+
+\gray{proof: 
+$f \alpha \bigg |_a^b = \sum_P \Delta (f \alpha)$ since it telescopes.\\
+Then, 
+$f \alpha \bigg |_a^b - S(P, \alpha, f) = S(P', f, \alpha)$\\
+for some $P'$ which includes additional points\\
+implying $|S(P', f, \alpha) - \int_a^b f d \alpha| < \epsilon$. $\Box$ \\
+*easy to misread sum with respect to $\alpha$ as $f$! careful!
+}
+
+
+\section{Lower and Upper Riemann-Stieltjes Integral}
+
+\subsection*{Notation}
+\begin{itemize}
+    \item $M_k(f)$ = sup $f(x)$ for $x \in [x_{k-1}, x_k]$
+    \begin{itemize}
+        \item $m_k(f)$ for inf
+    \end{itemize}
+    \item \bt{Upper Stieltjes Sum}: $U(P, f, \alpha) = \sum_P M_k(f) \Delta \alpha$
+    \begin{itemize}
+    \item lower, $L(P, f, \alpha)$ is with $m_k$
+    \end{itemize}
+    \item For $\alpha \nearrow$, \bt{Upper Stieltjes Integral} $\int_a^{\bar{b}} f d \alpha = \bar{I} =  \inf$ of $U(P, f, \alpha)$ over all partitions.\\
+    *CAREFUL: Upper -> Inf
+\end{itemize}
+
+
+\subsection*{Properties when $\alpha \nearrow$}
+
+\begin{itemize}
+    \item $L(P, f, \alpha) \leq S \leq U$
+    \item For $P' \supseteq P$, $U(P') \leq U(P)$ 
+    \gray{idea: sup f on larger interval $\geq$ on smaller interval}\\
+    \gray{prove using only one additional point, then generalize}
+    \begin{itemize}
+        \item $L(P') \geq L(P)$
+    \end{itemize}
+    \item For any two partiions, $L(P_1) \leq U(P_2)$
+    \gray{by above $L(P_1) \leq L(P_1 \cup P_2) \leq U(P_1 \cup P_2) \leq U(P_2)$}
+    \item  $\underbar{I} \leq \bar{I}$ \gray{key: $U \geq L$. So $\inf U \geq u \geq l > sup L - \epsilon$}
+\end{itemize}
+
+\subsection*{Triangle for Upper and lower}
+$$\bar{\int_a^b} =\bar{\int_c^b} + \bar{\int_c^b}$$ 
+However, 
+$$\bar{\int_a^b} f + g d \alpha \leq \bar{\int_a^b} f  d \alpha + \bar{\int_a^b} g d \alpha$$ 
+(similarly with $\geq$ for lower integral)
+
+\section{Riemann's Condition}
+$f$ satisfies \bt{Riemann's condition} if for all $P$ finer than $P_\epsilon$
+$$0 \leq U - L \leq \epsilon$$
+
+For $\alpha \nearrow$, below are equivalent
+\begin{enumerate}
+    \item $f \in R(\alpha)$
+    \item $f$ satisfies \bt{Riemann's condition}
+    \item $\underbar{I} = \bar{I}$
+\end{enumerate}
+
+\gray{($1 \rightarrow 2$)\\
+L and U can be considered partitions; use def so that $|L-U|< \epsilon$\\
+($1 \rightarrow 3$)\\
+$\int_a^{\overline{b}} f d \alpha = inf(U) < sup(L) = \int_{\underbar{a}}^b f d \alpha + \epsilon$
+}
+
+\section*{Comparison Theorems}
+For $\alpha \nearrow$, $f, g \in R(\alpha)$,
+\begin{itemize}
+    \item If $f(x) \leq g(x)$ for all $x \in [a, b]$,
+    \eq{\int_a^b f(x) d\alpha(x) \leq \int_a^b g(x) d \alpha(x)}
+    \gray{proof: $U(P, f, \alpha) \leq U(P, g, \alpha)$}
+
+    \item $|f| \in R(\alpha)$ and 
+    \eq{\abs{\int_a^b f(x) d \alpha(x)} \leq \int_a^b |f(x)| d \alpha(x)}
+
+    \item $f^2 \in R(\alpha)$\\
+    \gray{\eq{f(t)^2 - f(s)^2 &= (f(t) + f(s))(f(t) - f(s))\\
+    & \leq 2 M sup(f(t) - f(s)) \tag{M is bound of f}\\
+    & \leq 2M (M_k(f) - m_k(f)) \\
+    & \leq 2M * U - L \leq 2M \epsilon \leq \epsilon \tag{with adjustment}
+    }}
+    \item product $f(x)g(x) \in R(\alpha)$
+\end{itemize}
+
+*Careful: $|f| \in R(\alpha) \not \implies f \in R(\alpha)$\\
+\bt{Example}, 
+ \begin{displaymath}
+   f(x) = \left\{
+     \begin{array}{lr}
+       1 & : x \in \mathbb{Q}\\
+       -1 & : x \notin \mathbb{Q}
+     \end{array}
+   \right.
+\end{displaymath} 
+U(|f|) = L(|f|) = 1, but U(f) = 1 and L(f) = -1.
+
+\section{Integrators of Bounded Variation}
+Assume $\alpha$ is of \bt{bounded variation}.\\
+Let $V(x)$ be the total variation of $\alpha$ on $[a, b]$ with $V(a) = 0$.\\
+Then for $f$ \bt{bounded} on $[a, b]$, 
+\eq{f \in R(\alpha) \implies f \in R(V)}
+\textcolor{red}{in class proved: $\alpha \in BV, f \in R(\alpha), V_f = V_\alpha \implies f \in R(\alpha)$}
+\ \\
+\noindent For $\alpha$ of \bt{bounded variation}, $f \in R(\alpha)$ on $[a, b]$\\
+
+\cb{$f \in R(\alpha)$ on every subinterval of $[a, b]$}
+
+\ \\
+For $f, g \in R(\alpha)$ with $\alpha \nearrow$
+\eq{\int_a^b f(x) g(x) d \alpha(x) = \int_a^b f(x) d G(x) = \int_a^b g(x) d F(x)}
+\gray{proof ???}
+
+
+\section{When does Riemann-Stieltjes exist?}
+\bt{Big Theorem}\\
+\cb{$\alpha \in $ BV, $f$ continuous $\implies f \in  R(\alpha)$}
+\gray{proof: only consider $\alpha \nearrow$ since BV implies $\alpha$ can be written as difference of increasing functions.\\
+f cont $\implies$ uniformly continuous (by last semester)\\
+Choose partition $P$ such that $||P|| < \delta$\\
+\eq{U - L &= \sum (M_k - m_k) \Delta \alpha\\
+& \leq \epsilon \sum \Delta \alpha \tag{by uniform cont}\\
+& \leq \epsilon 
+}
+}
+
+Consequences:\\
+1. $\int_a^b f(x) dx$ exists for $f$ continous! \\
+2. $f \in BV, \alpha cont \implies f \in R(\alpha)$\\
+\gray{by Integration by Parts $\alpha \in R(f) \iff f \in \alpha(f)$}
+
+
+
+%===========EXERCISES=========================================================
+\section*{Exercises}
+\begin{enumerate}
+    \item Find $f(x)$, $\alpha(x)$ such that the Riemann-Stieltjes integral does not exist. 
+    \gray{
+    On $[-1, 1]$, 
+    \begin{displaymath}
+       f(x) = \alpha(x) \left\{
+         \begin{array}{lr}
+           1 & : x \geq 0 \\
+           0 & : x < 0
+         \end{array}
+       \right.
+    \end{displaymath} 
+    Select partition to include point 0. Then, }
+    \textcolor{red}{somehow contradicts?}
+\end{enumerate}
+
+
+
+\section*{Fundamental Theorems of Calculus}
+
+$\alpha \nearrow, f \in R(\alpha),$ and there exists $m, M$ such that $m \leq f(x) \leq M$, then
+\eq{\int_a^b f(x)\ d\alpha = u (\alpha(b) - \alpha(a) \tag{some $u \in [m, M]$}}
+\gray{proof: choose u = $\frac{\int_a^b f(x) d \alpha}{\alpha(b) - \alpha(a)}$, with $m \leq U \leq M$ since $m \leq L(P) \leq U(P) \leq M$.}
+
+
+\subsection*{Intermediate Value Theorem for Integrals}
+$f$ cont, $\alpha \nearrow$, then there exists $x_0 \in [a, b]$ such that 
+\eq{\int_a^b f(x)\ d \alpha(x) = f(x_0) (\alpha(b) - \alpha(a))}
+\gray{proof: since $f$ is cont., use IVT}
+
+\subsection*{First Fundamental Theorem of Calculus}
+*slightly less general than apostol\\
+$\alpha \nearrow, f \in R(\alpha)$. 
+Define, $F(x) = \int_a^x f(t) d\ \alpha(t).$
+\begin{enumerate}
+    \item $F(x) \in BV$
+    \item $F(x)$ is continuous where $\alpha$ is 
+    \item $F'(x)$ exists where $\alpha'(x)$ exists and $f$ is cont. 
+    \begin{enumerate}
+        \item $F'(x) = f(x)\alpha'(x)$ when it exists.
+    \end{enumerate}
+\end{enumerate}
+\gray{proof}
+
+\subsection*{Second Fundamental Theorem of Calculus}
+*differs from Apostol's\\
+$f \in R$, $g$ is cont on $[a, b]$, $g' = f(x)$ exists on $(a, b)$\\
+(continuity assumption ensures g cont on endpoints)\\
+Then, 
+\eq{\int_a^b f(x)\ dx = \int_a^b g'(x)\ dx = g(x) \bigg |_a^b }
+*baby version assumes $f$ is continuous, which this version doesn't!
+
+\section*{Extensions of the FTC}
+$\alpha \nearrow$, f, g $\in R(\alpha)$. Then, 
+\eq{f \in R(G), g \in R(F)}
+and 
+\eq{\int_a^b f dG = \int_a^b g dF = \int_a^b f(t) g(t) d\alpha(t)}
+*F, G are antiderivatives\\
+\gray{proof}
+\ \\
+For $f \in R, \alpha$ cont. and $\alpha' \in R$, 
+\eq{f \in R(\alpha) \text{ and } \int_a^b f\ d\alpha = \int_a^b f(t) \alpha'(t) dt}
+\gray{by previous theorem}
+
+\section*{Change of Variables}
+
+
+\part{Chapter 8: Infinite Produtcs (and series review)}
+\section*{Infinite Series}
+\section*{Infinite Products}
+
+\part{Chapter 9: Sequences of Functions}
+goal: sequence $f_n$ has a property say cont., integrable etc. does $\lim_{n \rightarrow \infty} f_n$?\\
+
+A sequence of functions $\{f_n\}_1^\infty$ is \bt{uniformly Cauchy} if 
+\eq{\abs{f_n - f_m} < \epsilon \tag{for all m, n $\geq$ some N}}
+
+\cb{$f_n$ converges uniformly to some $f$ $\iff$ $\{f_n\}_1^\infty$ is uniformly Cauchy}
+\gray{proof later}
+
+\textcolor{red}{copy application}
+
+
+\subsection*{Weierstrauss M-Test for Infinite Products}
+
+$f_n: A \rightarrow \C, |f_n| \leq M_n$ for all $x \in A$, and $\sum_1^\infty M_n = B < \infty$, then 
+\eq{\prod_1^\infty (1 + f_n) \text{ converges uniformly to some $f$} \tag{f also on A $\rightarrow \C$}}
+\gray{proof to come}
+
+\textcolor{red}{copy application}
+
+\section*{Uniform Convergence of Integrals and Derivatives}
+\reversemarginpar 
+\marginpar{BIG}
+$\alpha \in$ BV on $[a, b]$ in $\R$, $f_n$ converges uniformly, and $f_n \in R(\alpha)$, then 
+\eq{f \in R(\alpha) \text{ and } \int_a^b f_n\ d\alpha \rightarrow \int_a^b f\ d\alpha}
+"uniformly convergent sequence, lim $\int f_n$ = $\int \lim f_n$"\\
+\textcolor{red}{copy application}
+
+
+\subsection*{for derivatives}
+*slightly different from Apostol's who assume $\lim_{n \rightarrow \infty} f_n(x_0)$ exists \\
+
+\marginpar{BIG}
+\noindent If  $f_n \rightarrow \R$ and $f_n'$ exists; $f_n' \rightarrow g$ uniformly (for some g); $f_n(x_0) = 0$ for some $x_0$ and all n.
+
+THEN, 
+\begin{center}
+    1. $f_n \rightarrow f$ \bt{uniformly} (some f)\\
+    2. f' exists with $f' = g$
+\end{enumerate}
+\end{center}
+
+\section*{Power Series}
+
+A \bt{power series} in $z-z_0$ is of the form
+\eq{\sum_{n=0}^\infty a_n (z-z_0)^n}
+with $a_n, z, z_0 \in \C$.
+
+\sn{converg} 
+If power series converges at a \bt{single point}, it converges \bt{uniformly}.
+
+A power series \bt{converges absolutely} if 
+\eq{\abs{z-z_0} < \frac{1}{\lim_{n \rightarrow \infty} \sup \sqrt[n]{|a_n|}}}
+
+The values of z satisfying is the above forms the \bt{disk of convergence} with center $z_0$. \\
+The series \bt{converges uniformly} on every \bt{compact} subset of the disk of convergence.
+
+
+\gray{proof by root test}
+
+\textcolor{red}{see next file}
+\end{document}
+
