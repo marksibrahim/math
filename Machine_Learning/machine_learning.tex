@@ -1,0 +1,918 @@
+
+
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, color, enumitem, graphicx, hyperref, fullpage}
+% \fbox{\parbox{0.8\linewidth}{
+%\newcommand{\bt}[1]{\textbf{#1}}
+\title{Machine Learning}
+\author{Mark}
+\date{}
+
+
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\piecewise}[4] %piecewise function
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+
+\definecolor{indigo(dye)}{rgb}{0.0, 0.25, 0.42}
+\color{indigo(dye)}
+
+\begin{document}
+\maketitle
+\centerline{\LARGE \textbf{Coursera}}
+\medskip
+
+Two types: supervised and unsupervised.
+
+Supervised is most commonly applicable, where we know the data we're getting.\\
+comes in two flavors:\\
+classification based: yes/no values\\
+regression based: continuim of values.\\
+
+Unsupervised: model is not provided with the correct results during training; key is to find structure or clusters in data.\\
+
+\subsection*{Gradient Descent}
+
+technique to find \textbf{ local } minimum of function by taking small steps in steepest direction.\\
+Take $f(x,y)$ with step size (learning rate) $\alpha$. \\ Then,
+update $x, y$ (simultaneously) using \\
+$$\text{ new } x = x - \alpha \frac{d}{dx} f(x, y) * f(x, y)$$
+
+if $\alpha$ is too large, technique may not yield optimal value; too small, technique will be slow.\\
+
+\subsection*{Linear Regression using gradient}
+
+can use gradient to find the least squares, minimize the squared error (called cost function).\\
+
+in practice useful to rescale variables btw -1 and 1
+
+*the squared error function supposedly only has one global min, so technique above succeeds at minimizing the error.
+
+\textbf{normal equation } is an analytical method to find same result, but does not scale as nicely as gradient method.
+
+\newpage
+
+\centerline{\LARGE \textbf{Machine Learning}}
+Robert Snapp\\
+
+\subsection*{Intro}
+AI - rational machines (ML is often a subset)\\
+
+Machine Learning improves performance as more data is fed into Algo.\\
+
+\subsection*{Types of Machine Learning}
+\textbf{Supervised Learning} learn a mapping from input to output based on training set.\\
+\begin{itemize}
+    \item Classification: mapping inputs to \textit{discrete} outputs (categories)
+    e.g., classifying a document as a web page or email.
+    \item Regression: mapping inputs to \textit{continuous} outputs.
+\end{itemize}
+\textbf{Unsupervised Learning} only output given with goal of finding "interesting patterns" (called "Knowledge Discovery").\\
+\begin{itemize}
+    \item clustering
+    \item Dimensionality Reduction. e.g., PCA
+    \item Imputation ("matrix completion"): finding plausible values for missing data points.
+\end{itemize}
+
+*K-nearest neighbors (nearest K points to a given input) is a non-parametric classifier model.\\
+\textbf{Reinforcement Learning} learning behavior based on reward/punishment signals.
+
+\section*{Probability Review}
+
+\subsection*{Axioms}
+ Formulated by Andrey Kolmogorov\\
+ \ \\
+a \textbf{probability space} is comprised of :\\
+\ \\
+$\Omega$: sample space, meaning the set of possible elementary events.\\
+\indent e.g., $\Omega = \{1, 2, ..., 6\}$\\
+$\mathcal{A}$: all measurable sets of events\\
+\indent *can be something like odd numbers if we're rolling a die.\\
+$\mathcal{P}$: probability\\
+
+
+$\mathcal{A}$ must satisfy:\\
+1. $\Omega \in A$\\
+2. $E \in A \iff E^c \in A$ \\
+\indent *complement in $\Omega$\\
+3. $E, F \in A \rightarrow E \cup F \in A$\\
+
+$\mathcal{A}$ is a "sigma-algebra", $\sigma$-algebra \\
+(simply properties/laws for operations on sets)\\
+
+$\mathcal{P}$ assigns a numerical value for each $E \in A$ such that
+natural requirements:\\
+$\mathcal{P}$(E) $ \geq 0$, $\mathcal{P}$($\Omega$) = 1, and
+if $E, F \in A$ and $E \cap F = \emptyset$, then \\
+$$\mathcal{P}(E \cup F) = \mathcal{P}(E) + \mathcal{P}(F)$$
+\ \\
+
+$(\Omega, \mathcal{A}, \mathcal{P})$ defines a \textbf{probability space}.\\
+
+\noindent two underlying assumptions: \\
+pattern indicates a unique state of nature,\\
+problem is driven by an underlying probability space.\\
+
+\subsection*{Distributions}
+\noindent a \textbf{random variable} map from  $\Omega$ to a "space of interest"?
+
+\noindent a \textbf{probability mass function}  of a random variable, $X$, is
+(where $k$ is in "space of interest" produced by $x$)
+$$P_x(k) = \mathcal{P} \{ \omega \in \Omega : x(\omega) = k\}$$
+
+e.g., $X$ is the result of summing two dice. \\
+(probability mass is like a probability density function,but for a discrete variable)\\
+
+Then $P_x(7)$ the sum of the probability of all inputs (aka $\omega \in \Omega$) summing to 7.
+
+
+The \textbf{cumulative probability distribution} (CDF) of a random variable $X$,
+$$F_X(r) = \mathcal{P} \{ \omega \in \Omega : X(\omega) \leq r\}$$
+"cumulative density function"
+
+Instantaneous probability, aka \textbf{probability density} is the derivative of the \textbf{probability distribution}.
+
+\subsection*{Dice Example}
+Two dice: \\
+$\Omega = \{(i, j) : i, j \in \{1,..., 6\}\}$.\\
+\indent $|\Omega| = 36$\\
+$\mathcal{A} =$ \textbf{power set} (all possible subsets) of $\Omega$.\\
+\indent $|\mathcal{A}| = 2^{36}$ (each member of $\Omega$ has two states on/off)\\
+
+Define a random variable $X(i,j) = \max(i, j)$. Then, \\
+$P_x(1) = \mathcal{P} \{(i, j): X(i, j) = 1\} = \frac{1}{36}.$\\
+$P_x(2) = \mathcal{P} \{(i, j): \max(i, j) = 2\} = \mathcal{P} \{(2, 1), (1, 2), (2, 2)\} = \frac{3}{36}.$\\
+
+For the rest, think about $L$ shape in outcomes table.\\
+
+Notation: $[ x = 1] =\mathcal{P} \{(i, j): X(i, j) = 1\}$.
+
+
+\subsection*{Pattern Classification}
+
+Feature Space: observable trait like diameter of cell\\
+
+\subsection*{Joint Distributions}
+\subsubsection*{Discrete}
+Two random variables: \\
+$X_1$: max of rolling two dice\\
+$X_2$: min.\\
+
+$P_{x_1, x_2} (x_1, x_2) = \mathcal{P} \{\omega \in (i, j): X_1(\omega) = x_1 \text{ and } X_2(\omega) = x_2\}$.\\
+
+Then,
+ \begin{displaymath}
+    P_{x_1, x_2}(x_1, x_2) = \left\{
+        \begin{array}{lr}
+    P(x_1, x_2) + P(x_2, x_1) & \text{if } x_2 < x_1 \\
+    P(x_1, x_2) & \text{ if } x_1 = x_2
+    \end{array}
+    \right.
+\end{displaymath}
+
+
+
+\subsubsection*{Continuous}
+
+CDF: all variables $\leq$ number.\\
+
+Let CDF = $F_{x_1, x_2}(x_1, x_2)$. \\
+Then,
+PDF = $\displaystyle \frac{d^2}{dx_1dy_1}$\\
+(partial with respect to $x_1$ then differentiate with respect to $y_1$; order doesn't matter).
+
+\subsubsection*{Combined: Discrete and Continuous}
+
+CDF as expected with discrete condition for discrete and similarly for continuous.\\
+
+PDF: same as above with partial dervitives for contious and piecewise defined function for each discrete class.
+
+\subsection*{Baye's Theorem}
+In a probability space, $(\Omega, \mathcal{A}, \mathcal{P})$. \\
+For E, F events in $A$,
+$$P(E | F) = \frac{P(E \cap F)}{P(F)}$$
+(provided $P(F) \neq 0$).\\
+*no independence necessary.\\
+
+\noindent \textbf{Why is $E \cap F$ in $\mathcal{A}$?}\\
+\textcolor[gray]{0.5}{
+We know $E^c$ and $F^c$ in $A$. \\
+So, $E^c \cup F^c$ in $A$. \\
+Thus, so is $E \cap F$ by De Morgan's Law.\\
+}
+
+\textbf{Baye's Rule}
+$$P(F | E) = \frac{P(E | F) P(F)}{P(E)}$$
+
+\noindent e.g., \\
+ebola = E\\
+H = high temp\\
+
+$P(E | H) \approx 1$\\
+$P(H|E)$ low, say $10^{-3}$\\
+
+can compute probability of ebola given fever.
+
+\subsection*{HW}
+Snapp's paper before generating functions (4.4)
+
+\subsection*{Independence}
+
+Events $E, F$ are \textbf{independent events} if:
+$$P(E \cap F) = P(E) P(F)$$
+
+$E_1, E_2, ..., E_n \in \mathcal{A}$ are \textbf{independent events}:\\
+For every combination of $E_i$, P(intersection) = P(first) *P(second) ...\\
+"intersection distributes over multiplication"\\
+
+
+Random variables are \textbf{independent} if for $F$ CDF:
+$$F_{x_1, ... x_n}(x_1, ...., x_n) = F_{x_1}(x_1) F_{x_2}(x_2) ...F_{x_n}(x_n)$$
+
+
+\section*{Pattern Classification}
+In $(\Omega, \mathcal{A}, P)$, the process is: \\
+1. seed from $\omega \in \Omega$ (elementary event\\
+2. Feature Vector (observable trait/s)\\
+3. L classification: maps $\omega$ to a state (like cancer no cancer)\\
+
+
+Feature vector: $(x_1, ..., x_n)$.\\
+
+\textbf{Probability Distribution (combined discrete and continuous)}\\
+\centerline{$F_{x,l}(x, l) = P(\omega \in \Omega : X \leq x \text{ and } L = l)$, joint probability}\\
+
+Using Baye's Theorem we have, 
+$$F(x | l) = \frac{F(x, l)}{P(l)}.$$
+
+e.g., say we have l = 0 is sick, 1 healthy; x is diameter of cell.\\
+$P(x | l = 0):$ normal distribution centered around c\\
+$P(x | l = 1):$ normal distribution centered around -c.\\
+
+note: 
+\begin{align*}
+p(x) & = p(x, l=0) + p(x, l=1) \\
+& = p(x | l=0) p(l=0) + p(x | l=1)p(l=1)
+\end{align*}
+What's the probability someone is sick based on x?\\
+
+$$P( l = 1 | x = c_0) = \frac{p(x = c_0 | l = 1)p(l = 1)}{p(x=c_0)}$$
+
+use expanded formula of normal curve to solve.
+
+To classify a patient, compute propability of l=1 given x and l=0 given x. Higher probability leads to classification (called \textbf{Baye's Classifier})
+
+\subsection*{Denisties from the above}
+
+\textbf{Joint Density}\\
+$P(x, l) = \frac{d}{dx} F_{x, L} (x, l)$\\
+from joint denisty, we can derive all other info like conditional, or prior probability for class l.\\
+\ \\
+\textbf{prior class probability}\\
+(class probability density) \\
+$P(l) = \lim_{x \rightarrow \infty} F_{x, L} (x, l)$\\
+
+
+$P(l |x)$ \bt{posterior probability}
+
+\textbf{Marginal Denisty }
+$$p(x) = \sum_{l=0}^1 p(x, l)$$
+
+\textbf{Class Conditional Distribution}\\
+$$F(x | l) = \frac{P(X \leq x, L = l)}{P(L = l)}$$
+probability of $x$ falling within range given a value for $l$.
+
+Using Baye's Theorem, we can reformulate as
+$$P(l | x) = \frac{P(x, l)}{P(x)}$$
+
+look up Baye's Classifier
+
+\subsubsection*{Deriving other densities from join density}
+prior probability for class l
+$$P(l) = \int_{-\infty}^\infty p(x, l) dx$$
+
+$$P(x | l) = \frac{ P(x, l)}{p(l)}$$
+
+\subsection*{Probability of misclassifying}
+
+Suppose $R_0$ is a region of $X$ the feature vector associated with $L =0$. 
+Similarly, $R_1$ is associated with $L=1$.
+Then, 
+$$P(\text{error}) = P(x \in R_0, L=1) + P(x \in R_1, L-0) $$
+$$= \int_{R_0} p(x, 1) dx + \int_{R_1} p(x, 0) dx$$
+
+we can related the limits of integration via 
+$$P(1) = \int_{-\infty}^\infty p(x, 1) dx = \int_{R_0} p(x, 1) dx + \int_{R_1} p(x, 1) dx$$
+
+So, 
+$$P(\text{error} = P(1) + \int_{R_1} P(x, 0) - P(x, 1) dx$$
+
+
+
+
+\section*{Spam Email Classifier: Naive Baye's}
+
+Trick: $p^x ( 1 - p)^{1-x} $\\
+if x, the feature vector is 1, brings in $p^x$; else just $1-p$.\\
+
+
+From data we try to estimate $p(x, l)$, enabling us to compute
+$$p(l | x) = \frac{p(x, l)}{p(x)}$$
+
+
+For multidimensional $x_1, \dots, x_n$ feature vectors: 
+$$p(l | x) = p(l | x_1) * \dots p(l | x_n)$$
+by \bt{assuming each feature is independent} (that's the big assumption!).\\
+
+\bt{Baye's Error}: lowest possible error rate (by moving decision regions)
+
+\section*{K-nearest Neighbor Classifier}
+
+Need to select : 
+\begin{enumerate}
+    \item k 
+    \item metric (similarity function)\\
+    e.g., euclidean distance
+    \item Training set
+\end{enumerate}
+
+Idea is to find the $k$ elements form the training data that are closest to an input $x$.
+
+Then, classify input $x$ based on the class label of the nearest $k$ elements appearing most.
+\subsection*{Discussion}
+
+Main assumption: proximity in feature space corresponds to similarity in class. \\
+
+very popular algo
+
+\bt{Trade-offs}: Large $k$ reduces variances (more samples), but makes classification less accurate.\\
+
+*note method is \bt{non-parametric} (doesn't assume an underlying distribution).\\
+
+*useful rule of thumb: $k$ scales with $\sqrt{\text{ sample size }}$\\
+
+
+
+Cover and Hart showed the error rate of K-nearest neighbors is no more than 2*Baye's error (missclassification based on conditional) rate for infinitely large samples.
+
+\section*{Triangle Problem}
+
+\begin{displaymath}
+   p(x | 0) = \left\{
+     \begin{array}{lr}
+       2x &  0 \leq x \leq 1 \\
+       0 & \text{ otherwise}
+     \end{array}
+   \right.
+\end{displaymath} 
+
+
+\begin{displaymath}
+   p(x | 1) = \left\{
+     \begin{array}{lr}
+       2 - 2x &  0 \leq x \leq 1 \\
+       0 & \text{ otherwise}
+     \end{array}
+   \right.
+\end{displaymath} 
+
+
+Looks like triangle on graph.
+
+\textcolor{red}{Cover and Hart, 1967 mathematical error in paper}
+
+Theorem Stone 1997: \\
+sample size and nearest neighbor $\rightarrow \infty$, \\
+\centerline{k-neighbor error approaches baye's error}
+
+\part*{Regression}
+
+\section*{Linear}
+$y = \beta_0 + \beta_1 x$
+
+we want find $\beta_0, \beta_1$ such that 
+\eq{
+\text{ squared error = } \sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2
+}
+is \bt{minimized.}
+
+\subsection*{Optimizing slope, intercept}
+
+Look at partial derivatives: 
+\eq{
+&\frac{\partial}{\partial \beta_0} = 2 \sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i) = 0\\
+&\frac{\partial}{\partial \beta_1} = 2 \sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)x_i = 0
+}
+then solve this system of equations.
+
+
+\begin{equation}
+\begin{bmatrix}
+ \beta_0 \\
+ \beta_1 
+\end{bmatrix}
+\end{equation}
+
+=  
+\begin{equation}
+\begin{bmatrix}
+n & \sum x \\
+\sum x & \sum x^2 
+\end{bmatrix}^{-1} 
+\begin{bmatrix}
+    \sum y\\
+    \sum xy
+\end{bmatrix}. 
+\end{equation}
+\subsection*{Multivariable Case}
+$B = (X^T X)^-1 X^T y$
+where all are vectors.
+
+
+\subsection*{Linear Algebra Aside}
+\bt{gradient vector}, denoted $\vec\nabla f$, is a vector, 
+$$<\frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \dots>$$
+
+
+a \bt{hyperplane} is an equation describing an \bt{n-1 dimensional object} in n-dimensional \bt{space} dividing the space into \bt{two pieces}.\\
+
+e.g., a point in 1-d,  a line in 2-d, a plane in 3-d.
+
+\section*{Fittting via any function}
+
+write as $Y = B * f(X)$, where $f(x)$ is the function we're using to fit\\
+
+same results apply.\\
+Solution: $B = (X^T X)^{-1} X^T y$ (y is point in n-space)\\
+\ \\
+
+e.g., \bt{cubic fit}: $y = b_0 + b_1 x + b_2 x^2 + b_3 x^3$\\
+we optimize by \\
+letting $x1, x_2, x_3, \dots$ data points.\\
+and $f_1(x) = x, f_2(x) = x^2, f_3(x) =x^3$.\\
+\ \\
+Then, 
+$X =$ 
+\begin{equation}
+\begin{bmatrix}
+    1 & f_1(x_1) = x_1 & f_2(x_1) = x_1^2 & x_1^3 \\
+    1 & x_2 & x_2^2 & x_2^3 \\
+    \dots \\
+    1 & x_n & x_n^2 & x_n^3
+\end{bmatrix}
+\end{equation}
+\ \\
+
+Finally solve $B = (X^T X)^{-1} X^T y$. 
+
+\section*{Variations}
+
+\bt{Local Regression} increase weight of points near a point you're intested in predicting.
+
+score * 1.25 
+
+\section*{Exam Solutions}
+
+\begin{enumerate}
+    \item 
+ \begin{displaymath}
+   p(x, l) = \left\{
+     \begin{array}{lr}
+       \alpha / \beta & \text{ if } 0 \leq x \leq \beta \text{ and } l = 1\\
+       (1 - \alpha) /\beta & if 1 - \beta \leq x \text{ and } l = 2 \\
+       0 & \text{ otherwise}
+     \end{array}
+   \right.
+   \end{displaymath}
+   with $\alpha, \beta \in [0, 1]$ and $L = 1$ or 2.\\
+   (a) got it; can also use b*h (base times height)\\
+   (b) Compute the posterior probability.
+   We want to find 
+   $$P(l | x).$$
+   By Baye's, 
+   $$P(l | x) = \frac{p(x, l)}{p(x)}$$
+
+   First let's compute $p(x)$. 
+   \eq{ p(x) = p(x, 1) + p(x, 2)}
+   Two cases: \\
+   1. $\beta > 1/2$: \\
+ \begin{displaymath}
+     p(x) = \left\{
+     \begin{array}{lr}
+        \alpha / \beta & :  0 \leq x \leq 1 - \beta \\
+        \frac{1 - \alpha}{\beta} + \alpha / \beta  + & : 1 - \beta \leq x \leq \beta \\
+       \frac{1 - \alpha}{\beta} & : \beta \leq x \leq 1
+        
+     \end{array}
+   \right.
+   \end{displaymath}
+        
+   2. $\beta < 1/2$: 
+
+\begin{displaymath}
+     p(x) = \left\{
+     \begin{array}{lr}
+        \alpha / \beta & :  0 \leq x \leq \beta \\
+       \frac{1 - \alpha}{\beta} & : 1 - \beta \leq x \leq 1
+     \end{array}
+   \right.
+   \end{displaymath}
+
+
+\end{enumerate}
+ ---
+
+3. 
+\textcolor{red}{review gaussian, including second moment}
+
+\section*{Perceptron Algorithm}
+
+\bt{Linearly separable} classification problem: (we can draw a line to seperate groups)
+
+\subsection*{Vectors Review}
+Recall: \\
+\bt{line} in $\R^2$: ax + by = c \\
+alternately written as \\
+\begin{equation}
+\begin{bmatrix}
+a & b 
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}\\
+\bt{plane} in \R^3: ax + by + cz = d\\
+\begin{bmatrix}
+a & b & c 
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+z
+\end{bmatrix}\\
+\end{equation}
+
+In general \bt{n-dimensions}: \\
+(suppose vectors are all column vectors)\\
+$W^T = [w_1, w_2, w_3, \dots, w_n]$
+and
+$X =$
+\begin{equation}
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\dots \\
+x_n
+\end{bmatrix}
+\end{equation}
+
+\noindent Then, the equation of a \bt{plane in n-dimensions} is $W^T X = d$\\
+
+\noindent \bt{dot} product of ($W X) = ||W|| ||X||$ cos $\theta$, where $\theta$ angle between W, X.\\
+(also just sum of $x_1w_1 + x_2 w_2 + \dots x_n w_n$)
+
+
+Therefore, 
+$$W^T X = \text{dot prod} = ||W|| ||X|| \cos \theta$$
+
+\subsection*{Phrasing the problem}
+
+Given W and d; then the set of solutions $x$ forms a plane in n-space. \\
+(think about "projections" of $W$ (by varying length and angle))
+
+Let $g(x) = W^Tx - d$, called "discriminant". 
+
+Our goal is to find values for $W$ so that 
+\eq{g(x) > 0 & \text{ if x belongs to 1st class}\\
+g(x) < 0 & \text{ otherwise}.
+}
+
+If we can find this, it defines a line (or plane) potentially seprating our dataset).\\
+\includegraphics{discriminant}
+
+To the right side of blue line is one class to the left is another.
+
+Suppose data is \bt{linearly seperable} then, we can find $W$ and $d$ to solve.\\
+
+Choose classes $l_1 = 1, l_2 = -1$.\\
+
+Idea (with $\alpha$ learning rate): 
+
+\fbox{
+  \parbox{\textwidth}{
+    if $w*x < 1$ and l = 1: \\
+     -- update: w = w + x $(\alpha)$ \\
+    if $w*x > -1$ and l = -1: \\
+     -- update: w = w - x * $(\alpha)$\\
+  }
+}
+
+
+The pseudo-code for algo:
+
+\begin{verbatim}
+initialize W, d at some values 
+
+    for every element in training set: 
+        if not correclty classified:
+            W += li Xi 
+            d += li
+            (restart loop again)
+            #called batch process since loop over entire set again
+
+#idea: W tweaked down or up (depending on l = 1 or -1)
+#turns out tweaking leads to convergence (if linearly seperable)
+\end{verbatim}
+
+If data is separable and we find one boundary separating the data, we can always tilt the boundary a bit to find another boundary (actually infinitely many boundaries exist).
+
+\subsection*{Why does tweaking always lead to convergence?}
+
+idea: as you tweak, you move away from initial weights, W, and the \bt{cone of solutions} gets larger. Therefore, as we increment, we are 'guaranteed' to fall within cone.\\
+to imagine cone of solutions: think of \bt{rays} (corresponding to boundaries) going out into space. The area they cover gets bigger.
+
+\cb{\bt{Theorem} algo converges to a correct solution after finite number of weight corrections.}
+called " Perceptron Convergence Theorem"
+
+\gray{\href{http://www.cs.utsa.edu/~bylander/cs5233/perceptron-proof.pdf}{click for proof}}
+
+proof from class: \\
+GOAL: Find weights $w_0, w_1, w_2$ such that the discriminant function 
+\eq{g(x_1, x_2) = w_0 + w_1 x_2 + w_2 x_2} divides the data set ($g(x) > 0$ if $l = 1, g(x) < 0 $ if $l =1-1)$. \\
+Define \bt{normalized augmented} feature vector: \\
+$\hat{x}' = l \hat{x} = $
+\begin{equation}
+\begin{bmatrix}
+l \\
+l x
+\end{bmatrix}\\
+\end{equation}
+Let $w[k]$ be the adjusted weights at the kth step.\\
+Then, 
+\eq{w[1] = w[0] + n\hat{x}'(1) \\
+w[2] = w[1] + n \hat{x}'(2) \\
+}
+meaning
+\eq{w[k] - w[0] = n(x[1] + \dots + x[k])}
+
+\gray{
+Therefore, 
+\eq{w^* (w[k] - w[0] ) = n w^* (x(1) + \dots + x(k)) }
+where $w^*$ is the hypothetical solution.\\
+}
+We want to show 
+\eq{AK^2 \leq || w[k] - w[0] ||^2 \leq BK}
+for some constants $A, B$.
+The thing sandwiched is the error think; area between parabola and line.\\
+(means converges after a max of $k = B/A$ updates)\\
+
+By Cauchy Schwarz we have the left inequality: 
+\eq{[w^* ( w[k] - w[0])]^2 \geq ||w^*||^2 ||w[k] - w[0]||^2}\\
+\ \\
+Next, to bound above: \\
+first, square the equations for $w[1], w[2], etc.$.\\
+next, sum up all the equations to get lots of cancellation:
+\eq{||w[k] - w[0]||^2  &\leq n^2 (||x'(1)||^2 + ||x'(2)||^2 + \dots + ||x'(k)||^2)\\
+&-2nw(0^T(x'(2) + \dots + x'(k))\\
+}
+Next let $M = \max\{ \text{ all } ||x'||^2\}$, then 
+\eq{ \leq n^2 M -n \text{ stuff })K}
+To simplify further we take $u =$ min of stuff: 
+\eq{ \leq (n^2 M - n u ) K }
+et voila.\\
+*note: u is always negative, since u > 0 implies no data was misclassified!
+
+
+\subsection*{Variation: augmented feature vector}
+make each feature vector x sit in n+1 dimension by adding 1 as a component. Then, the algebra cleans up and we get 
+$$||W|| ||X||$$
+This makes updating quicker, since both values are part of W.
+
+\subsection*{Another Variation: Augmented Normalized Feature Vector}
+agument the feature vector and normalize values.\\
+
+To normalize: multiply by 1 if in class 1 and -1 if class 2 (so flips sign)\\
+
+The \bt{augmented normalized} feature vector is denoted: $\hat{x}'$ \\
+Idea: make an error for either class look the same.
+
+
+
+\section*{LMS: Least Mean Squares}
+part of \bt{linear regression}\\
+\bt{Cost Function} is the sum of squares (goal is to minimize this)\\
+also called \bt{objective function}
+
+We have linear function
+\eq{y = w_0 + w_1 x_1 + w_2x_2}
+where output y, depends on two variables with weights $w_1, w_2$.
+
+Goal is to use tweak $w_i$ to minimize \bt{cost function}.\\
+
+Use Calculus to minimize. 
+
+Set gradient (partial derivatives with respect to each variable $x_i$). \\
+Then, the optimal solution (after some algebra) is 
+\eq{optimal = (X^TX)^{-1} X^T Y}
+where $Y$ are the set of outputs for the training data.\\
+
+Often although the above is analytically convenient, it can consume quite a bit of memory. Other methods such as \bt{steepest descent} (also called gradient descent) are used, because their implementation is \bt{more pratical} in terms of memory and processing power required.
+
+\subsection*{Steepest (Gradient) Descent}
+We use \bt{steepest descent} (also called gradient descent) to do so.
+Gradient descent works by updating $w_i$ using
+\eq{\text{new } w_i = w_i - \alpha \frac{\partial}{\partial w_i} * \text{cost function}}
+where $\alpha$ is the learning rate.\\
+
+Stop when gradient (partials) are zero.
+\subsection*{multivariable chain rule (aside)}
+
+\eq{\frac{d}{dt} f(x(t), y(t)) = \frac{\partial}{\partial x} \frac{dx}{dt} + \frac{\partial}{\partial y} \frac{dy}{dt}}
+
+Two ways to implement LMS: \\
+\bt{batch gradient descent} entire dataset is used at every step, then updates \\
+\bt{Sequential (Widrow-Hoff)} update after each point in training data 
+
+
+
+\section*{Backpropagation Algorithm}
+
+Mathematically equivalent to LMS (similar to perceptron as well).\\
+
+\bt{Goal}: change weights of feature vectors to mimick a desired output.
+
+At each step adjust the weight based on: actual - desired.
+
+check out : \href{"http://neuralnetworksanddeeplearning.com/chap2.html"}{tutorial}
+
+Use sign of 
+\eq{\sum_{j=1} w_{i,j}^{(l)} y_j}
+
+Hyperbolic tan and arctan are useful choice for Sigmoidal functions to solve optimization. (see slides for example with derivatives)
+
+\bt{Kronecket Delta Function} (get 1 if and only if the network nodes match; else 0)
+
+Key math from snapp's slides: 
+\begin{itemize}
+\item $\delta$ tells you error between 
+\item update $w$ based on $\delta$
+\item Kronecket used inside sums to simply to one expression when network nodes match
+\item chain rule used to take derivatives
+\end{itemize}
+
+\section*{Generalization: when can we separate data}
+
+\bt{Linear Threshold Unit} is the function $g(x) = sign(wx + w_0)$ separating the data into two groups.
+
+The \bt{capacity} of the linear threshold unit is the number of patterns we can separate by a line.
+
+First a definition:
+
+A distribution of $m$ points in $\R^n$ is in \bt{general position} if
+\begin{itemize}
+    \item no subset of $n+1$ points lies on a line (plane, or hyperplane)
+\end{itemize}
+    (if $m \leq n$, then we instead stipulate the set of $m$ points is not contained in an $m-2$ dimensional hyperplane)
+
+e.g., $n = 2, m=2$, then we stipulate the two points can't coincide (0 dimensional hyperplane: same point).
+
+e.g., $n=2$ and any $m$, the points are in general positions if no two points are the same.
+
+
+e.g., $m = 4, n=2$, then no 3 points lie on same line.
+
+
+\subsection*{Counting Linear Dichotomies}
+
+ways a set of points can be split up into groups.\\
+
+For a \bt{single point}, in any space $\R^n$, it's either group 1 or 2, so there are \bt{two linearly} separable dichotomies.
+
+In $R^1$, there are $2m$ linearly separable dichotomies, since points lie on one line. \gray{You can draw a line at $m$ points, then switch classes.}
+
+To summarize: 
+\begin{itemize}
+    \item d(1, n) = 2
+    \item d(m, 1) = 2m
+\end{itemize}
+
+    \cb{In general: $d(m, n) = d(m-1, n) + d(m-1, n-1)$ (recursive)}
+
+Without recursion we have \\
+$$ d(m, n) = 2 \sum_{i=0}^n \binom{m-1}{i}$$
+
+
+e.g., $d(4, 2) = 14$ (four points in 2 dimensions)
+
+
+observation: in a sufficiently high dimension, \bt{every linear dicotomy is possible}!
+
+\textcolor{red}{exam: \\
+Baye's Rule, Theorem
+definitions: prior class, posterior, marginal density (p(x) = sum p(x, L) for each l), augmented feature vector, augmented normalized feature vector
+look over test 1: max/min, problem 1, integration gaussian \\
+Pseudo-code: nearest neighbor, perception (backprop too hard)\\
+what does naive baye's assume (each feature is independent), 1D regression derive solution, }
+
+\subsection*{Perceptron in Pseudo-code}
+
+\begin{verbatim}
+Perceptron( {(x1, l1), ..., (xm, lm)}, step size = n )
+
+W = random weight vector 
+W0 = random scalar 
+
+While error:
+    error = false
+    for (xi, li) in training data:
+        if sign(w0 + w^T xi) != li: 
+            error = True
+            #label doesn't match adjust
+            W += n li Xi 
+            #learning rate * label * weight
+
+            w0 += n*li
+
+return w0, w
+            
+\end{verbatim}
+
+
+\subsection*{Counting Dichotomies continued}
+none
+\part*{Support Vector Machines}
+Optimization problem for 
+\eq{
+L(W, w_0, \alpha) = 1/2 w^tw - \sum_{i=1}^m \alpha[l_i(w^tx_i + w_0)-1]
+}
+where we minimize with respect to $w$ and max with respect to $\alpha$,\\
+subject to constraint $\alpha_i \geq 0$ and 
+\eq{
+l_i(w^tx_i+w_0)-1 \geq 0
+}
+where $w = \sum_{i=1}^m \alpha_i l_ix_i$.
+
+To solve we rewrite as a \bt{dual problem}.
+\subsection*{Dual Problem}
+We instead want to maximize with respect to $\alpha$
+\eq{
+J(\alpha) = -1/2 \sum_{i=1}^m \sum_{j=1}^m \alpha_i \alpha_j l_i l_j x_i^Tx_j + \sum_{i=1}^m \alpha_i
+}
+subject to the constraint $\alpha_i \geq 0$ and $\sum_{i=1}^m \alpha_il_i=0$.
+
+\bt{advantage:} complexity of computation depends on the number of data points in training set, not the number of features observed. \\
+
+
+\bt{Kernel} is defined to be: $K(x, y) = (x^Ty+1)^2$.
+
+\subsection*{Example}
+\eq{
+X_4 = \{ [(-1, -1), -1], [(-1, 1), 1], [(1, -1), 1], [(1, 1), -1]\}
+}
+
+Note $X_4$ is not separable, so can't solve as usual (\textcolor{red}{look up usual way}).
+
+Letting x, y be in $\R^2$, we find the kernel
+
+\eq{K(x, y) &= (x^Ty + 1)^2 = (x_1y_1 + x_2y_2 + 1)^2\\
+& = x_1^2y_1^2 + 2x_1x_2y_1y_2 + x_2^2y_2^2 + 2x_1y_1 + 2x_2y_2 + 1
+}
+
+Next we compute
+\eq{
+J(\alpha) = -1/2 [ 9 \alpha_1^2 - 2\alpha_1\alpha_2+2\alpha_1\alpha_4
++ 9 \alpha_2^2 + 2\alpha_2\alpha_3 - 2 \alpha_2\alpha_4 + 9\alpha_3^2 - 2\alpha_3\alpha_4 + 9 \alpha_4^2] 
+}
+
+look at partial with respect to: $\alpha_1, \alpha_2, \alpha_3, \alpha_4$:
+set to zero to find minimum.
+
+\textcolor{red}{\bt{idea} to look up is the \bt{Kernel trick}}
+
+goal is to find $g(x)$ so that output is correct class label.
+
+For this example the optimal $g(x) = -x_1x_2$.
+\end{document}
