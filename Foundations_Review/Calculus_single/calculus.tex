@@ -136,11 +136,12 @@ It's a decaying cosine-like wave, since the denominator grows faster than cosine
 \includegraphics[scale=0.5]{bessel.png}
 
 \subsubsection*{Orders of Growth and Error Size}
-\bt{Big-O}: "same order as" 
+\bt{Big-O}: "not faster than" 
 \begin{itemize}
-    \item f(x) = O(1) if $f(x) \rightarrow c*1$ as $x \rightarrow \infty$
-    \item f(x) = O(g(x)) if $f(x) \rightarrow c*g(x)$ as $x\rightarrow \infty$
+    \item f(x) = O(1) if $|f(x)| \leq c*1$ as $x \rightarrow \infty$ (for some c)
+    \item f(x) = O(g(x)) if $|f(x)| \leq c*|g(x)|$ as $x\rightarrow \infty$ (for some c)
 \end{itemize}
+Can be equivalently defined for $x \rightarrow 0$ to describe how quickly a function decays.
 
 \noindent \bt{Little-o}: "ultimately smaller than"
 \begin{itemize}
@@ -220,11 +221,49 @@ ONLY FOR $|x|<1$, based on geometric series convergence
 \end{itemize}
 
 
+%========================Limits ========================================
+
+\subsection{Limits}
+
+The limit as $x$ approaches $a$ of $f(x)$ \bt{exists} if for all $x$ close, but NOT equal to $a$, $f(x)$ is close to the value of the limit.
+
+A limit may not exist at a discontinuity, blow-up, or oscillation.
+
+A function is \bt{continuous} at $a$ if $\lim_{x \rightarrow a} f(x) = f(a)$.\\
+
+If $\lim_{x \rightarrow a} f(x) = l$ and $\lim_{x \rightarrow a} g(x) = m$, then
+\begin{itemize}
+    \item $\displaystyle \lim_{x \rightarrow a}f(x) + g(x) = l + m$
+    \item $\displaystyle \lim_{x \rightarrow a} f(x)g(x) = lm.$
+    \item "root of a limit" $\displaystyle \lim_{x \rightarrow a} \sqrt[n]{f(x)} 
+    = \sqrt[n]{\lim_{x \rightarrow a} f(x)}$.
+\end{itemize}
+
+If a function is continuous, then you can evaluate a limit by simply plugging in the value $a$.
+
+\subsection*{\green{Exercises}}
+
+\begin{enumerate}
+    \item Evaluate $\displaystyle \lim_{x \rightarrow 0} \frac{\sin(x)}{x}$.
+    \gray{
+    use Taylor (about x=0), since we are interested in $\sin(x)$ as x approaches 0
+    }
+\end{enumerate}
 \section{Differentiation}
 
 \section{Integration}
 
 \section{Series}
 
+\section*{Curiosities}
+
+\bt{Striling's Approximation}
+
+Gives a good asymptotic (as $n$ gets bigger) approximation for $n!$:\\
+
+\eq{
+n! \sim \sqrt{2\pi n} (\frac{n}{e})^n
+}
+Typically written as $\ln(n!) = n\ln(n) - n + O(\ln(n))$. 
 \end{document}
 
