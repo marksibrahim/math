@@ -79,7 +79,7 @@ e^x &=
 1 + x + \frac{x^2}{2!} +  \frac{x^2}{2!} +  \frac{x^2}{2!} + \dots\\
 & = \sum_{k=0}^\infty \frac{x^k}{k!}.
 }
-
+\gray{also sometimes defined as $e^x = \lim_{n \rightarrow \infty} (1 + x/n)^n$.}
 
 By Euler's Formula, 
 \eq{
@@ -133,7 +133,7 @@ It's a decaying cosine-like wave, since the denominator grows faster than cosine
 }
 
 \graphicspath{{graphs/}}
-\includegraphics[scale=0.5]{bessel.png}
+%\includegraphics[scale=0.5]{bessel.png}
 
 \subsubsection*{Orders of Growth and Error Size}
 \bt{Big-O}: "not faster than" 
@@ -159,7 +159,7 @@ Define
 \blue{\sinh(x)} = \frac{e^x - e^{-x}}{2} \\
 \textcolor{red}{\cosh(x)} = \frac{e^{x} + e^{-x}}{2} \\
 }
-\includegraphics[scale=0.5]{htrig.png}
+%\includegraphics[scale=0.5]{htrig.png}
 
 A variation of the Pythagorean Theorem holds: 
 \eq{
@@ -176,7 +176,7 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 \eq{
 \frac{(x-h)^2}{a^2} - \frac{(y-k)^2}{b^2} = 1
 }
-\includegraphics[scale=0.5]{hyperbola.png} \\
+%\includegraphics[scale=0.5]{hyperbola.png} \\
 (negative sign on x, instead of y, for up/down)
 }
 
@@ -194,7 +194,8 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 \gray{idea: what are the coefficients of $x^4$}
 
 \bp{
-\bt{Binomial Series} (for $|x|<1$)
+\bt{Binomial Series} \\
+For $|x|<1$ and any $\alpha \in \C$,
 \eq{
 (1+x)^\alpha &= 1 + \alpha x + \frac{\alpha(\alpha -1)}{2!} x^2 +  
 \frac{\alpha(\alpha-1)(\alpha-2)}{3!} x^3 + \dots \\
@@ -202,7 +203,15 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 }
 \gray{by computing derivatives and using Taylor Expansion }
 }
+\ \\
 
+The Binomial Theorem refer to a slightly different case
+
+\bp{
+\bt{Binomial Theorem}
+$$(x+y)^n = \sum_{k=0}^n \binom{n}{k} x^{n-k}y^k $$
+*note here $n \in \N$
+}
 %===================Exercises=================================================
 \subsection*{\green{Exercises}}
 \begin{enumerate}
@@ -249,8 +258,54 @@ If a function is continuous, then you can evaluate a limit by simply plugging in
     use Taylor (about x=0), since we are interested in $\sin(x)$ as x approaches 0
     }
 \end{enumerate}
+
+%=================================Differentiation================================
 \section{Differentiation}
 
+Sometimes the derivative is written as $\dot y = \frac{dy}{dx}$
+
+An alternate definition of the derivative is 
+\eq{
+f(a+h) = f(a) + f'(a)h + O(h^2)
+}
+indicating the derivative gies a first-order approximation.
+
+An \bt{operator} is a mapping from one vector space (or module) to another.
+
+
+The \bt{curvature} of a funciton is defined as \\
+\bp{
+\eq{
+\frac{f''}{(1 + (f')^2)^{3/2}}
+}
+}
+
+\subsection*{Newton's Method}
+A good way to approximate the root of a function that's differentiable.
+
+1. Guess a root $a_0$ \\
+2. Improve: $a_1 = a_0 - \frac{f(x)}{f'(x)}$ \\
+\tab \gray{from $0 = f(a_0) + f'(a_0)(a_1 -a_0)$, line approximation of zero} \\
+3. Repeat
+
+\subsection*{Derivative of $a^x$}
+
+To find $\frac{d}{dx} a^x$: 
+\eq{
+y = a^x \implies ln(y) = x ln(a) \\
+\frac{d}{dx} ln(y) = 1/y \frac{dy}{dx} = ln(a) \\
+}
+Thus, $dy/dx = y ln(a) = a^x ln(a).$
+
+\subsection*{Optimization}
+
+A \bt{critical point} is an input where $f(x)$ has a derivative of zero or the \textit{derivative} is undefined; critical points include max/min points.
+(max/min $\implies$ critical point)
+
+Second Derivative Test: $f''(a) > 0 \implies$ min. ($f''(a) =0$ says nothing)
+
+\bt{Global max/min} occur at a critical point or end points!
+%=================================Integration================================
 \section{Integration}
 
 \section{Series}
@@ -265,5 +320,8 @@ Gives a good asymptotic (as $n$ gets bigger) approximation for $n!$:\\
 n! \sim \sqrt{2\pi n} (\frac{n}{e})^n
 }
 Typically written as $\ln(n!) = n\ln(n) - n + O(\ln(n))$. 
+
+
+
 \end{document}
 
