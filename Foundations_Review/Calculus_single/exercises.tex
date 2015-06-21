@@ -1,0 +1,421 @@
+
+\documentclass[a4paper, 12pt]{article} 
+\usepackage{amsmath, amssymb, color, graphicx}
+\usepackage{fullpage} %smaller margins
+
+%font
+\usepackage[sc]{mathpazo}
+\linespread{1.05}         % Palladio needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+
+%word spacing
+\usepackage{microtype}
+
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\ol}[1]{\overline{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
+\newcommand{\bp}[1]{\fbox{\parbox{0.8\textwidth}{#1}}} %box paragraph
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\piecewise}[4] %piecewise function
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+%colors
+\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
+\newcommand{\green}[1]{\textcolor{javagreen}{#1}} %command for green
+
+%environment
+
+%nice things to remember
+%\marginpar{text in margins}
+
+
+%environment
+
+%\fbox{\parbox{0.8\linewidth}{...}
+\begin{document}
+\maketitle
+\section*{Chapter 5: Limits}
+Chapter 5: 1, 7, 8, 10, 15, 16, 18, 20, 21\\
+
+
+\fbox{\parbox{0.8\linewidth}{
+\textbf{lim} means $x$ within $\delta$ implies expression within $\epsilon$ of limit.}}
+
+
+\subsection*{Failed} \\
+\begin{enumerate}
+    \item[ 1ii ] \\
+    remember $x$ cannot equal $2$, it approaches it!\\
+    further factoring tricks:\\
+\begin{itemize}
+    \item $a^3 + b^3 = (a + b) (a^2 -ab - b^2)$
+    \item $a^3 - b^3 = (a -b)(a^2 +ab + b^2)$
+\end{itemize}
+
+    \item[1iv] \\
+recall polynomial factoring theorems and long division of polynomials.
+if a value for $x$ is a zero, then polynomial can be factored with $(x-value)$.
+
+\item[8] idea of limits not existing when a product exists.
+\end{enumerate}
+
+
+\subsection*{Tips} 
+
+Given, $\lim_{x \rightarrow 0} \frac{f(x)}{x} = l$, \\
+\centerline{$lim_{x \rightarrow 0} \frac{f(bx)}{x} = bl.$}
+
+\textcolor[gray]{0.5}{$\frac{f(bx)}{x} = \frac{bf(bx)}{bx}$\\
+Let $y$ be a new input of $f(x)$ then we have $bl$.}
+
+
+%------------------------------------------------------------
+\subsection*{Chapter 6: Continuity}
+1, 3, 4, 7, 8, 10, 14, 15\\
+
+
+\fbox{\parbox{0.8\textwidth}{$f$ is continuous at $a$ means \\
+$$\lim_{x\rightarrow a} f(x) = f(a)$$}}
+
+\fbox{\parbox{0.8\textwidth}{
+\begin{itemize}
+    \item rational functions are continuous\\
+   \textcolor[gray]{0.5}{use product, sums of $f(x) = x$ are continuous}
+    \item elementary functions: c, x, log, exponents, trig are continuous
+   \textcolor[gray]{0.5}{easy to show using idea above}
+\end{itemize}}} 
+\subsection*{Failed}
+7. Suppose $ f(x + y) = f(x) + f(y)$ and $f(x)$ is continuous at $0$. Show $f(x)$ is continuous at any $a$.\\
+\textcolor[gray]{0.5}{We want $|f(x) - f(a)| < \epsilon$ for all $|x-a|< \delta$.\\
+Tool: show $f(-a) = -f(a)$ (look at $f(a + 0)$). Then problem is easy.}\\
+
+\noindent 10. a. need inequality: $|x| - |y| \leq |x-y|$
+\noindent 10. b. every continuous function f(x) written as the sum of even and odd function. \\
+\textcolor[gray]{0.5}{even = $\frac{f(x)+f(-x)}{2}$; odd = $\frac{f(x)-f(-x)}{2}$}
+
+\subsection*{Tips}
+graphing functions reveals continuity
+
+%------------------------------------------------------------
+\subsection*{Chapter 7: Three Hard Theorems}
+1(viii),(ix)(x), 3(ii), 5, 6, 10, 15, 18\\
+Extreme Value Theorem and Intermediate Value Theorem
+and similar ideas.\\
+
+\textbf{ Extreme Value Theorem }\\
+\textcolor[gray]{0.5}{1. continuous $\rightarrow$ bounded \\
+2. $\{ f(x) : x \in [a, b]\}$ is non empty, so has l.u.b., say $G$\\
+3. Suppose no input $y$ generates $G$. \\
+    contradition: consider $g(x) = \frac{1}{G - f(x)}$ continuous, hence bounded, but since $G$ is l.u.b., $g(x) > \frac{1}{\epsilon}$.}
+    
+\textcolor{red}{add proofs from next chapter}
+
+\medskip
+
+\subsection*{Failed}
+3. ii. use intermediate value theorem on $g(x) = sin(x) -x + 1$ by finding values of the function greater/less than $0$.\\
+
+\noindent 15. also IVT
+\subsection*{Tips}
+
+\subsection*{Chapter 8: Least Upper Bound}
+skip\\
+\fbox{\parbox{0.8\textwidth}{any set of reals with an upper bound has a least upper bound.}}
+
+used to prove three hard theorems.\\
+
+\fbox{\parbox{0.8\textwidth}{a function is \textbf{uniformly continuous} \\
+$$|x - y| < \delta \rightarrow |f(x) - f(y)| < \epsilon$$}}
+\subsection*{Tips}
+
+%------------------------------------------------------------
+
+\subsection*{Chapter 9:Derivatives}
+ 2,3,4,5,6,8\\
+ \medskip
+
+\fbox{\parbox{0.8\textwidth}{a function is \textbf{differentiable}, if for all $a$ in domain, \\
+$$\lim_{h\rightarrow 0 } \frac{f(a + h) - f(a)}{h} \text{ exists. }$$}}
+
+\begin{itemize}
+    \item differentiable implies continuous\\
+   \textcolor[gray]{0.5}{ use $\lim_{x\rightarrow a} f(x) - f(a)$ multiply by $\frac{h}{h}$}
+    \item cont $\not \rightarrow$ diff\\ 
+    $|x|$ is not differentiable at $x=0$
+\end{itemize}
+
+\subsection*{Failed}
+2. factor cubic\\
+3. algebra: multiply by the conjugate.\\
+5. recall $[x]$ is the largest integer less than or equal to $x$
+\subsection*{Tips}
+
+factoring cubic: either a linear and quadratic or 3 linear terms. \\
+Search for linear factor (root). Think about factors of constant term. \\
+
+To clean $$\frac{\sqrt{a + h} - \sqrt{a}}{h}$$
+
+multiply by conjugate $\sqrt{a + h} + \sqrt{a}$.
+
+
+
+
+
+%------------------------------------------------------------
+
+\subsection*{Chapter 10: differentiation, finding derivatives}
+1(v)(vi), 2(ix)(xvi), 15,16,18\\
+\medskip
+
+
+\fbox{\parbox{0.8\textwidth}{
+\begin{itemize}
+    \item $(fg)' = f'g'$
+    \textcolor[gray]{0.5}{since limits decompose over products}\\
+    (similarly with sums and $cf(x)$)
+    \item quotient rule \\
+   \textcolor[gray]{0.5}{key is to write $\frac{f}{g}$ as $f*(\frac{1}{g})$\\
+   $\frac{d}{dx}\frac{1}{g(x)}$ careful to check expression makes sense. 
+   } 
+   \item Chain Rule: $f(g(a))'$ is $f'(g(a))g'(a)$\\
+   \textcolor[gray]{0.5}{ use limit definition }\\
+   *must be careful to seperate case where $g(a+h) - g(a) = 0$.
+   \textcolor{red}{see analysis}
+
+   \item 
+\end{itemize}}}
+\ \\
+\medskip
+
+\noindent \textbf{Chain proof}\\
+\textcolor[gray]{0.5}{use $x \rightarrow 0$ by def, 
+$\lim_{x \rightarrow a} \frac{f(g(x)) - f(g(a))}{x - a} = \lim_{x \rightarrow a} \frac{f(g(x)) - f(g(a))}{g(x) - g(a)} \frac{g(x) - g(a)}{x-a}$\\
+(BIG STEP $x \rightarrow a$ becomes $g(x)$)\\ 
+$= \lim_{g(x) \rightarrow g(a)} \frac{f(g(x)) - f(g(a))}{g(x) - g(a)} \lim_{x \rightarrow a} \frac{g(x) - g(a)}{x-a}$}\\
+need to reason that $f(x) - f(a)$ is not zero.
+
+\subsection*{Failed}
+Good!
+
+
+
+
+
+%------------------------------------------------------------
+\subsection*{Chapter 11: Significance of the Derivative}
+max, min, critical, l'hopital's rule\\
+26,35,36,37,38, 48, 52, 63\\
+
+\fbox{\parbox{0.8\textwidth}{
+\centerline{\textbf{Finding Max/Min}}
+\begin{itemize}
+    \item max/min at $a$ with $f'(a)$ defined $\rightarrow$ $f'(a) = 0$
+    \item $f'(x)$ can equal $0$ even when $f(x)$ is not at a local max or min.\\
+consider $f(x) = x^3$ with $f'(0) = 0$.\\
+\ \\
+\centerline{\fbox{$f'(x) = 0 \not \rightarrow \text{ local max/min }$}}
+
+instead, $x$ such that $f'(x) = 0$ is a \textbf{critical point}
+    \begin{itemize}
+        \item partial converse: $f'(a) = 0$ and $f''(a) >0$ then min at a
+    \end{itemize}
+
+\   \item to find max/min, consider: \\
+1. critical points\\
+2. end points \\
+3. points where $f'(x)$ doesn't exist\\
+\ \\
+*works for continuous functions by Extreme Value Theorem; can't be sure min/max exist for non-continuous functions.\\
+\end{itemize}}}
+
+\fbox{\parbox{0.8\textwidth}{
+    \begin{itemize}
+    \item \textbf{Mean Value Theorem} For $f$ continuous and differentiable on $(a, b)$, there is $x$ such that \\
+    \centerline{$f'(x) = \frac{f(b) - f(a)}{b - a}$}
+
+    "instantaneous rate of change equals the average rate of change at some x"
+
+    \item $f'(x) = 0 \text{ for all } x \rightarrow f(x) = c$\\
+   \textcolor[gray]{0.5}{idea: take any interval $[a, b]$, then by IVT $f(b) = f(a)$}
+   \item \textbf{Cauchy Mean Value Theorem} (generalization of MVT) for $f, g$ continuous on $[a, b]$ and differentiable on $(a, b)$, there is $x$ such that 
+   $$\frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(x)}{g'(x)}$$
+   *careful $g'(x)$, $f'(x) \neq 0$.
+
+   \item \textbf{L'Hopital's Rule} For 
+   $$\lim_{x \rightarrow a} f(x) = 0 \text{ and } \lim_{x \rightarrow a} = 0$$
+   and $\lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$ exists. Then, 
+   $$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} \text{ exists}$$
+   and
+   $$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$$
+   *note applies if $\lim{x \rightarrow a} f(x) (\text{ and } g(x))= \pm \infty$.  
+
+\end{itemize}
+}}
+
+\medskip
+
+Mean Value Theorem proof uses Rolle's Theorem.\\
+
+\textbf{Rolle's Theorem:}
+For $f$ continuous and differentiable on $(a, b)$ with $f(a) = f(b)$, 
+$$\text{ there is $x$ such that } f'(x) = 0$$
+\textcolor[gray]{0.5}{idea there exists min, max by EVT, somewhere inside or at endpoints implying $f'(x)=0$ for some x}\\
+
+\textbf{Mean Value Theorem}\\
+\textcolor[gray]{0.5}{define $h(x) = f(x) - \frac{f(b) - f(a)}{b-a} (x-a)$. Then use Rolle's Theorem on $h(x)$ to show $h'(y) = 0$ for some $y$.}
+
+\subsection*{Failed}
+26: try plugging in number, consider 2 cases.
+
+\subsection*{Tips}
+
+
+%------------------------------------------------------------
+\subsection*{Chapter 12: Inverse Functions}
+1;5;6;7i)-iv),vii);8;11a)-c);22;23;26;33;37
+
+\fbox{\parbox{0.8\textwidth}{something}}
+
+\subsection*{Failed}
+
+\subsection*{Tips}
+\begin{itemize}
+    \item to find inverse of functions: f(x) = x + 1. \\
+    Let $y = f^{-1}(x)$. Then y + 1 = x , meaing $y =  f^{-1}(x) =  x-1$.
+\end{itemize}
+
+
+%------------------------------------------------------------
+
+
+\newpage
+
+\section*{Curiosities}
+
+\subsection*{Binomial Theorem}
+$$(a+b)^n = \sum_{k=0}^n \binom{n}{k} a^{n-k}b^k$$
+
+$$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
+
+\subsection*{Polynomials}
+
+$$1 + r + r^2 + ... + r^n = \frac{1 - r^{n+1}}{1-r}$$
+\textcolor[gray]{0.5}{set $S = 1 + r + ... + r^n$, multiply by r, and solve}
+
+
+\subsection*{Cauchy Schwarz}
+
+$$\sum x_i y_i \leq \sqrt{\sum x_i^2} \sqrt{\sum y_i^2}$$
+\textcolor{red}{look into proof}
+
+
+\subsection*{Complex: Birth of Sin, Cos}
+Define, for $z \in \mathbb{C}$: 
+$\displaystyle e^z = \sum_{n=0}^\infty \frac{z^n}{n!}$\\
+$\displaystyle \cos(z) = 1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \frac{z^6}{6!} + ...$\\
+$\displaystyle \sin(z) = \frac{z}{1!} - \frac{z^3}{3!} + \frac{z^5}{5!} - \frac{z^7}{7!} ...$\\
+\ \\
+
+We derive Euler's formula, 
+$$e^{ix} = \cos(x) + i\sin(x)$$
+
+\textcolor[gray]{0.5}{
+Set $x$ above to $2a$, then 
+\begin{align*}
+    e^{i2a} & = (e^{ia})^2\\
+    & = (\cos(a) + i\sin(a))^2 \\
+    & = \cos^2(a) + 2 i \cos(a) \sin(a) - \sin^2(a)\\
+\end{align*}
+$e^{i2a}$ also equals $\cos(2a) + i \sin(2a)$.
+So real parts/imaginary parts are equal, 
+$$\cos(2a) = \cos^2(a) + \sin^2(a)$$
+$$\sin(2a) = 2 \cos(a) \sin(a)$$
+}
+Can prove $\sin(a + b)$ identity similarly.
+
+\subsection*{Complex Numbers}
+for $a, b \in \mathbb{C}$, 
+$$a*b = \text{number with length a*b, angle a + b}$$
+
+
+\subsection*{Trig}
+
+\textbf{Master Identities}: \\
+$\sin(x + y) = \sin(x)\cos(y) + \sin(y)\cos(x)$ \\
+$\cos(x + y) = \cos(x)\cos(y) + \sin(x)\sin(y)$\\
+
+*remember $\sin$ is odd $(\sin(-x) = -\sin(x))$; $\cos$ is even.\\
+
+from these derive the rest.\\
+
+\subsubsection*{Exercsies}
+\begin{enumerate}
+    \item $\tan^2(x) \sin(x) = \tan^2(x)$\\
+\textcolor[gray]{0.5}{$\tan^2(x) (\sin(x) - 1) = 0$\\
+$\tan^2(x) = 0$ or $\sin(x) = 1$
+
+    \item $2\cos^2(x) + \sin(x) -2 = 0$\\
+\textcolor[gray]{0.5}{use $\cos^2(x) = 1 - \sin^2(x)$.\\
+}
+\end{enumerate}
+
+\subsection*{Log}
+$\log(ab) = \log(a) + \log(b)$\\
+$\log(a^m) = m\log(a)$\\
+\textcolor[gray]{0.5}{
+why?
+\begin{flalign*}
+   \log(a^m) &= \log(a...a),& \\
+     & = \log(a) + \log(a) + ... + \log(a),& \\
+     & = m\log(a).&
+\end{flalign*}
+}
+
+\subsection*{Derivatives}
+$\displaystyle \frac{d}{dx} \arcsin(x) = \frac{1}{\sqrt{1+x^2}}$\\
+$\displaystyle \frac{d}{dx} \arctan(x) = \frac{1}{1+x^2}$\\
+\textcolor{red}{proofs?}\\
+
+\noindent $\displaystyle \frac{d}{dx} a^x = a^x ln(a)$\\
+\ \\
+$\displaystyle \int \frac{1}{x} = ln(|x|) + c$ \\
+
+\subsection*{Integration Tricks}
+
+$$\int_{- \infty}^\infty e^{-x^2} dx$$
+is nontrivial.\\
+Idea is to consider $\int_{- \infty}^\infty\int_{- \infty}^\infty e^{-x^2}e^{-y^2} dx dy$ and use polar coordinates to integrate.\\
+(see machine leanring hw1)\\
+
+For \textbf{Integrating a Polynomial over a sphere} see trick in paper by Folland.
+
+\subsection*{Min and Max in $\R$}
+
+$$max(a, b) = \frac{a+b}{2} + \frac{|a-b|}{2}$$\\
+\gray{(a+b)/2 takes you to midpoint. |a-b|/2 adds the remaining half to the larger number}\\
+
+$$min(a, b) = \frac{a+b}{2} - \frac{|a-b|}{2}$$ \\
+\gray{similar idea, except goes down by the half}
+
+
+
+\end{document}

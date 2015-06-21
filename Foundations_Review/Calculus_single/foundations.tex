@@ -1,0 +1,76 @@
+
+\documentclass[12pt]{article}   	
+\usepackage{graphicx}				
+\usepackage{amssymb, amsmath, mathtools}
+
+\title{Foundations for Calculus}
+\date{}	
+
+\begin{document}
+\maketitle
+
+\section{Properties of Numbers}
+\subsection{Division by Zero}
+
+$0 * b = 0$ for all numbers b. \\
+Also, for all numbers $a \neq 0$, $\exists \ a^{-1}$ such that, $ a * a^{-1} = 1$.\\
+
+\noindent Therefore, since $0 * b = 0$, we exclude $0^{-1}$ from the multiplicative inverse above, 
+meaning division by zero can not exist. \\
+
+note: $(x - 1) (x - 2) = 0$, implies $x = 1$ or $x =2$ or BOTH.
+
+
+\subsection{Negative and Positive Numbers}
+0 is neither positive nor negative,\\ 
+since positive is defined as all numbers greater than zero (negative less than). 
+
+\subsection{Absolute Value}
+For any number a, \\
+\[
+|a| =  
+    \begin{dcases*}
+        a, & if $a \geq 0$ \\ 
+        -a, & if $a < 0$
+    \end{dcases*}
+\]
+
+When solving equations, straightforward appraoch is to use definition.\\
+
+Geometric Interpretation of $|a|$ is the distance from the origin of a. \\
+
+\noindent To solve $|a| = 4$, we can use the geometric interpretation: numbers that have a distance of 4 from the origin, a = 4 or a = -4. \\
+
+\noindent More generally, for 
+\begin{itemize}
+    \item $b > 0,  \text{if } |a| = b\text{, then } a = b \text{ or } a = -b.$ 
+    \item $b = 0, a = 0$
+    \item $b < 0, \text{ then no a exists, since distance can't be negative!} $
+\end{itemize}
+
+LOOK MORE INTO ABSOLUTE VALUES.
+
+
+\subsection{Triangle Inequality}
+
+\section*{Limits}
+\centerline{\textbf{$f$ approaches the limit near a}}
+\bigskip
+
+\centerline{for every $\epsilon > 0$, there exists $\delta >0$ such that for all $x$\\}
+\medskip
+\centerline{if $0 < |x -a| < \delta$, then $|f(x) - l| < \epsilon$}
+
+note $x \neq a$ !
+
+Observations: 
+\begin{itemize}
+    \item a function can't approach two different limits
+    \textcolor[gray]{see proof with picture}
+    \item $\lim_{x \rightarrow a} f(x) + g(x) =$ limit of each sumed (same for products)
+\end{itemize}
+
+\textcolor{red}{recall polynomial factor and remainder theorems (long division). see
+mathisfun.com polynomials remainder factor}
+
+\end{document}  
