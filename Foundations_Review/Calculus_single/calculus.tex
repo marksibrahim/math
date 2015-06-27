@@ -3,6 +3,8 @@
 \documentclass[a4paper, 12pt]{article} 
 \usepackage{amsmath, amssymb, xcolor, graphicx, enumitem}
 \usepackage{fullpage} %smaller margins
+\usepackage{hyperref} %hyperlinks
+
 
 %font
 %\usepackage[sc]{mathpazo}
@@ -60,6 +62,8 @@ Mark \\
 \end{center}
 
 Relearn
+
+\tableofcontents
 
 \section{Functions}
 
@@ -183,7 +187,7 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 
 
 %===================Tricks=================================================
-\subsection*{\blue{Tricks}}
+\subsection{\blue{Tricks}}
 
 \blue{
 \bt{Multiplying Taylor Polynomials}
@@ -194,6 +198,7 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 }
 \gray{idea: what are the coefficients of $x^4$}
 
+\subsection{Binomial Theorem and Series}
 \bp{
 \bt{Binomial Series} \\
 For $|x|<1$ and any $\alpha \in \C$,
@@ -324,5 +329,7 @@ Typically written as $\ln(n!) = n\ln(n) - n + O(\ln(n))$.
 
 
 
+\section*{Resources}
+\href{http://cr.yp.to/papers/calculus.pdf}{Calculus succintly and rigorously summarized in 10 pages}
 \end{document}
 
