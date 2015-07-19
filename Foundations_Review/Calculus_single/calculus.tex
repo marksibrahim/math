@@ -149,7 +149,8 @@ Can be equivalently defined for $x \rightarrow 0$ to describe how quickly a func
 
 \noindent \bt{Little-o}: "ultimately smaller than"
 \begin{itemize}
-    \item $f(x) = o(g(x))$ means $\displaystyle \frac{f(x)}{g(x)} \rightarrow 0$ as $g(x) \rightarrow 0$.
+    \item $f(x) = o(g(x))$ means $\displaystyle \frac{f(x)}{g(x)} \rightarrow 0$ as $g(x) \rightarrow 0$.\\
+    \gray{equivalent to $f(x) \leq c * g(x)$, for \it{all} c}
 \end{itemize}
 
 
@@ -197,6 +198,11 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 }
 }
 \gray{idea: what are the coefficients of $x^4$}
+
+\blue{\bt{Limits}}\\
+\blue{
+General trick for limits is to factor, taylor expand, or rewrite and cancel troublesome terms.
+}
 
 \subsection{Binomial Theorem and Series}
 \bp{
@@ -256,6 +262,15 @@ If $\lim_{x \rightarrow a} f(x) = l$ and $\lim_{x \rightarrow a} g(x) = m$, then
 
 If a function is continuous, then you can evaluate a limit by simply plugging in the value $a$.
 
+
+\subsubsection{L'Hopital's Rule}
+\bp{
+If $\lim_{x \rightarrow a} \frac{f(x)}{g(x)}$ is of the form 
+$$\frac{0}{0} \text{ or } \frac{\infty}{\infty}$$,
+the limit is equivalent to $\displaystyle \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$, provided it exists.
+
+*careful: l'hopital's \bt{can't} be used to show a limit doesn't exist.
+}
 \subsection*{\green{Exercises}}
 
 \begin{enumerate}
@@ -264,6 +279,7 @@ If a function is continuous, then you can evaluate a limit by simply plugging in
     use Taylor (about x=0), since we are interested in $\sin(x)$ as x approaches 0
     }
 \end{enumerate}
+
 
 %=================================Differentiation================================
 \section{Differentiation}
@@ -286,7 +302,7 @@ The \bt{curvature} of a funciton is defined as \\
 }
 }
 
-\subsection*{Newton's Method}
+\subsection{Newton's Method}
 A good way to approximate the root of a function that's differentiable.
 
 1. Guess a root $a_0$ \\
@@ -303,7 +319,7 @@ y = a^x \implies ln(y) = x ln(a) \\
 }
 Thus, $dy/dx = y ln(a) = a^x ln(a).$
 
-\subsection*{Optimization}
+\subsection{Optimization}
 
 A \bt{critical point} is an input where $f(x)$ has a derivative of zero or the \textit{derivative} is undefined; critical points include max/min points.
 (max/min $\implies$ critical point)
@@ -311,6 +327,29 @@ A \bt{critical point} is an input where $f(x)$ has a derivative of zero or the \
 Second Derivative Test: $f''(a) > 0 \implies$ min. ($f''(a) =0$ says nothing)
 
 \bt{Global max/min} occur at a critical point or end points!
+
+
+\subsection*{\green{Exercises}}
+\begin{enumerate}
+    \item Find $\frac{dy}{dx}$ from $y^2 - y = sin(2x)$.\\
+    \gray{implicity differentiation--ask what's the derivative of the left hand side and the right hand side with respect to x. Then solve for $\frac{dy}{dx}$.}
+    \item Show $\lim_{x \rightarrow \infty} (1 + a/x)^x = e^a$.
+    \gray{Idea: take ln of both sides to work with variable x in exponent. \\
+    $ y = (1 + \frac{a}{x})^x \implies \lim_{x \rightarrow \infty} 
+    x ln(y) = \lim_{x \rightarrow \infty} x ln(1 + \frac{a}{x})$ \\
+    Using the Taylor expansion of $ln(1 + z)$ (note $|z| < 1$, since $x \rightarrow
+    \infty$)\\
+    $\lim_{x \rightarrow \infty} x(a/x - (a/x)^2 / 2 + (a/x)^3 / 3 + \dots)
+    = \lim_{x \rightarrow \infty} a - 0 = a.$\\
+    So, $\lim_{x \rightarrow \infty} x \ln(y) = a \implies$ solution.
+    }
+    \item Find $\frac{d}{dy}$ of $y = x^{x^{x^{x}}}$.
+    \gray{same idea of implicity differentiation with clever redefinition of
+    function as $y = x^y$ (recursive!).
+    }
+\end{enumerate}
+
+
 %=================================Integration================================
 \section{Integration}
 
