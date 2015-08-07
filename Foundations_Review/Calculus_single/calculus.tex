@@ -139,6 +139,7 @@ It's a decaying cosine-like wave, since the denominator grows faster than cosine
 \graphicspath{{graphs/}}
 \includegraphics[scale=0.5]{bessel.png}
 
+
 \subsubsection*{Orders of Growth and Error Size}
 \bt{Big-O}: "not faster than" 
 \begin{itemize}
@@ -152,6 +153,16 @@ Can be equivalently defined for $x \rightarrow 0$ to describe how quickly a func
     \item $f(x) = o(g(x))$ means $\displaystyle \frac{f(x)}{g(x)} \rightarrow 0$ as $g(x) \rightarrow 0$.\\
     \gray{equivalent to $f(x) \leq c * g(x)$, for \it{all} c}
 \end{itemize}
+
+
+A \bt{Linear Approximation} of a function, aka \bt{first order Taylor} approximation about $x=a$ is 
+$f(x) \approx f(a) + f'(a) (x-a)$. \\
+idea: you approximate the function by its tangent.
+
+You can use linear approximations to estimate values like $\sqrt{250}$ and $\pi^{20}$.\\
+\gray{We know $\sqrt{256} = 16$. So, we can linearly approximate $\sqrt{250}$:\\
+$\sqrt{250} \approx \sqrt{256} + 1/2 (256)^{-1/2}(250-256) = 16 - 6/32 = 15.8$
+}
 
 
 %===================Hyperbolic Trig=================================================
@@ -185,6 +196,7 @@ They are two parabolas approaching approaching asymptotes (facing up/down or rig
 \includegraphics[scale=0.5]{hyperbola.png} \\
 (negative sign on x, instead of y, for up/down)
 }
+
 
 
 %===================Tricks=================================================
@@ -303,12 +315,19 @@ The \bt{curvature} of a funciton is defined as \\
 }
 
 \subsection{Newton's Method}
-A good way to approximate the root of a function that's differentiable.
+A good way to approximate the root of a function that's differentiable. 
 
+\bt{Idea}: improve guess based on tangent line (linear approximation)
+
+Method:
 1. Guess a root $a_0$ \\
-2. Improve: $a_1 = a_0 - \frac{f(x)}{f'(x)}$ \\
+2. Improve by seeing where tangent intersects x-axis: \\
+i.e., $a_1 = a_0 - \frac{f(x)}{f'(x)}$,  \\
 \tab \gray{from $0 = f(a_0) + f'(a_0)(a_1 -a_0)$, line approximation of zero} \\
-3. Repeat
+3. Now consider a linear approximation of $f(x)$ at $a_1$, repeat
+
+\bt{Caveat}: If the sequence is defined, meaning $f'(a_n) \neq 0$, and it converges, then it's guaranteed to converge to a root of $f$. Otherwise, all bets are off!
+
 
 \subsection*{Derivative of $a^x$}
 
