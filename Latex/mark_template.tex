@@ -36,15 +36,18 @@
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
 \renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
 
-
 %colors
 \definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
-\newcommand{\green}[1]{\textcolor{javagreen}{#1}} %command for green
-\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+\definecolor{lightblue}{rgb}{0.149,0.545,0.824} %solarized blue
+\definecolor{sred}{rgb}{0.863, 0.196, 0.184} %solarized red
+
+\newcommand{\blue}[1]{{\leavevmode\color{lightblue}[#1]}} %solarized blue 
+\newcommand{\green}[1]{{\leavevmode\color{javagreen}[#1]}} %command for green
+\newcommand{\red}[1]{{\leavevmode\color{sred}[#1]}} %solarized red
+\newcommand{\gray}[1]{{\leavevmode\color[gray]{0.5}[#1]}} %gray text
 
 %environment
 \newcommand{\tab}{\phantom{ssss}}
-
 
 \title{}
 \date{}
@@ -58,15 +61,6 @@
 thing\\
 Mark Ibrahim \\
 \end{center}
-
-
-\R
-
-Math fun!
-\eq{
-\sum + \prod x^2 + x + 5
-}
-
 
 \end{document}
 
