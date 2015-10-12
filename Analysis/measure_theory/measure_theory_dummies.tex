@@ -1,0 +1,136 @@
+
+
+\documentclass[a4paper, 12pt]{article} 
+\usepackage{amsmath, amssymb, color, graphicx, enumitem}
+\usepackage{fullpage} %smaller margins
+
+%font
+%\usepackage[sc]{mathpazo}
+%\linespread{1.05}         % Palladio needs more leading (space between lines)
+%\usepackage[T1]{fontenc}
+
+%font, libertine
+\usepackage{libertine}
+
+%word spacing
+\usepackage{microtype}
+
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\cb}[1]{\centerline{\fbox{#1}}} %centered box
+\newcommand{\bp}[1]{\fbox{\parbox{0.8\textwidth}{#1}}} %box paragraph
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} %vector norm
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+
+
+%colors
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
+\newcommand{\green}[1]{\textcolor{javagreen}{#1}} %command for green
+\newcommand{\gray}[1]{\textcolor[gray]{0.5}{#1}} %gray text
+
+%environment
+\newcommand{\tab}{\phantom{ssss}}
+
+
+\title{}
+\date{}
+%==tips====
+%part
+    %section, sub, sub
+%\begin{enumerate}[resume] %continues counting
+\begin{document}
+\begin{center}
+\section*{Measure Theory: A Primer for Dummies}
+Mark \\
+\end{center}
+
+\section{$\sigma$-algebras}
+A \bt{$\sigma$-algebra} is a collection of subsets of $\Omega$ with nice properties:
+\begin{itemize}
+    \item $\emptyset \in \sigma$
+    \item if $A \in \sigma$ then $A^c \in \sigma$
+    \item closed under countable unions 
+\end{itemize}
+(an \bt{algebra} requires the above but only under finitely many operations)
+
+
+
+\section{Measurable Space}
+A \bt{measurable space} is a collection of \bt{events}, $\beta$, and a sample space $\Omega$ (outcomes).
+
+
+\gray{A sample space makes it possible to talk about complements of an event.}
+
+\textcolor{red}{still a bit unclear}
+
+
+\section{Measure}
+A \bt{measure} $\mu$ on a set $A \subseteq \Omega$ is a map from $A \rightarrow \R^+$.\\
+\gray{*idea of a measure is to generalize the notion of volume or length}
+
+A \bt{measure space} is a measure space is a measureable space + a measure, written ($\Omega, \beta, \mu$).
+
+A \bt{support} of a measure is all sets with nonzero measure. \\
+a \bt{measure with compact support} means the sets of nonzero measure form a compact set.
+(in $\R$ this is closed and bounded, by Heine-Borel)
+
+\section{Lebesgue}
+
+The \bt{Lebesgue Measure} $\mu_L(A)$ = volume or length of a set A. \\
+e.g., $\mu_L([0,1]) =1$.
+
+
+A huge result from measure theory is \bt{Lebesgue's Dominated Convergence Theorem}
+For $f_n \rightarrow f$, 
+\eq{
+\int f\,dx = \lim \int f_n\,dx
+}
+which doesn't hold for the Riemann integral.
+
+\section{Inequalities}
+For $a_i, b_i \in \C$, 
+
+\bt{Cauchy-Schwarz}
+\eq{
+(\sum a_ib_i)^2 \leq \sum a_i^2 \sum b_i^2
+}
+
+\bt{Holder's Inequality}
+Generalized of Cauchy-Schwarz and used to prove Minkowski's inequality.
+\eq{
+(\sum |a_i + b_i|^p)^{1/p} \leq (\sum |a_i|^p)^{1/p} (\sum |b_i|^q)^{1/q}
+\tag{for $1/q + 1/p = 1$ and $1\leq p$.}
+}
+
+\bt{Minkowski's Inequality}
+\eq{
+(\sum |a_i + b_i|^p)^{1/p} \leq (\sum |a_i|^p)^{1/p} (\sum |b_i|^q)^{1/q}
+}
+
+\section*{Resources}
+Frank Jones, "Lebesgue Integration on Euclidean space"
+
+
+\section*{Analysis Facts}
+
+Cauchy in $\R$ $\iff$ convergent. 
+(in general convergent $\implies$ cauchy, but not the other way!)
+
+\bt{Complete} means every Cauchy sequence converges.
+
+
+\textcolor{red}{continue http://webbuild.knu.ac.kr/~trj/Analysis/Chandalia.pdf}
+\end{document}
+
