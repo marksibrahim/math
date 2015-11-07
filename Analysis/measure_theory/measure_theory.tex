@@ -145,7 +145,8 @@ A function $\mu$ from a semiring $S$ to $[0, \infty]$ is a \bt{measure on $S$} i
     \item $\mu(\emptyset) = 0$ 
     \item countably additive: $\mu(\cup_{n=1}^\infty A_n) = \sum_{n=1}^\infty \mu(A_n)$.
 \end{enumerate}
-* $\cup_{n=1}^\infty A_n$ must be in $S$ and each is disjoint.
+* $\cup_{n=1}^\infty A_n$ must be in $S$ and each is disjoint. \\
+\tab * don't need to check if $S$ is a $\sigma-$algebra!
 
 \noindent $\bullet$ If $A \subseteq B$, ($A, B \in S$), then $\mu(A) \leq \mu(B)$.
 
@@ -282,7 +283,7 @@ a measure $\mu$ on $B$ is called a \bt{regular borel measure} if
 \begin{enumerate}
     \item $\lambda$ is a regular borel measure
     \item Durac measure is a regular borel measures
-    \item Counting measure is not
+    \item Counting measure is not\\
     \gray{for example $[0, 1]$ is compact, but has infinite measure}
     \item any \bt{translation invariant} regular borel measure on $\R$ is 
     $c \lambda$ for some $c \in \R^+$
@@ -310,8 +311,7 @@ If $f, g: X \rightarrow \R$ are \bt{measurable} then $\{x \in X | f(x) > g(x)\}$
 is measurable.
 
 Sum, product, constant multiple, $||$, $\max$, and $f^+$ 
-\footnote{
-$f^+ = f(x)$ if $f(x) \geq 0$ or $0$ otherwise.
+\footnote{$f^+ = f(x)$ if $f(x) \geq 0$ or $0$ otherwise.
 }
 of 
 measurable functions is also measurable!
@@ -358,14 +358,99 @@ then $f_n \rightarrow f$ uniformly on $X$.
 consider $X = \R$, $\mu=\lambda$ and $f_n = \chi_{[n, n+1)}$.\\
 Then, $f_n \rightarrow 0$, but not almost uniformly
 }
+
+
 \subsection{Simple and step functions (section 17)}
 
+nice properties of $\chi_A$
+\begin{itemize}
+    \item $A \subseteq B \iff \chi_A \leq \chi_B$
+    \item $\chi_{A \cap B} = \chi_A \chi_B$ (equivalently $\min\{\chi_A, \chi_B\}$)
+    \item $\chi_{A \cap B} = \chi_A + \chi_B - \chi_{A \cap B} (= \max\{\chi_A, \chi_B\})$
+\end{itemize}
 
-\end{multicols}
+    a measurable function $f: X \rightarrow \R$ is a \bt{simple function} if it takes on finitely many values.\\
+    the standard representation of a simple function is 
+    $$\sum_i^n a_i \chi_{Ai} $$
+     where $a$ is are distinct nonzero outputs and $A$ inputs
+
+     If each $A_i$ has finite measure, then $f$ is called a \bt{step function}.
+
+     The \bt{integral} of a step function $\phi$ is 
+     \eq{\int \phi du = \sum_i^n a_i \mu^*(A_i)}
+
+     *it turns out any representation, even when $A_i$ are not disjoint (or $a_i$ distinct)
+     yield the same integral value
+
+     addition and scalar multiplication can be split over integrals as expected. 
+
+     If $\phi \geq \psi$ a.e., then $\int \phi \geq \int \psi$ \\
+     *holds if $\psi = 0$ or $\geq$ is $=$
+
+     If $\phi_n$ is a \bt{sequence of step functions} with 
+     $\phi_n \downarrow 0$ a.e., then $\int \phi_n \downarrow 0$.\\
+    \gray{(similarly if $\phi_n \uparrow \psi$ a.e.)}
+
+     \noindent *careful, $\uparrow \psi$, but $\downarrow 0$ \\
+     * also $\phi_n \rightarrow \phi$ isn't good enough!
+
+    If $\phi_n \uparrow f$ a.e. and $\psi_n \uparrow f$ a.e., then 
+    $$\int \phi_n = \int \psi_n \text{ as } n \rightarrow \infty$$
+
+    We can show $A$ is \bt{measurable} if we can find 
+    step functions $\phi_n \uparrow \chi_A$. 
+    In this case, $\mu^*(A) = \lim \int \phi_n$
+
+    For any measurable $f \geq 0$, there exists $\phi_n$ (step) such that 
+    $$ 0 \geq \phi_n \uparrow f$$
+
+    \subsubsection{sigma-finite}
+    $X$ is a \bt{$\sigma-$finite measure space} if there exists 
+    $E_i$ such that $\cup_{i=1}^\infty E_i = X$, $\mu(E_i) < \infty$, 
+    and $E_1 \subseteq E_2 \subseteq \dots$.
+
+    Who cares? Well if, $X$ is $\sigma-$finite then 
+    for a \bt{measurable} $f \geq 0$ a.e., then there exists 
+    \bt{step} $\phi_n \uparrow f$ a.e.
+
+\section{Lebesgue Integral}
+
+
+\subsection{Upper Functions (section 21)}
+
+$f: X \rightarrow \R$  is an \bt{upper function} if there exist step $\phi_n$ such that  
+\begin{itemize}
+    \item $\phi_n \uparrow f$ a.e.
+    \item $\lim \int \phi_n du < \infty$
+\end{itemize}
+
+$\phi_n$ is called a \bt{generating sequence} for $f$.
+
+*all step functions are upper functions\\
+
+The integral of $f$ an \bt{upper function} is defined as 
+$$\int f du = \lim \int \phi_n du$$
+* the value is independent of our choice of $\phi_n$ because if any other 
+$\psi_n \uparrow f$ too, then $\int \phi_n = \int \psi_n$ as $n \rightarrow \infty$
+
+
+\bt{sums, scalar multiples, maxes} of upper functions are upper functions.
+
+
+If $f \geq g$ a.e. (both upper) then $\int f \geq g$\\
+(same for g = 0)
+
+If a \bt{sequence of upper} functions $f_n \uparrow f$ a.e. and 
+$\lim \int f_n < \infty$ then $f$ is upper and 
+$\int f = \lim \int f_n$
+(similarly if $f_n \downarrow 0$)
 
 \section{Questions}
 \begin{enumerate}
-    \item If $A \subseteq B$, is $\mu^*(B-A) = \mu^*(B) - \mu^*(A)$?
+    \item
 \end{enumerate}
+
+
+\end{multicols}
 \end{document}
 
