@@ -4,7 +4,7 @@
 \usepackage{fullpage} %smaller margins
 \usepackage{hyperref} % hyperlinks
 \usepackage{multicol}
-\usepackage{mdframed} %boxes
+\usepackage[framemethod=tikz]{mdframed} %boxes 
 
 %columns separate and line
 \setlength{\columnsep}{1.5cm}
@@ -90,6 +90,7 @@ a bounded sequence $a_n$ has a \bt{$\limsup$} defined as
 $\lim_{N \rightarrow \infty} \sup\{a_N, a_{N+1}, \dots \}$
 "largest tail"\\
 $a_n$ converges if $\limsup = \liminf$.
+
 
 A \bt{Hausdorff} topological space (T2 space) is a topological space where 
 any two points can be seperated by open sets.
@@ -317,14 +318,12 @@ of
 measurable functions is also measurable!
 
 \subsubsection{Sequences of Functions and Measurability}
-recall (from analysis): $f_n \rightarrow f$ \bt{uniformly} means $|f_x(x) - f(x)| < \epsilon$ for all $x$ if you go out far enough in the sequence.
-
-\begin{mdframed}
-Key Theorem: If $f_n \rightarrow f$ \bt{uniformly} and $f_n$ are continuous, 
-then $f$ is continous.
-\end{mdframed}
+recall (from analysis): $f_n \rightarrow f$ \bt{uniformly} means $|f_n(x) - f(x)| < \epsilon$ for all $x$ if you go out far enough in the sequence.
 
 
+
+\bt{Key Theorem}: If $f_n \rightarrow f$ \bt{uniformly} and $f_n$ are continuous, 
+    then $f$ is continous.
 
 We can define $\limsup$ ($\liminf$) for any \bt{bounded} sequence.
 
@@ -426,7 +425,8 @@ $f: X \rightarrow \R$  is an \bt{upper function} if there exist step $\phi_n$ su
 
 $\phi_n$ is called a \bt{generating sequence} for $f$.
 
-*all step functions are upper functions\\
+* all step functions are upper functions\\
+* $f$ upper does \bt{not} imply $-f$ is upper
 
 The integral of $f$ an \bt{upper function} is defined as 
 $$\int f du = \lim \int \phi_n du$$
@@ -440,10 +440,108 @@ $\psi_n \uparrow f$ too, then $\int \phi_n = \int \psi_n$ as $n \rightarrow \inf
 If $f \geq g$ a.e. (both upper) then $\int f \geq g$\\
 (same for g = 0)
 
-If a \bt{sequence of upper} functions $f_n \uparrow f$ a.e. and 
-$\lim \int f_n < \infty$ then $f$ is upper and 
-$\int f = \lim \int f_n$
+If a \bt{sequence of upper} functions $f_n \uparrow f$ a.e. 
+and $\lim \int f_n < \infty$ then $f$ is upper 
+and $\int f = \lim \int f_n$
 (similarly if $f_n \downarrow 0$)
+
+\subsection{Integrable Functions (section 22)}
+
+
+a function $f$ is \bt{integrable} if $f = u - v$, both upper functions.
+
+We define $\int f$ as $\int u - \int v$\\
+* well-defined no matter the representation of $f$
+
+\subsubsection{How does integrable relate to other properties?}
+\begin{itemize}
+    \item \bt{upper} functions are integrable
+    \item \bt{step} functions are integrable (b/c step are upper)
+    \item integrable implies \bt{measurable}
+        \begin{itemize}
+            \item measurable does \bt{not} imply integrable\\
+            \gray{e.g., constant functions are measurable, but only integrable
+            when $\mu(X) < \infty$.}
+        \end{itemize}
+\end{itemize}
+
+Canoncial way to write integrable 
+$$f = f^+ - f^-$$
+\gray{b/c: both $f^+$ and $f^-$ are upper if $f$ is integrable}
+
+\subsubsection{When is f integrable?}
+
+If integrable $f$ = $g$ a.e., then $g$ is integrable (and integrals are equal).
+
+sums, scalar multiples, max, | | of integrable are integrable.
+
+* $|f|$ integrable does \bt{not} imply $f$ is integrable.
+
+If $f$ is measurable and $h \leq f \leq g$ a.e. for $h, g$ integrable, then 
+$f$ is \bt{integrable}.\\
+\gray{``measurable sandwiched between integrable is integrable"}
+
+nice properties of $f$ integrable:
+\begin{itemize}
+    \item if $f \geq 0$ a.e. then $f$ is \bt{upper}
+    \item $A = \{x | |f(x)| \geq \epsilon\}$ has \bt{finite measure} ($A$ is also measurable) \\
+               \gray{b/c: $|f|$ is measurable so $|f|^{-1}(\epsilon, \infty)$}
+\end{itemize}
+
+For $f, g$ integrable, 
+
+    \begin{enumerate}
+        \item $\int |f| = 0 \iff f = 0$ a.e.
+        \item If $f \geq g$ a.e., then $\int f \geq \int g$
+        \item $\int |f| \geq \abs{\int f}$
+    \end{enumerate}
+
+If $E$ is \bt{measurable}, $f$ is \bt{integrable}, then 
+$$\int_X f = \int_E f + \int_{X-E} f$$
+
+\subsubsection{Big: Levi, Fatou, and Lebesgue Dominated Convergence}
+
+\centerline{\bt{Levi's Theorem}}
+For $f_n$ a sequence of \bt{integrable} functions such that 
+$f_n \leq f_{n+1}$ a.e. for all $n$ and $\lim \int f_n < \infty$, then 
+there exists $f$ integrable such that $f_n \uparrow f$ a.e.\\
+(and $\lim \int f_n = \int f$)\\
+\gray{``an integrable function waits at the top of an increasing sequence''}
+
+* $f$ is defined a.e. on $X$ \\
+
+nice consequence: 
+If integrable $f_n > 0$ a.e., with $\sum_{n=1}^\infty \int f_n < \infty$, then 
+$\sum f_n$ defined an integrable function and 
+$$\int \sum_{n=1}^\infty f_n = \sum_{n=1}^\infty \int f_n$$
+
+*not true in Riemann land!  \\
+* trick: when $f_1 \leq f_2 \leq \dots$ can make a positive sequence by considering
+$f_1 - f_1, f_2 - f_1, \dots$
+
+
+
+\centerline{\bt{Fatou's Lemma}}
+For integrable $f_n \geq 0$ a.e. for all n and 
+$\lim \inf \int f_n < \infty$, then 
+$$\int \lim \int f_n \leq \lim \inf \int f_n$$
+where $\lim \inf f_n$ defines an integrable function a.e. on $X$. \\
+\gray{``$\lim \inf$ of integrable is integrable and less than integral of parts"}
+
+\centerline{\bt{Lebesgue Dominated Convergence}}
+\begin{enumerate}
+    \item \bt{measurable} $f_n \rightarrow f$ a.e.
+    \item $|f_n| \leq g$ a.e. for $g$ \bt{integrable}
+\end{enumerate}
+then 
+$$\int f = \lim_{n \rightarrow \infty} \int f_n$$
+where $f_n$ and $f$ are integrable (for all $n$)\\
+\gray{``interchange $\lim$ and $\int$ for measurable functions bounded by an integrable function"}
+
+
+
+
+
 
 \section{Questions}
 \begin{enumerate}
@@ -453,4 +551,5 @@ $\int f = \lim \int f_n$
 
 \end{multicols}
 \end{document}
+
 
