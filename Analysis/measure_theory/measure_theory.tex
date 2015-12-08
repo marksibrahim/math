@@ -215,9 +215,15 @@ By convention $\mu^*(A) = \infty$ if no cover exits in $S$.
 On semiring $S$, $\mu* = \mu$.
 
 
-For $E_n$ measurable, if $E_n \uparrow E$, then $\mu^*(E_n) \uparrow \mu^*(E)$
+For $E_n$ measurable, if $E_n \uparrow E$, then $\mu^*(E_n) \uparrow \mu^*(E)$.
+* $E_n \uparrow E$ means: \\
+\tab \tab 1) $E_1 \subseteq E_2 \subseteq \dots$ \\
+\tab \tab 2) $\cup_{n =1}^\infty E_n = E$ \\
+
+* note $E$ must be measurable since it's the union of measurable sets \\
+
 For $B_n$ measurable with $\mu^*(B_n) < \infty$, if $B_n \downarrow B$, then
-$\mu^*(B_i) \downarrow \mu^*(B)$. \\k
+$\mu^*(B_i) \downarrow \mu^*(B)$. \\
 
 a measure space if \bt{finite} if $\mu^*(X) < \infty$.
 
@@ -273,6 +279,7 @@ Borel sets contain:
 
 * we can write any open set in $\R$ as disjoint countable union of open intervals!
 \subsubsection{Regular Borel Measure}
+\label{Regular Borel Measure}
 For $X$, a Hausdorff topological space and $B$ the borel sets in $X$, 
 a measure $\mu$ on $B$ is called a \bt{regular borel measure} if 
 \begin{enumerate}
@@ -283,7 +290,7 @@ a measure $\mu$ on $B$ is called a \bt{regular borel measure} if
 
 \begin{enumerate}
     \item $\lambda$ is a regular borel measure
-    \item Durac measure is a regular borel measures
+    \item Dirac measure is a regular borel measures
     \item Counting measure is not\\
     \gray{for example $[0, 1]$ is compact, but has infinite measure}
     \item any \bt{translation invariant} regular borel measure on $\R$ is 
@@ -400,8 +407,8 @@ nice properties of $\chi_A$
     step functions $\phi_n \uparrow \chi_A$. 
     In this case, $\mu^*(A) = \lim \int \phi_n$
 
-    For any measurable $f \geq 0$, there exists $\phi_n$ (step) such that 
-    $$ 0 \geq \phi_n \uparrow f$$
+    For any measurable $f \geq 0$, there exists \bt{simple} $\psi_n$  such that 
+    $$ 0 \geq \psi_n \uparrow f$$
 
     \subsubsection{sigma-finite}
     $X$ is a \bt{$\sigma-$finite measure space} if there exists 
@@ -473,7 +480,7 @@ $$f = f^+ - f^-$$
 
 If integrable $f$ = $g$ a.e., then $g$ is integrable (and integrals are equal).
 
-sums, scalar multiples, max, | | of integrable are integrable.
+sums, scalar multiples, max, $| |$ of integrable are integrable.
 
 * $|f|$ integrable does \bt{not} imply $f$ is integrable.
 
@@ -524,7 +531,7 @@ $f_1 - f_1, f_2 - f_1, \dots$
 \centerline{\bt{Fatou's Lemma}}
 For integrable $f_n \geq 0$ a.e. for all n and 
 $\lim \inf \int f_n < \infty$, then 
-$$\int \lim \int f_n \leq \lim \inf \int f_n$$
+$$\int \lim \inf f_n \leq \lim \inf \int f_n$$
 where $\lim \inf f_n$ defines an integrable function a.e. on $X$. \\
 \gray{``$\lim \inf$ of integrable is integrable and less than integral of parts"}
 
@@ -542,11 +549,177 @@ where $f_n$ and $f$ are integrable (for all $n$)\\
 
 
 
+\subsection{Riemann Integrals (section 23)}
 
+a partitions $P$ is just a collection of points inside an interval. \\
+A second partition $Q$ \bt{refines} $P$ if $P \subseteq Q$.
+
+The \bt{Upper} Riemann sum is 
+\eq{U(f, P) = \sum_{i}^n M_i (x_i - x_{i-1})}
+
+where $M_i$ is the sup of $f$ on $[x_{i-1}, x_i]$.\\
+\gray{(similarly lower sum is defined with $m_i$, the inf on the interval)}
+
+If $Q$ refines $P$, then $U(f, Q) \leq U(f, P)$. \\
+\gray{($L(f, Q) \geq L(f, P)$).}
+
+$f$ is \bt{Riemann integrable} if 
+\eq{\lim_{||P_i|| \rightarrow 0} U(f, P_i) 
+& = \lim_{||P_i|| \rightarrow 0} L(f, P_i)  \\
+& = \int f(x) dx
+}
+where $||P_i||$ the length of the largest subinterval.
+
+
+* The Riemann integral of $f$ can also be defined when $\sup L = \inf S$; this value 
+is said to be the integral of $f$.
+
+* \bt{Riemann's Critereon} $f$ is integrable if if $L$ and $U$ can be made arbitrarily close
+by selecting a sufficiently fine partition.
+
+Every \bt{Riemann} integrable function is \bt{Lebesgue} integrable.
+
+A \bt{bounded function} $f: [a, b] \rightarrow \R$ is \bt{Riemann} integrable 
+$$\iff$$
+$f$ is \bt{continuous} a.e.
+
+\subsection{Product Measures and Iterated Integrals (section 26---only a sketch)}
+
+If $S$ and $T$ are semirings, then their cross-product: $S \times T$ is also a semiring.\\
+(similarly, for measures $\mu$ and $v$)
+
+a function $f: X \times Y$ is $\mu \times v$ integrable by computing cross-sections: 
+\eq{
+\int_{X \times Y} f d (\mu \times v) = \int_X \int_Y f d \mu d v
+}
+"Fubini" says the order of $\int_X \int_Y$ doesn't matter!
+
+\bt{Tonelli's Theorem} f is $\mu \times v$-measurable and $\int_X \int_Y |f| d v d \mu$ exists (or other order) then $\int \int f$ exists.
+
+\section{Function Spaces (Chapter 5)}
+
+\subsection{norms on vector spaces (section 27)}
+A real valued function $||\ ||$ on a vector space $V$ is a \bt{norm} if \\
+for all v in V, 
+\begin{enumerate}
+    \item $||v|| > 0$ and $||v|| = 0 \iff v =0$
+    \item $||\alpha v|| = |\alpha| ||v||,$ for all $\alpha \in \R$
+    \item $||v + w || \leq ||v|| + ||w||$ (triangle)
+\end{enumerate}
+
+
+* a norm space $\implies$ a metric space (but not the converse)
+
+Can show $\abs{||v|| - ||w|| \leq ||v - w||}$.
+\gray{by triangle}
+
+Examples of norms in different spaces: 
+
+\begin{itemize}
+    \item "Euclidean norm": $\sqrt{v_1^2 + v_2^2 + \dots}$ 
+    \item "sup norm": $||f||_{sup} = sup |f(x)|$ over all x. \\
+        (only valid in space of bounded, real-valued functions) 
+    \item "$L^p$" norm: $||f||_p = \left(\int |f|^p \right )^{1/p}$ \\
+        only valid in $L^P(X)$ space = $\{ f | f$ is measurable and $|f|^p$ is integrable$\}$
+        * note on $\R^n$, the $L^p$ norm is: 
+        $||(a_1, \dots, a_n)||_p = (|a_1|^p + \dots + |a_n|^p)^{1/p}$
+\end{itemize}
+
+A \bt{bounded normed} space is one where $||v|| \leq M$ for some constant $M$.
+
+A normed space (a vector space with a norm) is a \bt{Banach} space if every Cauchy sequence
+converges (aka \bt{complete}).
+
+Two norms are equivalent if there are $K, M > 0$: 
+$K ||x||_1 \leq ||x||_2 \leq M ||x||_1$ for all x.
+
+*In a finite dimensional vector space, all norms are equivalent
+
+\subsection{Linear Operators (section 28)}
+
+A \bt{Linear Operator} (or transformation) is a map T between two 
+vector spaces V and W such that: 
+$$T(aV + bW) = aT(V) + bT(W)$$
+
+The \bt{Operator norm} of T, $||T||$ is 
+$$\sup\{ ||T(v) ||: ||v|| = 1\}$$
+
+we say $T$ is bounded if $||T||$ is finite.
+
+What's is equivalent to $T$ being \bt{bounded}?
+\begin{enumerate}
+    \item $||T(v)|| \leq M ||v||$ for all $v$ ($M \geq 0$)
+    \item T is continuous at zero
+    \item T is continous
+\end{enumerate}
+
+\subsection{Lp Spaces (section 31)}
+
+$L^p$ is the collection functions $f$ such that \\
+1) $f$ is measurable\\
+2) $|f|^p$ is integrable
+
+This collection, $L^p$ forms a space. \\
+We can define a norm on $L^p$ $|| ||_P$ by 
+$$|| f||_p = (\int |f|^p)^{1/p}$$
+
+Proof of triangle inequality is called \bt{Minkowski's Inequality}
+only holds for finite $p > 1$, 
+$$||f + g ||_p \leq ||f||_p + ||g||_p$$
+for $f, g \in L^p$.
+
+\bt{Holder's Inequality} says if $1/p + 1/q = 1$ (called "conjugate exponents")
+and $f \in L^p, g \in L^q$ then 
+$$\int |fg| \leq ||f||_p ||g||_q$$
+
+\bt{Risz-Fischer} $L^p$ is complete (every Cauchy seq converges) for all $p \geq 1$ (with respect to $L^p-$norm)
+
+\subsubsection{Essentially Bounded Functions}
+
+If $|fg| \leq h$, some integrable function, then $fg \in L^1$.
+
+a function $f$ is \bt{essentially bounded} if 
+$$| f(x) | \leq M$$ 
+for almost all $x$.
+
+The \bt{essential supremum}, denoed by $||f||_\infty$ is 
+$$||f||_\infty = \inf{M |\ |f(x)| \leq M \text{for almost all x}}$$
+
+A function $f: \R \rightarrow \R$ has \bt{compact support} if 
+the closure of $f$ ($\{x | f(x) \neq 0\}$) is compact.
+
+Any \bt{continuous} function with \bt{compact support} is in $L^p(\R)$ 
+($p \geq 1$)
+
+$$1/x^a \in L^p \iff ap < 1$$
+
+In a finite measure space, $L^q \subseteq L^p$ if $1 \leq p \leq q$.
+
+\subsubsection{Dense Functions in Lp}
+
+* The collection of step functions is \bt{dense} in $L^p$ (for $1 < p < \infty$).
+
+For $\mu$ a \bt{regular Borel measure} on a Hausdorff locally compact topological space $X$, 
+the collection of continuous functions with compact support is \bt{dense} in $L^p$ 
+(for $1 \leq p < \infty$).\\
+
+* Hausdorff space is one where two points can be separated by open sets. \\
+* remember a regular borel measure requires additional requirements on compact and borel sets 
+see: \ref{Regular Borel Measure}. \\
+
+notation: $C_c(X)$ is the set of continuous real-valued functions on $X$ with 
+compact support
+
+\section{Hilbert Spaces (Chapter 6)}
+
+\subsection{Inner Product Spaces}
 \section{Questions}
 \begin{enumerate}
-    \item
+    \item $f: X \rightarrow \R$ is Lebesgue integrable $\iff$ $|f|$ is integrable. Is this true? (can't pin in the book, no proof in my notes) \\
+    * we know $|f|$ doesn't imply $f$ is integrable, right?
+
 \end{enumerate}
+
 
 
 \end{multicols}
