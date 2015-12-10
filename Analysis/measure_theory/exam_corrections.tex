@@ -1,0 +1,174 @@
+
+
+\documentclass[a4paper, 12pt]{article} 
+\usepackage{amsmath, amssymb, color, graphicx, enumitem}
+\usepackage{fullpage} %smaller margins
+\usepackage{hyperref} % hyperlinks
+\usepackage{mdframed} %for boxes
+
+%font
+%\usepackage[sc]{mathpazo}
+%\linespread{1.05}         % Palladio needs more leading (space between lines)
+%\usepackage[T1]{fontenc}
+
+%font, libertine
+\usepackage{libertine}
+
+%word spacing
+\usepackage{microtype}
+
+%all equations get full space
+\everymath{\displaystyle}
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} %vector norm
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+
+%piecewise function
+
+%\begin{displaymath}
+%   f(x) = \left\{
+%     \begin{array}{lr}
+%       1 & : x \in \mathbb{Q}\\
+%       0 & : x \notin \mathbb{Q}
+%     \end{array}
+%   \right.
+%\end{displaymath} 
+
+%colors
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
+\definecolor{lightblue}{rgb}{0.149,0.545,0.824} %solarized blue
+\definecolor{sred}{rgb}{0.863, 0.196, 0.184} %solarized red
+
+\newcommand{\blue}[1]{{\leavevmode\color{lightblue}{#1}}} %solarized blue 
+\newcommand{\green}[1]{{\leavevmode\color{javagreen}{#1}}} %command for green
+\newcommand{\red}[1]{{\leavevmode\color{sred}{#1}}} %solarized red
+\newcommand{\gray}[1]{{\leavevmode\color[gray]{0.5}{#1}}} %gray text
+
+%environment
+\newcommand{\tab}{\phantom{ssss}}
+
+\title{}
+\date{}
+%==tips====
+%part
+    %section, sub, sub
+%\begin{enumerate}[resume] %continues counting
+\begin{document}
+\begin{center}
+\section*{Exam Corrections}
+Measure Theory\\
+Mark Ibrahim \\
+\end{center}
+
+\begin{enumerate}
+    \item[3.] 
+    If $\mu$ is a function from $S$ to $[0, \infty]$ such that $\mu(\emptyset) = 0$ and 
+    $\mu$ is countably additive, meaning 
+     if  $\cup_{i=1}^\infty A_i$ is in $S$ with all $A_i$ pairwise disjoint, then 
+     $\sum_{i=1}^\infty \mu(A_i) = \mu(\cup_{i=1}^\infty A_i)$.
+
+    \item[ 11. b)] 
+    Since $\emptyset$ is finite, $\mu(\emptyset) = 0$ as needed.
+    Next consider any pairwise disjoint sets $A_1, A_2, \dots$ in $S$ such that 
+    $\cup_{i=1}^\infty A_i$ is in $S$. 
+    Then $\cup_{i=1}^\infty A_i$ must be finite or $\cap_{i=1}^\infty A_i^c$ must be finite.
+    If $\cup_{i=1}^\infty A_i$ is finite, then 
+    $$\mu(\cup_{i=1}^\infty A_i) = 0 = \sum_{i=1}^\infty \mu(A_i), $$
+    because each $A_i$ must be finite if the union of all $A_i$ is finite.
+    If $\cap_{i=1}^\infty A_i^c$ is finite, then at least one 
+    $A_i$ must be infinite, because $\cap_{i=1}^\infty A_i^c$ is finite
+    (otherwise $\cup_{n=1}^\infty A_i$ would be at most countably infinite,
+    implying $\cap_{i=1}^\infty A_i^c$ is infinite, a contradiction).
+    If some $A_i$ is infinite, then $A_i^c$ is finite, because $A_i$ is in 
+    $S$, implying all other $A_j \neq A_i$ are finite. Thus, 
+    $\sum_{i=1}^\infty \mu(A_i) = 1 = \mu(\cup_{i=1}^\infty A_i)$.
+
+    \item[11. c)]
+    If $B$ is countable or finite, then $B = \cup_{i=1}^\infty \{a_i\}$, where
+    $a_i$ are single points or empty sets.
+    Thus, $0 \leq \mu^*(B) \leq \sum_{i=1}^\infty \mu(a_i) = 0$, because
+    $B \subseteq \cup_{i=1}^\infty \{a_i\}$, implying $\mu^*(B) = 0$.
+    Otherwise, $B$ is uncountable, meaning $B$ can't be covered by a union of 
+    countable sets in $\R$. Thus, $\mu^*(B) > 0$. 
+    Furthermore, $B \subseteq \R$, meaning $\mu^*(B) \leq \mu(\R) + \mu(\emptyset) + \dots = 1$.    Since $\mu-$values are in $\N \cup 0$, 
+        \begin{displaymath}
+           \mu^*(B) = \left\{
+             \begin{array}{ll}
+               0 &  \text{ if B is countable or finite} \\
+               1 &  \text{ if B is uncountable}
+             \end{array}
+           \right.
+        \end{displaymath} 
+        are the possible measures of an arbitrary subset $B$.
+
+    \item[14.]
+    The set of points in infinitely sets $E_n$, 
+    $E = \lim_{n \rightarrow \infty} E_n.$
+    Each $\lambda(E_n) > 0$ implying $\sum_{n=k}^\infty E_n = 0$ 
+    as $k \rightarrow \infty$, because $\sum_{n=1}^\infty \lambda(E_n) < \infty$.
+    For any $k \in \N$, $E \subseteq \cup_{n=k}^\infty E_n$. 
+    Thus as $k \rightarrow \infty$, 
+    $$\lambda(E) \leq \sum_{n=k}^\infty \lambda(E_n) = 0.$$
+    Since $\lambda(E) \geq 0$, $\lambda(E) = 0$ as desired.
+
+    \item[15.]
+    Let $B = \{x | f(x) \geq \epsilon\}$. Note $A \subseteq B$.
+    Furthermore, $f(x) = |f(x)|$ except on a set of measure 0, call it $C$, because 
+    $f(x) \geq 0$ a.e..
+    Therefore, $B \subseteq \{x |\ |f(x)| \geq \epsilon\} \cup C$.
+    Since $f$ is an integrable function, 
+    by Theorem 22.5, 
+    $\{x |\ |f(x)| \geq \epsilon\}$ has finite 
+    measure.
+    Thus, 
+    \eq{ \mu(A) &\leq \mu(B) \\
+    & \leq \mu( \{x |\ |f(x)| \geq \epsilon\} \cup C) \\
+    & \leq \mu( \{x |\ |f(x)| \geq \epsilon\} + \mu(C) \\
+    & = \mu(\{x | |f(x) \geq \epsilon\}) \\
+    & < \infty.
+    }
+
+    \item[16.]
+    Let $f_n(x) = n (e^{x/n} - 1).$
+    Since $e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots$, 
+    \eq{\lim_{n \rightarrow \infty} f_n(x) 
+        & = \lim_{n \rightarrow \infty} n ( \frac{x}{n} + \frac{x^2}{n^2 2!} 
+        + \frac{x^3}{n^33!} + \dots) \\
+        & = \lim_{n \rightarrow \infty} x + \frac{x^2}{n 2!} + \frac{x^3}{n^2 3!} + \dots \\
+    }
+    Define $g_m(x) = \frac{x^m}{n^{m-1} m!}$. Then on $[0, 1]$ each $|g_m(x)|$ is bounded 
+    by $\frac{1}{m!}$. Since $\sum_{m=1}^\infty \frac{1}{m!}$ converges (to $e$), 
+    by the Weierstrass M-test, $\sum_{m=1}^\infty g_m(x)$ converges uniformly.
+    Thus, 
+    \eq{\lim_{n \rightarrow \infty} x + \frac{x^2}{n 2!} + \frac{x^3}{n^2 3!} + \dots 
+    &= \lim_{n \rightarrow \infty} x + \lim_{n \rightarrow \infty}\frac{x^2}{n 2!} + \lim_{n \rightarrow \infty} \frac{x^3}{n^2 3!} + \dots \\
+    & = x.
+    }
+    Furthermore, on $[0, 1]$, for all $n \in \N$, 
+    \eq{|f_n(x)| &= \abs{x + \frac{x^2}{n 2!} + \frac{x^3}{n^2 3!} + \dots}\\
+    & = x + \frac{x^2}{n 2!} + \frac{x^3}{n^2 3!} + \dots \\
+    & \leq x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots 
+    \tag{since $n \in \N$}\\
+    & \leq 1 + x + \frac{x^2}{2!} + \dots = e^x.
+    }
+    Note each $f_n(x)$ is measurable on $[0, 1]$ because $f_n(x)$ is continuous.
+    Since $e^x$ is Riemann integrable, by Lebesgue Dominated Convergence, 
+    $$\lim_{n \rightarrow \infty} \int_0^1 f_n(x)\ dx = \int_0^1 x\ dx = \frac{1}{2}.$$
+    
+
+\end{enumerate}
+\end{document}
+

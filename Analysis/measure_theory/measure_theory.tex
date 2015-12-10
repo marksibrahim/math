@@ -704,25 +704,211 @@ the collection of continuous functions with compact support is \bt{dense} in $L^
 (for $1 \leq p < \infty$).\\
 
 * Hausdorff space is one where two points can be separated by open sets. \\
+* locally compact means every point lives in a compact neighborhood.\\
 * remember a regular borel measure requires additional requirements on compact and borel sets 
 see: \ref{Regular Borel Measure}. \\
 
 notation: $C_c(X)$ is the set of continuous real-valued functions on $X$ with 
 compact support
 
+
+
 \section{Hilbert Spaces (Chapter 6)}
 
-\subsection{Inner Product Spaces}
+\subsection{Inner Product Spaces (section 32)}
+an \bt{inner product} on a vector space $V$ is a function from  $V \times  V$ to $\R$ such that
+\begin{itemize}
+    \item "linear" $(ax + by, z) = a(x, z) + b(y, z)$ (for $x,y, \in V$ and $a, b \in \R$)
+
+    \item "symmetric" $(x, y) = (y, x)$
+    \item "positive definite" $(x, x) \geq 0$ and $(x, x) = 0 \iff x = 0$.
+\end{itemize}
+
+In an \bt{inner product space} (space with an inner product), the \bt{norm} 
+(induced by the inner product) of a vector $v \in V$ is 
+$$|| v || = \sqrt{(v, v)}$$
+
+Two vectors $x, y$ are \bt{orthogonal} ($x \bot y$) if $(x, y) = 0$.
+In a real vector space, we also have a notion of angles between vectors: 
+$$\cos(\theta) = \frac{(x, y)}{|| x || || y ||}$$
+
+\subsubsection{Useful Inequalities}
+
+\begin{itemize}
+    \item Cauchy-Schwarz: $|(x, y)| \leq || x || || y ||$
+    \item Parallelogram Law: $|| x + y ||^2 + || x - y||^2 = 2 || x ||^2 + 2 || y ||^2$
+    \begin{itemize}
+        \item a norm $|| * ||$ is induced by an inner product $\iff$ Parallelogram holds
+        \item in a real vector space we then have: 
+        $(x, y) = 1/4 || x + y ||^2 - 1/4 || x - y ||^2$
+    \end{itemize}
+    \item Bessel's Inequality: If $\{x_i\}$ is a collection of orthonormal vectors in an 
+    inner product space, $\sum_i |(x, x_i)|^2 \leq || x ||^2$.
+    \item Pythagorean Theorem: for $x_1, x_2, \dots, x_n$ pairwise orthogonal, 
+    $||x_1 + \dots + x_n||^2 = ||x_1||^2 + \dots ||x_n||^2$
+\end{itemize}
+
+
+\subsection{Hilbert Spaces (section 33)}
+
+A \bt{Hilbert space} is a complete \bt{inner product space}.  \\
+* the norm is induced by the inner product (i.e. $|| x || = \sqrt{(x, x)}$)
+
+Examples: 
+\begin{itemize}
+    \item $l^2$ under the inner product: $(x, y) = $ "dot product"
+    \item $L^2(u)$ is another example
+\end{itemize}
+
+\subsubsection{Orthogonal Complement and Spans}
+The \bt{orthogonal complement} of a subset $A$  of an inner product space $X$ is 
+$$A^\bot = \{x \in X: x \bot y \text{ for all } y \in A\}$$
+\gray{"set of vector orthogonal to all vectors in A"}
+
+When $X$ is a \bt{Hilbert space} and $A$ is a closed subspace, 
+then $A$ and $A^\bot$ span the entire Hilbert space.
+
+In a Hilbert space, a subspace of $M$ is \bt{dense} $\iff$
+only zero vector is orthogonal to $M$.
+
+\subsection{Orthonormal Bases}
+
+In a Hilbert space, for a family of orthonormal vectors $\{e_i\}$ 
+the following are equivalent
+\begin{itemize}
+    \item $0$ is not in $\{e_i\}$ and $\{e_i\}$ spans a dense subset of $H$
+    \item If $x \bot e_i$ for each $i$, then $x = 0$
+    \item Parseval's Identity: for each vector $x$, $|| x ||^2 = \sum_i |(x, e_i)|^2$
+    \item for each vector, $(x, e_i) \neq 0$ at most countably many times and 
+    $x = \sum_i (x, e_i)e_i$ converges
+\end{itemize}
+
+For an \bt{orthonormal basis} $\{e_i\}$ in a Hilbert space, 
+the family of scalars $\{(x, e_i)\}$ are the \bt{Fourier coefficients}.
+
+*Fourier coefficients are always with respect to a basis
+
+In an infinite dimensional Hilbert space $H$,  \\
+\centerline{H is separable} \\
+\centerline{$\iff$}  \\
+\centerline{it has a countable orthonormal basis}
+
+*in this case, every orthonormal basis is countable \\
+\gray{"if one then all"}
+
+
+Every Hilbert space H is \bt{linearly isometric} (a linear, norm preserving map exists)
+to a Hilbert space of the form $l_2(\Q)$.
+
+Specifically, $L: H \rightarrow l_2(I)$ defined by $L(x) = \{(x, e_i)\}_i$ is such a map.
+
+
+An infinite dimensional Hilbert space is \bt{separable} $\iff$ it's \bt{linearly isometric} to $l^2$.
+
+\subsection{Fourier Analysis}
+
+\subsubsection{Best Approximation Theorem}
+
+Let $e_1, \dots$ be an orthonormal set 
+\gray{(not necessarily a basis)} \\
+Define $H_N = span \{e_1, \dots$. 
+
+The map $\pi_N: H \rightarrow H_N$ defined by 
+$$\pi_N(v) = \sum_{i} (v, e_i) e_i$$
+is the \bt{orthogonal projection of v into $H_N$}.
+
+"Best Approximation Theorem": If $v \in H, w \in H_N$, then 
+$$|| v - w || \geq || v - \pi_N(v) ||$$
+\gray{"$\phi_N(v)$ is the unique closest point to v in $H_N$"}
+
+If $H_1 \subseteq H_2 \subseteq \dots H$ (finite dimensional) and $v \in H$, 
+then 
+$$|| v - \pi_1(v) || \geq || v - \pi_2(v) || \geq \dots$$
+and 
+$\pi_{N+1}(v) = \pi_N(v) + (v, e_{N+1})e_{N+1}$.
+
+
+\subsubsection{Fourier coefficients}
+
+Let $e_1, \dots$ be an orthonormal set in a separable Hilbert space $H$.
+
+Define the ith Fourier coefficient as 
+$$\hat{e}_i (v) = (v, e_i)$$
+
+\gray{* we can think about Best approx, Bessel, 
+and Parseval's in terms of $\hat{e}_i$}
+
+
+If $e_1, \dots$ is an orthonormal basis then for any $v$ there exists 
+$\alpha_1, \dots, \alpha_N$ in $\R$ such that 
+$$|| v - \sum_{i=1}^N \alpha_i e_i || < \epsilon.$$
+
+Using the above with Best approximation Theorem we get 
+$$\lim_{N \rightarrow \infty} \phi_n(v) = v$$
+
+(implying $\lim_{N \rightarrow \infty} || \pi_N(v) ||^2 = || v ||^2$)
+\gray{*in H-norm}
+
+\subsubsection{Riesz-Fischer}
+Riesz-Fischer: Let $e_1, \dots$ be an orthonormal basis of $H$, then 
+the map 
+$$v \rightarrow \{\hat{e}_i (v)\}_i^\infty$$
+is an \bt{isometric isomorphism} of $H$ with $l^2$.
+
+*isometric: is norm preserving
+
+* up to isometric isomorphism, $l^2$ is the only separable countably finite
+dimensional Hilbert space.
+
+
+\subsubsection{Fourier on L2}
+
+For $H = L^2(I)$ (I is an interval $[a, b]$), 
+$$\int_I | f |^2 = \sum_{i=1}^\infty \abs{\int f e_i} $$
+for all $f \in L^2(I)$.\\
+\gray{* note: $\int f e_i = (f, e_i)$ in $L^2$}
+
+Every $f \in L^2(I)$ has a Fourier series that converges to $f$ 
+(not pointwise!)
+
+\bt{Classical Fourier} basis for $L^2$ are for $n = 1, 2, \dots$: \\
+On $[0, 1]$: $1, \sqrt{2}\sin(2 \pi nx), \sqrt{2}\cos(2\pi nx)$ \\
+On $[0, 2\pi]$ or $[-\pi, \pi]$: $\frac{1}{\sqrt{2\pi}}$, 
+$\frac{\sin(xn)}{\sqrt{\pi}}$, $\frac{\cos(nx)}{\sqrt{\pi}}$
+
+For pointwise convergence, we restrict our attention to nicer functions:\\
+If $f, f' \in C([0, 1])$ and $f(0) = f(1)$, then the classical Fourier series
+\bt{converges absolutely and uniformly} to $f$.
+
+* $C^1$ functions are dense in $L^2([0, 1])$
+
+
+Jordan's Theorem for $f$ \bt{sectionally continuous} on $[0, 1]$, then 
+Fourier series converges to 
+$$\frac{1}{2}f(x_0^+) + \frac{1}{2} f(x_0^-)$$
+at $x_0$ if left/right hand derivatives exist. \\
+Specifically, Fourier series converges to $f(x_0)$ if $f$ is continuous 
+at $x_0$.
+
+
+Riemann-Lebesgue Lemma: If $f(x) \in L^p([a, b])$ then 
+$$\lim_{m \rightarrow \infty} \int_a^b f(t) \sin(mt) = 0$$
+(same for $\cos$).
+
+*this implies for any $f \in L^p$, the Fourier coefficients $\rightarrow 0$, 
+as $m \rightarrow \infty$.
+
+
+
 \section{Questions}
 \begin{enumerate}
-    \item $f: X \rightarrow \R$ is Lebesgue integrable $\iff$ $|f|$ is integrable. Is this true? (can't pin in the book, no proof in my notes) \\
-    * we know $|f|$ doesn't imply $f$ is integrable, right?
-
+    \item
 \end{enumerate}
 
 
 
 \end{multicols}
+
 \end{document}
 
 
