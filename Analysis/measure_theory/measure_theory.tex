@@ -651,7 +651,35 @@ What's is equivalent to $T$ being \bt{bounded}?
     \item $||T(v)|| \leq M ||v||$ for all $v$ ($M \geq 0$)
     \item T is continuous at zero
     \item T is continous
+    \item ker(T) is a closed set
 \end{enumerate}
+
+The \bt{collection} of \bt{bounded} linear operators from $V$ to $W$ is 
+denoted $L(V, W)$ \\
+
+Nice Properties:
+\begin{itemize}
+    \item $L(V, W)$ is a normed linear space using $|| ||_{operator}$
+    \item If dim V $< \infty$ then every operator is a bounded operator. 
+    \item If W is complete (w.r.s to $|| ||_w$), then $L(V, W)$ is complete
+\end{itemize}
+
+$L(V, \R)$ is always a \bt{complete normed} linear space ("Banach space").
+
+\subsubsection{Dual Spaces}
+
+For any normed linear space V, the \bt{dual space} of V is 
+$L(V, \R) = V^*$\\
+\gray{"bounded linear transformations from V to $\R$"}
+
+For any $1/p + 1/q = 1$ ($p, q > 1$), $(L^p)^* = L^q$. \\
+\gray{"dual of $L^p$ is equivalent to $L^q$"}
+
+* we get $L^2$ is self-dual
+
+Also note the double dual $((L^p)^*)^* \xrightarrow L^p$, isometrically 
+isomorphic.
+
 
 \subsection{Lp Spaces (section 31)}
 
@@ -671,8 +699,46 @@ for $f, g \in L^p$.
 \bt{Holder's Inequality} says if $1/p + 1/q = 1$ (called "conjugate exponents")
 and $f \in L^p, g \in L^q$ then 
 $$\int |fg| \leq ||f||_p ||g||_q$$
+\gray{*implies $fg \in L^1$}
 
 \bt{Risz-Fischer} $L^p$ is complete (every Cauchy seq converges) for all $p \geq 1$ (with respect to $L^p-$norm)
+
+*Careful: $|| f - f_n ||_p \rightarrow 0$ doesn't imply $f_n \rightarrow f$ \\
+\gray{we don't get pointwise convergence}
+
+* we do get that some subsequence converges pointwise \\
+\gray{$\lim || f - f_n||_p = 0 \notimplies f_n \rightarrow f$}
+
+However we do get: \\
+If $\lim || f - f_n ||_p = 0$ (in Lp, $p \geq 1$), then 
+there exists a subsequence of $f_n$, $f_{k} \rightarrow f$ a.e.
+
+* cauchy $\iff$ some subsequence converges pointwise
+
+
+\gray{e.g., $X = [0, 1]$ and $\mu = \lambda$,  \\
+$A_1 = [0, 1]$ \\
+$A_2, = [0, 1/2], [1/2, 1]$ \\
+$A_3 = [0, 1/3], [1/3, 2/3], [2/3, 1]$ \\
+$\dots$ \\
+Let $f_1 = \chi_{A_1}, f_2 = \chi_{A_2} \dots$ \\
+Then for all $n$ and any $p \geq 1$, 
+$$f_n^p = f_n$$
+but $|| f_n ||^p \rightarrow 0$. \\
+(there is a subsequence of $f_n$ that converges pointwise to 0 a.e.)
+}
+
+another example is \\
+\gray{$X = \R$, $f_n = \chi_{[n, n+1]}$, $f_n^p = f_n \rightarrow 0 = f$, \\
+but \\
+$f_n \not \rightarrow f$ in Lp, because $||f _n ||_p =1$ for any $n$.
+}
+
+
+If $f_n \rightarrow f$ a.e. and $\lim || f_n ||_p = || f ||_p$, then 
+$\lim|| f - f_n||_p = 0$
+\gray{"pointwise and norms approaching implies convergence in Lp"}
+
 
 \subsubsection{Essentially Bounded Functions}
 
@@ -685,19 +751,51 @@ for almost all $x$.
 The \bt{essential supremum}, denoed by $||f||_\infty$ is 
 $$||f||_\infty = \inf{M |\ |f(x)| \leq M \text{for almost all x}}$$
 
-A function $f: \R \rightarrow \R$ has \bt{compact support} if 
-the closure of $f$ ($\{x | f(x) \neq 0\}$) is compact.
+e.g., all constant functions are in $L^\infty$.
+
+Also note:  \\
+* $L^\infty \not \subseteq L^p$ for any $p < \infty$ when $\mu(X) = \infty$ \\
+* $L^\infty \subseteq L^p$ for any p if $\mu(X) < \infty$. \\
+
+If $X$ is $\sigma-$finite and $F \in (L^1)^*$ then there exists 
+$g \in L^\infty$ such that for any $f \in L^1$
+$$F(f) = \int fg$$ 
+
+
+\subsubsection{What is in Lp?}
+
+$C_b(K)$ is the set of continous and bounded functions on $K$. 
+
+\gray{e.g., If K is compact, then every continuous function is bounded 
+(Extreme Value Theorem).}\\
+*can show $C_b(K)$ for K compact is a complete n.l.s using $|| ||_{sup}$.
 
 Any \bt{continuous} function with \bt{compact support} is in $L^p(\R)$ 
 ($p \geq 1$)
 
+*a function $f: \R \rightarrow \R$ has \bt{compact support} if 
+the closure of $f$ ($\{x | f(x) \neq 0\}$) is compact.
+
+*recall: uniform limit of continuous functions is continuous
+
+On $[1, \infty)$,
+$$1/x^a \in L^p \iff ap > 1$$
+
+On $(0, 1]$
 $$1/x^a \in L^p \iff ap < 1$$
 
 In a finite measure space, $L^q \subseteq L^p$ if $1 \leq p \leq q$.
 
 \subsubsection{Dense Functions in Lp}
 
+$A$ is \bt{dense} if $B$ if for any $b \in B$, there is an $a$ such that $d(a, b) < \epsilon$
+
+nice fact: For $A \subseteq B \subseteq M$, if $A$ is dense in $B$ and $B$ is dense in $M$,
+then $A$ is dense in $M$.
+
 * The collection of step functions is \bt{dense} in $L^p$ (for $1 < p < \infty$).
+
+Also linear combinations of $\chi_{(a, b)}$ are dense in $L^p$ ($p \geq 1$).
 
 For $\mu$ a \bt{regular Borel measure} on a Hausdorff locally compact topological space $X$, 
 the collection of continuous functions with compact support is \bt{dense} in $L^p$ 
@@ -705,11 +803,29 @@ the collection of continuous functions with compact support is \bt{dense} in $L^
 
 * Hausdorff space is one where two points can be separated by open sets. \\
 * locally compact means every point lives in a compact neighborhood.\\
-* remember a regular borel measure requires additional requirements on compact and borel sets 
+* remember a regular borel measure has additional requirements on compact and borel sets 
 see: \ref{Regular Borel Measure}. \\
 
 notation: $C_c(X)$ is the set of continuous real-valued functions on $X$ with 
 compact support
+
+
+What's more? The collection of Riemann integrable functions on $[a, b]$ is
+dense in $L^1([a, b])$
+
+
+\subsubsection{Counting Measure and lp}
+$l^p = L(\N,$counting)
+
+For a sequence $f_n \in l^p$, $f \in l^p$\\
+$$\iff$$ 
+\centerline{$\int |f|^p$ converges}\\
+\gray{meaning $\sum |f_n(\N)|^p$ converges.}
+
+
+For $p \leq q$, if $f \in l^p$ then $f \in l^q$.
+\gray{why? $f \in l^p \implies \sum |a_n|^p$ converges, so $|a_n|^p < 1$ \\
+hence $|a_n|^q \leq |a_n|^p$}
 
 
 
@@ -765,11 +881,19 @@ The \bt{orthogonal complement} of a subset $A$  of an inner product space $X$ is
 $$A^\bot = \{x \in X: x \bot y \text{ for all } y \in A\}$$
 \gray{"set of vector orthogonal to all vectors in A"}
 
+*$A^\bot$ is a vector subspace 
+
+*careful: $(A^\bot)^\bot \subseteq A$, but not necessarily equal to $A$
+
 When $X$ is a \bt{Hilbert space} and $A$ is a closed subspace, 
-then $A$ and $A^\bot$ span the entire Hilbert space.
+then $A$ and $A^\bot$ span the entire Hilbert space.\\
+\gray{in this case, we have $(A^\bot)^\bot = A$}
 
 In a Hilbert space, a subspace of $M$ is \bt{dense} $\iff$
 only zero vector is orthogonal to $M$.
+
+The elements of a subset of a Hilbert space are \bt{linearly independent} if $0$ is not in the set and the 
+elements are pairwise $\bot$.
 
 \subsection{Orthonormal Bases}
 
@@ -788,13 +912,6 @@ the family of scalars $\{(x, e_i)\}$ are the \bt{Fourier coefficients}.
 
 *Fourier coefficients are always with respect to a basis
 
-In an infinite dimensional Hilbert space $H$,  \\
-\centerline{H is separable} \\
-\centerline{$\iff$}  \\
-\centerline{it has a countable orthonormal basis}
-
-*in this case, every orthonormal basis is countable \\
-\gray{"if one then all"}
 
 
 Every Hilbert space H is \bt{linearly isometric} (a linear, norm preserving map exists)
@@ -802,8 +919,15 @@ to a Hilbert space of the form $l_2(\Q)$.
 
 Specifically, $L: H \rightarrow l_2(I)$ defined by $L(x) = \{(x, e_i)\}_i$ is such a map.
 
-
 An infinite dimensional Hilbert space is \bt{separable} $\iff$ it's \bt{linearly isometric} to $l^2$.
+
+In an infinite dimensional Hilbert space $H$,  \\
+\centerline{H is \bt{separable}} \\
+\centerline{$\iff$}  \\
+\centerline{it has a countable orthonormal basis}
+
+*in this case, every orthonormal basis is countable \\
+\gray{"if one then all"}
 
 \subsection{Fourier Analysis}
 
@@ -815,11 +939,12 @@ Define $H_N = span \{e_1, \dots$.
 
 The map $\pi_N: H \rightarrow H_N$ defined by 
 $$\pi_N(v) = \sum_{i} (v, e_i) e_i$$
-is the \bt{orthogonal projection of v into $H_N$}.
+is the \bt{orthogonal projection of v into $H_N$}.\\
+\gray{it's also a linear transformation and $(v - \pi_N(v)) \bot H_N$.}
 
 "Best Approximation Theorem": If $v \in H, w \in H_N$, then 
 $$|| v - w || \geq || v - \pi_N(v) ||$$
-\gray{"$\phi_N(v)$ is the unique closest point to v in $H_N$"}
+\gray{"$\pi_N(v)$ is the unique closest point to v in $H_N$"}
 
 If $H_1 \subseteq H_2 \subseteq \dots H$ (finite dimensional) and $v \in H$, 
 then 
@@ -827,6 +952,13 @@ $$|| v - \pi_1(v) || \geq || v - \pi_2(v) || \geq \dots$$
 and 
 $\pi_{N+1}(v) = \pi_N(v) + (v, e_{N+1})e_{N+1}$.
 
+Stone-Weirstrauss \\
+\gray{tells you about the collection continuous functions and 
+density of vector subspace}
+
+Applying Stone-Weirstrauss to $L^2([0, 2 \phi])$ we get: \\
+for any continous $f: [0, 2\pi] \rightarrow \R$, there is a polynomial $p(x)$ such that
+$$|f(x) - p(x)| < \epsilon \text{ for any x}$$
 
 \subsubsection{Fourier coefficients}
 
@@ -844,7 +976,7 @@ $\alpha_1, \dots, \alpha_N$ in $\R$ such that
 $$|| v - \sum_{i=1}^N \alpha_i e_i || < \epsilon.$$
 
 Using the above with Best approximation Theorem we get 
-$$\lim_{N \rightarrow \infty} \phi_n(v) = v$$
+$$\lim_{N \rightarrow \infty} \pi_n(v) = v$$
 
 (implying $\lim_{N \rightarrow \infty} || \pi_N(v) ||^2 = || v ||^2$)
 \gray{*in H-norm}
@@ -880,7 +1012,7 @@ For pointwise convergence, we restrict our attention to nicer functions:\\
 If $f, f' \in C([0, 1])$ and $f(0) = f(1)$, then the classical Fourier series
 \bt{converges absolutely and uniformly} to $f$.
 
-* $C^1$ functions are dense in $L^2([0, 1])$
+* $C^1$ functions are dense in $L^p(I)$ (for example $L^2([0, 1])$)
 
 
 Jordan's Theorem for $f$ \bt{sectionally continuous} on $[0, 1]$, then 
@@ -898,8 +1030,34 @@ $$\lim_{m \rightarrow \infty} \int_a^b f(t) \sin(mt) = 0$$
 *this implies for any $f \in L^p$, the Fourier coefficients $\rightarrow 0$, 
 as $m \rightarrow \infty$.
 
+\subsection{Risz-Representation Theorem}
+
+$f$ is a \bt{positive} function if $f(x) \geq 0$ for all $x$.
+
+A continuous \bt{linear functional} $F$ (map from $C_c(X) \rightarrow \R$)
+is \bt{positive} if $F(f) \geq 0$ for all positive $f$
+
+*note $F$ is in the dual space of $C_c(X)$
+
+\bt{Risz-Representation} Theorem: If $F$ is any positive linear functional 
+on $C_c(X)$ then there exists a regular Borel measure $\mu$ such that 
+$F_u(f) = \int f = F(f)$. \\
+*\gray{can show map is linear: $F(af + bg) = aF(f) + bF(g)$.}
 
 
+\section{Miscellaneous Examples}
+
+\begin{itemize}
+    \item In $X = \R, \mu= \lambda$, $f(x) = 1$ isn't integrable, but 
+    if $f(x) = 1$ on $[a, b]$ and zero elsewhere it is! 
+    \item $L^p(I)$ is a \bt{separable} metric space
+    \item $\sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}$ \\
+    \gray{why? compute fourier for $f(x) = x$ on $[-\pi, \pi]$}
+    \item For $l^2 = L^2(\N)$ with counting measure, 
+    $\{\chi_{\{i\}}\}_{i \in \N}$ is an orthonormal basis of $l^2$.
+    \item $\sum \frac{a_n}{n}$ (fourier coefficients) converge absolutely 
+    for $f \in L^2([0, 1])$.
+\end{itemize}
 \section{Questions}
 \begin{enumerate}
     \item
