@@ -1,0 +1,185 @@
+\documentclass[a4paper, 12pt]{article} 
+\usepackage{amsmath, amssymb, color, graphicx, enumitem}
+\usepackage{fullpage} %smaller margins
+\usepackage{hyperref} % hyperlinks
+\usepackage{multicol}
+\usepackage[framemethod=tikz]{mdframed} %boxes 
+
+%columns separate and line
+\setlength{\columnsep}{1.5cm}
+\setlength{\columnseprule}{0.2pt}
+
+%font
+
+%\usepackage[sc]{mathpazo}
+%\linespread{1.05}         % Palladio needs more leading (space between lines)
+%\usepackage[T1]{fontenc}
+
+%font, libertine
+\usepackage{libertine}
+
+%word spacing
+\usepackage{microtype}
+
+%all equations get full space
+\everymath{\displaystyle}
+
+%useful shortcuts
+\def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\C{\ensuremath{\mathbb{C}}}
+
+%shorcuts with arguments
+\newcommand{\abs}[1]{\left\vert#1\right\vert} %nice absolute values
+\newcommand{\bt}[1]{\textbf{#1}} %bold
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} %vector norm
+\newcommand{\notimplies}{% does not imply
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
+
+%piecewise function
+
+%\begin{displaymath}
+%   f(x) = \left\{
+%     \begin{array}{lr}
+%       1 & : x \in \mathbb{Q}\\
+%       0 & : x \notin \mathbb{Q}
+%     \end{array}
+%   \right.
+%\end{displaymath} 
+
+%colors
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
+\definecolor{lightblue}{rgb}{0.149,0.545,0.824} %solarized blue
+\definecolor{sred}{rgb}{0.863, 0.196, 0.184} %solarized red
+
+\newcommand{\blue}[1]{{\leavevmode\color{lightblue}{#1}}} %solarized blue 
+\newcommand{\green}[1]{{\leavevmode\color{javagreen}{#1}}} %command for green
+\newcommand{\red}[1]{{\leavevmode\color{sred}{#1}}} %solarized red
+\newcommand{\gray}[1]{{\leavevmode\color[gray]{0.5}{#1}}} %gray text
+
+%environment
+\newcommand{\tab}{\phantom{ssss}}
+
+\title{}
+\date{}
+%==tips====
+%part
+    %section, sub, sub
+%\begin{enumerate}[resume] %continues counting
+\begin{document}
+\begin{center}
+\section*{Complex Analysis}
+Mark Ibrahim \\
+based on Conway 's Functions of One Complex Variable
+\end{center}
+
+\tableofcontents
+\begin{multicols}{2}
+\section{Complex Number System (I.1 - I.4)}
+
+Bombelli discovered it's useful to consider negative square roots
+after studying the equation: $x^3 = 5x+3$
+
+The set of complex numbers, $\C$, is sometimes called 
+the \bt{Complex Plane}.
+Since any complex number $z$ can be written as $x + iy$, we can 
+identify any complex number in $\R^2$.
+
+\subsection{Arithmetic in Complex Plane}
+
+Addition is akin to adding vectors in $\R^2$, because we add the 
+real and imaginary parts.
+Multiplication is as expected; also the associative, commutative, and 
+distributive properties hold. In fact, $\C$ is a field
+
+The \bt{modulus} of a complex number $z = x + iy$ is the length of the vector: 
+$$| z | = \sqrt{x^2 + y^2}$$
+
+Modulus Properties
+\begin{itemize}
+    \item |zw| = |z| |w| \\
+        \gray{write $z$ as $z = |z| \hat{z}$, where $\hat{z}$ is the unit
+            vector in the direction of $z$\\
+        then you can expand $zw$ to obtain result.}
+    \item |$\bar{z}$| = |z| \\
+        \gray{because you're squaring entries to find the length}
+\end{itemize}
+
+
+The \bt{complex conjugate} of $z$, denoted $\bar{z} = x - iy$.
+Note $z \bar{z} = |z|^2$.
+
+Trick: Re $z = \frac{ z + \bar{z}}{2}$.
+
+Note to find the multiplicative inverse of $z$, it's 
+$$\frac{1}{z} = \frac{x - iy}{x^2 + y^2}$$
+\gray{(equivalently $\frac{\bar{z}}{| z |^2}$)}
+
+The distance between two vectors $z, w$ is $| z - w |$.
+
+Can show Triangle on modulus holds: $| z + w | \leq | z | + | w |$.
+\gray{* can extend to $| z_1 + z_2 + z_3 + \dots | \leq |z_1| + |z_2| + \dots$ by 
+induction.}
+
+Note $| z + w | = | z | + | w | \iff |z \bar{w}| = Re(z\bar{w})$
+
+A useful variant of the triangle inequality is 
+$$\abs{|z| - |w|} \leq |z - w|$$
+
+\subsection{Polar Coordinates}
+
+We can express a complex number $z$ as a vector in $\R^2$ using Polar 
+Coordinates: $r = | z |$ and an angle $\theta$. \\
+\gray{note $x = | z | \cos(\theta)$}
+
+The \bt{principal argument} of $z$ is $\theta$ restricted to values between
+$-\pi$ and $\pi$.
+
+\blue{e.g., Arg(1 - i) = $\frac{-\pi}{4}$}
+
+Often we write $z$ in terms of cos and sin: $z = r(\cos(\theta) + i\sin(\theta))$\\
+\gray{in exponential notation, $z = r e^{i\theta}$ by euler's identity}.
+
+\blue{e.g., $e^{i\pi} = \cos(\pi) + i \sin(\pi) = -1$.}
+* note conway denotes $\cos(\theta) + i \sin(\theta)$ as $cis(\theta)$
+
+nice properties:\\
+arg($\bar{z}$) = - arg($z$) \\
+\gray{can see this by drawing vector in $\R^2$}\\
+arg($z_1z_2$) = arg($z_1$) + arg($z_2$)
+
+\bt{Multiplication} of $z_1 z_2$ results in: adding angles and multiplying lengths
+
+\bt{De Moivre's Formula}: $(e^{i\theta})^n = e^{in\theta}$, meaning
+$$(\cos(\theta) + i \sin(\theta))^n = \cos(n\theta) + i \sin(n\theta)$$
+
+\subsection{Nth Roots}
+
+An nth root of $w$ is a number $z$ such that $z^n = w$.
+
+There are $n$ distinct roots for a number $w \neq 0$.
+For $w = \rho e^{i\phi}$, they are $\sqrt[n]{\rho}e^{i(\frac{\phi}{n} + 
+\frac{2kpi}{n})}$
+for $k = 0, 1, \dots, n-1$.
+
+\bt{nth roots of unity} are the nth roots of 1.
+
+\section{Metric Spaces and Topology in C}
+
+\subsection{Review}
+a set (in a metric space) is \bt{compact} if every open cover has a finite
+subcover.
+
+A metric space is \bt{sequentially compact} if every sequence has a convergent 
+subsequence.
+
+It turns out a metric space is compact $\iff$ it's sequentially compact.
+
+\end{multicols}
+
+\end{document}
+
