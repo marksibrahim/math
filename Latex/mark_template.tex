@@ -1,24 +1,27 @@
-
 \documentclass[a4paper, 12pt]{article} 
 \usepackage{amsmath, amssymb, color, graphicx, enumitem}
 \usepackage{fullpage} %smaller margins
 \usepackage{hyperref} % hyperlinks
-\usepackage{mdframed} %for boxes
+\usepackage{url} %sensible urls
+\usepackage{todo} %creates todo in margins
+\usepackage{booktabs} % better looking tables
 
-%font
-%\usepackage[sc]{mathpazo}
-%\linespread{1.05}         % Palladio needs more leading (space between lines)
-%\usepackage[T1]{fontenc}
 
 %font, libertine
 \usepackage{libertine}
-
 %word spacing
 \usepackage{microtype}
-
 %all equations get full space
 \everymath{\displaystyle}
 
+%columns separate and line
+\setlength{\columnsep}{1.5cm}
+\setlength{\columnseprule}{0.2pt}
+
+%environment
+\newcommand{\tab}{\phantom{ssss}}
+
+%=======================Shortcuts==============================================
 %useful shortcuts
 \def\R{\ensuremath{\mathbb{R}}} %\ensuremath adds math mode, if forgotten
 \def\Q{\ensuremath{\mathbb{Q}}}
@@ -32,19 +35,9 @@
 \newcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert} %vector norm
 \newcommand{\notimplies}{% does not imply
-  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+    \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
 \renewcommand{\eq}[1]{\begin{align*}#1\end{align*}} %aligned equations
 
-%piecewise function
-
-%\begin{displaymath}
-%   f(x) = \left\{
-%     \begin{array}{lr}
-%       1 & : x \in \mathbb{Q}\\
-%       0 & : x \notin \mathbb{Q}
-%     \end{array}
-%   \right.
-%\end{displaymath} 
 
 %colors
 \definecolor{javagreen}{rgb}{0.25,0.5,0.35} %dark green color
@@ -56,21 +49,53 @@
 \newcommand{\red}[1]{{\leavevmode\color{sred}{#1}}} %solarized red
 \newcommand{\gray}[1]{{\leavevmode\color[gray]{0.5}{#1}}} %gray text
 
-%environment
-\newcommand{\tab}{\phantom{ssss}}
+%==TODO==
+% boxes?
+%checkout: http://blog.rtwilson.com/my-latex-preamble/
 
 \title{}
 \date{}
-%==tips====
+% ========================== Tips =============================================
 %part
     %section, sub, sub
+
 %\begin{enumerate}[resume] %continues counting
+
+% Piecewise Function
+%\begin{displaymath}
+%   f(x) = \left\{
+%     \begin{array}{lr}
+%       1 & : x \in \mathbb{Q}\\
+%       0 & : x \notin \mathbb{Q}
+%     \end{array}
+%   \right.
+%\end{displaymath} 
+
+% Images
+% \includesgraphics{image.png}
+
+% Tables
+%\begin{tabular}{llr}
+%    \toprule
+%    first name & last name & $\chi$\\
+%    \midrule
+%    second & last & first \\
+%    \bottomrule
+%\end{tabular}
+
+% ========================== End of Tips ======================================
+
 \begin{document}
 \begin{center}
 \section*{Title}
 thing\\
 Mark Ibrahim \\
 \end{center}
+
+%\tableofcontents
+%\begin{multicols}{2}
+%\end{multicols}
+
 
 \end{document}
 
